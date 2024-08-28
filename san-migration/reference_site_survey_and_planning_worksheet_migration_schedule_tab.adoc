@@ -1,0 +1,39 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, migration schedule tab 
+summary: Como parte da sua Planilha de Pesquisa e Planejamento de Sites, você deve ter uma guia contendo informações sobre o cronograma de migração. 
+---
+= Guia de Programação de migração da Planilha de Pesquisa e Planejamento do local
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da sua Planilha de Pesquisa e Planejamento de Sites, você deve ter uma guia contendo informações sobre o cronograma de migração.
+
+A seguir está um exemplo de como configurar a guia Calendário de migração.
+
+|===
+8+| Programa de migração 
+
+
+ a| 
+Data de migração
+ a| 
+Host
+ a| 
+SO
+ a| 
+Aplicação
+ a| 
+Controlador de armazenamento
+ a| 
+UID LUN
+ a| 
+Tamanho do LUN
+ a| 
+Estado
+
+|===

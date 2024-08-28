@@ -1,0 +1,36 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, contacts tab 
+summary: Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve configurar uma guia contendo informações de Contato do projeto de migração. 
+---
+= Guia Contatos da Planilha de Pesquisa do local e Planejamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve configurar uma guia contendo informações de Contato do projeto de migração.
+
+A seguir está um exemplo de como configurar sua guia Contatos.
+
+[cols="6*"]
+|===
+6+| Informações de Contato do Projeto de migração 
+
+
+ a| 
+Nome do recurso
+ a| 
+Organização
+ a| 
+Função do projeto
+ a| 
+Telefone do escritório
+ a| 
+Telefone celular
+ a| 
+E-mail
+
+|===

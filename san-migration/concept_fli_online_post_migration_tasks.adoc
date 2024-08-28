@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_fli_online_post_migration_tasks.html 
+sidebar: sidebar 
+keywords: fli, online, post-migration, tasks 
+summary: Qualquer remediação do servidor não realizada antes da migração é realizada durante a pós-migração. 
+---
+= FLI on-line pós-migração tarefas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Qualquer remediação do servidor não realizada antes da migração é realizada durante a pós-migração.
+
+Qualquer software de terceiros é removido. O software NetApp está instalado e configurado. Consulte remediação de host para ver exemplos de remediação pós-migração para tipos específicos de host.
+
+Revise os logs para verificar se há erros, verifique a interrupção e execute qualquer teste de aplicativo para verificar se sua migração foi concluída de forma limpa e bem-sucedida.

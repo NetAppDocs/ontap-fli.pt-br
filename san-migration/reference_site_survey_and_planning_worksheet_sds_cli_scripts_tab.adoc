@@ -1,0 +1,218 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, sds cli scripts tab 
+summary: Como parte da sua Planilha de Pesquisa de Sites e Planejamento, você deve ter uma guia contendo informações sobre os scripts da CLI do SDS. 
+---
+= Folha de cálculo de pesquisa e planeamento do site guia Scripts da CLI do SDS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da sua Planilha de Pesquisa de Sites e Planejamento, você deve ter uma guia contendo informações sobre os scripts da CLI do SDS.
+
+A seguir está um exemplo de como configurar a guia Scripts da CLI do SDS.
+
+|===
+| Controlador 1 | Controlador 2 
+
+
+ a| 
+tamanho do vol vol0 aggr0 108g
+ a| 
+
+
+
+ a| 
+snap reserva bootcampvol 0
+ a| 
+
+
+
+ a| 
+reserva instantânea vol0 20
+ a| 
+
+
+
+ a| 
+snap autodelete bootcampvol on
+ a| 
+
+
+
+ a| 
+snap autodelete bootcamvol commitment try
+ a| 
+
+
+
+ a| 
+volume do gatilho snap-up bootcamvol
+ a| 
+
+
+
+ a| 
+snap autodelete bootcampvol target_free_space 20
+ a| 
+
+
+
+ a| 
+snap autodelete bootcampvol defer_delete user_created
+ a| 
+
+
+
+ a| 
+encaixe a vol0wd
+ a| 
+
+
+
+ a| 
+snap autodelete vol0 compromisso tentar
+ a| 
+
+
+
+ a| 
+volume de disparo snap-vol0
+ a| 
+
+
+
+ a| 
+snap autodelete vol0 target_free_space 20
+ a| 
+
+
+
+ a| 
+snap autodelete vol0 defer_delete user_created
+ a| 
+
+
+
+ a| 
+vol automático bootcamvol ligado
+ a| 
+
+
+
+ a| 
+vol dimensionamento automático vol0 ligado
+ a| 
+
+
+
+ a| 
+opções de vol bootcampvol try_first volume_grow
+ a| 
+
+
+
+ a| 
+opções de vol bootcamvol fracionary_reserve 100
+ a| 
+
+
+
+ a| 
+opções de vol vol0 try_first volume_grow
+ a| 
+
+
+
+ a| 
+opções de vol vol0 fracionário_reserva 100
+ a| 
+
+
+
+ a| 
+segurança de qtree /vol/bootcamvol unix
+ a| 
+
+
+
+ a| 
+segurança de qtree /vol/vol0 ntfs
+ a| 
+
+
+
+ a| 
+snap sched bootcamvol 0 0 0
+ a| 
+
+
+
+ a| 
+snap sched vol0 0 2 6 a 8,12,16,20
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/qavol_narayan/testlun, uma vez que o LUN não está mapeado para um iGroup.
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/bootcamvol/DM25_boot_lun, uma vez que o LUN não é mapeado para um iGroup.
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/bootcamvol/DM25_data1_lun, uma vez que o LUN não é mapeado para um iGroup.
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/bootcamvol/DM25_data2_lun, uma vez que o LUN não é mapeado para um iGroup.
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/bootcamvol/dm26_boot_lun, uma vez que o LUN não é mapeado para um iGroup.
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/bootcamvol/dm26_data1_lun, uma vez que o LUN não é mapeado para um iGroup.
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/bootcamvol/dm26_data2_lun, uma vez que o LUN não é mapeado para um iGroup.
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/bootcamvol/dm27_boot_lun, uma vez que o LUN não é mapeado para um iGroup.
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/bootcamvol/dm27_data1_lun, uma vez que o LUN não é mapeado para um iGroup.
+ a| 
+
+
+
+ a| 
+Mapeamento LUN ignorado para /vol/bootcamvol/dm27_data2_lun, uma vez que o LUN não é mapeado para um iGroup.
+ a| 
+
+|===

@@ -1,0 +1,25 @@
+---
+permalink: san-migration/concept_fli_transition_post_migration_tasks.html 
+sidebar: sidebar 
+keywords: fli, transition, workflow, post-migration, tasks 
+summary: As tarefas de pós-migração para o fluxo de trabalho FLI 7-modo para ONTAP são semelhantes aos outros fluxos de trabalho FLI. 
+---
+= Tarefas pós-migração do fluxo de trabalho de transição DO FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+As tarefas de pós-migração para o fluxo de trabalho FLI 7-modo para ONTAP são semelhantes aos outros fluxos de trabalho FLI.
+
+* Quando estiver pronto, pode eliminar a relação de importação LUN.
++
+A relação de importação LUN pode ser removida com segurança porque o host está acessando o novo array NetApp para todas as I/o para o novo LUN ONTAP e o LUN de 7 modos de origem não está mais em uso.
+
+* Todas as correções de servidor são realizadas durante a pós-migração.
++
+O software de terceiros é removido, o software NetApp é instalado e configurado e, em seguida, o host é acessado acessando os LUNs no NetApp.
+
+* Revise os logs para verificar se há erros, verifique a interrupção e execute qualquer teste de aplicativo para verificar se sua migração foi concluída de forma limpa e bem-sucedida.
+

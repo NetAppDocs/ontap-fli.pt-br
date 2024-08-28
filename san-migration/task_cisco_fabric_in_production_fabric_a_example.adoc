@@ -1,0 +1,51 @@
+---
+permalink: san-migration/task_cisco_fabric_in_production_fabric_a_example.html 
+sidebar: sidebar 
+keywords: cisco, fabric, production, fabric a, example 
+summary: Veja a seguir um exemplo de um Cisco Fabric na malha de produção A.. 
+---
+= Cisco Fabric na malha de produção, Por exemplo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Veja a seguir um exemplo de um Cisco Fabric na malha de produção A..
+
+.Passos
+. Criar a zona em tecido de produção
++
+[listing]
+----
+conf t
+zone name rx21_flicDOT vsan 10
+member pwwn 21:00:00:24:ff:30:14:c5
+member pwwn 20:01:00:a0:98:2f:94:d1
+member pwwn 20:03:00:a0:98:2f:94:d1
+zone name rx22_flicDOT vsan 10
+member pwwn 21:00:00:24:ff:30:04:85
+member pwwn 20:01:00:a0:98:2f:94:d1
+member pwwn 20:03:00:a0:98:2f:94:d1
+zone name rx20_flicDOT vsan 10
+member pwwn 21:00:00:24:ff:30:03:ea
+member pwwn 20:01:00:a0:98:2f:94:d1
+member pwwn 20:03:00:a0:98:2f:94:d1
+exit
+end
+----
+. Ative a zona no tecido de produção A..
++
+[listing]
+----
+conf t
+zoneset name PROD_LEFT vsan 10
+member rx21_flicDOT
+member rx22_flicDOT
+member rx20_flicDOT
+exit
+zoneset activate name PROD_LEFT vsan 10
+end
+copy running-config startup-config
+----
+

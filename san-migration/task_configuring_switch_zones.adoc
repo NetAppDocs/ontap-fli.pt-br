@@ -1,0 +1,80 @@
+---
+permalink: san-migration/task_configuring_switch_zones.html 
+sidebar: sidebar 
+keywords: configure, switch, zones 
+summary: Você deve criar zonas necessárias nos switches SAN para conetar o armazenamento de origem ao armazenamento de destino. 
+---
+= Configurar zonas de comutação
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve criar zonas necessárias nos switches SAN para conetar o armazenamento de origem ao armazenamento de destino.
+
+.Passos
+. Faça backup dos zonesets existentes em cada switch na malha de produção e migração.
+. Coloque a zona de armazenamento de origem e armazenamento de destino, conforme ilustrado abaixo.
++
+image::../media/configure_switch_zones_1.png[Zoneamento de armazenamento de origem e destino]
+
+. Crie a zona e adicione-a ao conjunto em tecido de produção A..
++
+O seguinte é um exemplo da zona de produção, tecido de Produção A para zona ZONE_AMS2100_cDOT_Initiator_faba.
+
++
+|===
+| WWPN | Membros da zona 
+
+
+ a| 
+ 50:06:0e:80:10:46:b9:60 a| 
+ AMS2100 Ctrl 0 Port 0a
+
+
+ a| 
+ 50:06:0e:80:10:46:b9:68 a| 
+ AMS2100 Ctrl 1 Port 1a
+
+
+ a| 
+ 50:0a:09:80:00:d3:51:59 a| 
+ ONTAP Node 1 Port 0a
+
+
+ a| 
+ 50:0a:09:80:00:e7:81:04 a| 
+ ONTAP Node 2 Port 0a
+|===
+. Ative o conjunto em tecido A..
+. Crie a zona e adicione-a ao conjunto no tecido de produção B..
++
+O seguinte é um exemplo da zona de produção, tecido de Produção A para zona ZONE_AMS2100_cDOT_Initiator_fabB.
+
++
+|===
+| WWPN | Membros da zona 
+
+
+ a| 
+ 50:06:0e:80:10:46:b9:64 a| 
+ AMS2100 Ctrl 0 Port 0e
+
+
+ a| 
+ 50:06:0e:80:10:46:b9:6c a| 
+ AMS2100 Ctrl 1 Port 1e
+
+
+ a| 
+ 50:0a:09:80:00:d3:51:59 a| 
+ ONTAP Node 1 Port 0b
+
+
+ a| 
+ 50:0a:09:80:00:e7:81:04 a| 
+ ONTAP Node 2 Port 0b
+|===
+. Ativar o conjunto em tecido de produção B..
+

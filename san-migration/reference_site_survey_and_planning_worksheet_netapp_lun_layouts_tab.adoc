@@ -1,0 +1,77 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, netapp lun layouts tab 
+summary: Como parte da sua Planilha de Pesquisa de Sites e Planejamento, você deve configurar uma guia contendo informações sobre seus layouts de LUN. 
+---
+= Folha de cálculo de pesquisa e planeamento do local separador LUN Layouts (Layouts LUN do NetApp)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da sua Planilha de Pesquisa de Sites e Planejamento, você deve configurar uma guia contendo informações sobre seus layouts de LUN.
+
+O seguinte é um exemplo de como configurar a guia Layouts de LUN do NetApp.
+
+|===
+7+| Informação LUN NetApp 
+
+
+ a| 
+Controlador de armazenamento
+ a| 
+Agregado
+ a| 
+Nome do volume
+ a| 
+Tamanho do volume
+ a| 
+Garantia de volume
+ a| 
+Reserva instantânea
+ a| 
+Nome LUN
+
+|===
+|===
+7+| Informação LUN NetApp 
+
+
+ a| 
+N.O DE SÉRIE
+ a| 
+Tipo LUN
+ a| 
+Prefixo personalizado
+ a| 
+Descrição LUN
+ a| 
+Tamanho GB
+ a| 
+Reserva de LUN
+ a| 
+Reserva fracionária
+
+|===
+|===
+7+| Informação LUN NetApp 
+
+
+ a| 
+Tamanho automático do volume
+ a| 
+Snap Auto Delete (Eliminar automaticamente)
+ a| 
+IGroup
+ a| 
+ID LUN
+ a| 
+Tipo de host
+ a| 
+Letra da unidade
+ a| 
+Host
+
+|===

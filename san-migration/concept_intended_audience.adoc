@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_intended_audience.html 
+sidebar: sidebar 
+keywords: intended, audience 
+summary: Você pode usar esse conteúdo para ajudar a migrar dados de um array estrangeiro para o ONTAP ou para transferir LUNs de arrays NetApp 7-Mode para o ONTAP. 
+---
+= Público-alvo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar esse conteúdo para ajudar a migrar dados de um array estrangeiro para o ONTAP ou para transferir LUNs de arrays NetApp 7-Mode para o ONTAP.
+
+Você deve estar familiarizado com os conceitos e processos comuns de SAN, incluindo zoneamento, máscara de LUN, os sistemas operacionais de host cujos LUNs precisam ser migrados, ONTAP e o array de terceiros de origem.

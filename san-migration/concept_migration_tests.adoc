@@ -1,0 +1,14 @@
+---
+permalink: san-migration/concept_migration_tests.html 
+sidebar: sidebar 
+keywords: migration, tests 
+summary: Você deve executar uma ou mais migrações de teste para verificar se seus arrays, switches e hosts estão configurados corretamente e também para obter várias amostras que podem ser extrapoladas para determinar as durações de migração e os níveis de esforço. 
+---
+= Testes de migração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve executar uma ou mais migrações de teste para verificar se seus arrays, switches e hosts estão configurados corretamente e também para obter várias amostras que podem ser extrapoladas para determinar as durações de migração e os níveis de esforço.

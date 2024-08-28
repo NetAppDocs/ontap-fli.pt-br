@@ -1,0 +1,31 @@
+---
+permalink: san-migration/concept_analyze_phase_procedures.html 
+sidebar: sidebar 
+keywords: analyze, phase, imt, best practices 
+summary: 'A fase de análise concentra-se em itens que devem ser abordados antes de prosseguir com as atividades de migração. As informações de configuração do host devem ser comparadas às configurações compatíveis documentadas na Matriz de interoperabilidade do NetApp (IMT).' 
+---
+= Analise as práticas recomendadas do Phase IMT
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de análise concentra-se em itens que devem ser abordados antes de prosseguir com as atividades de migração. As informações de configuração do host devem ser comparadas às configurações compatíveis documentadas na Matriz de interoperabilidade do NetApp (IMT).
+
+O IMT é um utilitário baseado na Web que permite pesquisar informações sobre configurações de produtos NetApp que funcionam com produtos e componentes de terceiros qualificados pela NetApp. O IMT contém configurações NetApp com suporte e certificação. As configurações compatíveis são qualificadas pelo NetApp. Configurações certificadas são aquelas qualificadas por uma empresa terceirizada para trabalhar com componentes do NetApp.
+
+
+
+== Práticas recomendadas da IMT
+
+* Insira as recomendações do NetApp IMT para o software e atualizações necessários na seção switches e hosts da Planilha de Planejamento.
+* Comece inserindo informações estáticas, como o ONTAP os, o protocolo e o modo CF, no IMT. Em seguida, usando a pesquisa de site como um guia de filtro, insira o sistema operacional do host, o gerenciador de volume e as informações do HBA.
+* Não seja tão específico para não ter resultados retornados; é melhor visualizar vários resultados retornados e escolher o melhor ajuste.
+* Os HBAs do host são relatados às vezes no número de peça do OEM e precisarão ser cross-referenciados antes que sejam inseridos no IMT.
+* Verifique cada host em relação ao IMT para obter suporte.
+
+
+*Informações relacionadas*
+
+https://mysupport.netapp.com/NOW/products/interoperability["Interoperabilidade do NetApp"]

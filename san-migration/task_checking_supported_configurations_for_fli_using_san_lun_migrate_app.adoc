@@ -1,0 +1,24 @@
+---
+permalink: san-migration/task_checking_supported_configurations_for_fli_using_san_lun_migrate_app.html 
+sidebar: sidebar 
+keywords: check, supported configurations, fli, using, san lun migrate app 
+summary: A partir do ONTAP 9.9,1, você pode usar o aplicativo de migração de LUN SAN para qualificar uma matriz de origem estrangeira para FLI. O aplicativo de migração de LUN SAN pode ser usado quando o array externo desejado não estiver listado no FLI IMT. 
+---
+= Verificação de configurações suportadas para FLI usando o aplicativo SAN LUN Migrate
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A partir do ONTAP 9.9,1, você pode usar o aplicativo de migração de LUN SAN para qualificar uma matriz de origem estrangeira para FLI. O aplicativo de migração de LUN SAN pode ser usado quando o array externo desejado não estiver listado no FLI IMT.
+
+.Passos
+. Vá para o site de suporte da NetApp.
+. Em *Filtrar por categoria*, selecione *migração*.
+. Em *migração LUN SAN*, clique em *Download App*.
+. Execute o aplicativo a partir de um host FC ou iSCSI Linux que tenha acesso de bloco ao array de origem.
++
+Se a matriz de fonte estrangeira puder ser qualificada, é apresentada uma marca de verificação verde. Se a matriz de origem estrangeira não puder ser qualificada, é apresentado um X vermelho.
+
+

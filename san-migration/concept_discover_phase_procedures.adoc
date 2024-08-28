@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_discover_phase_procedures.html 
+sidebar: sidebar 
+keywords: discover, phase, data, collection, procedures 
+summary: A fase Discover coleta informações do ambiente do cliente necessárias para o Planejamento e execução bem-sucedidos da migração. 
+---
+= Descubra os procedimentos de coleta de dados de fase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase Discover coleta informações do ambiente do cliente necessárias para o Planejamento e execução bem-sucedidos da migração.
+
+Use o Active IQ OneCollect na fase de coleta de dados. Para obter detalhes completos, consulte o Active IQ OneCollect https://mysupport.netapp.com/site/tools["documentação"] .

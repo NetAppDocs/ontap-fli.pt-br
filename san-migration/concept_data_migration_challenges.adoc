@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_data_migration_challenges.html 
+sidebar: sidebar 
+keywords: data, migration, challenges 
+summary: Alguns dos desafios colocados pela migração de dados são tempo de inatividade estendido, risco potencial, recursos escassos e experiência inadequada. 
+---
+= Desafios de migração de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Alguns dos desafios colocados pela migração de dados são tempo de inatividade estendido, risco potencial, recursos escassos e experiência inadequada.
+
+Os requisitos de disponibilidade de dados se tornaram cada vez mais exigentes e o tempo de inatividade é inaceitável, de modo que as operações de negócios impulsionam o processo de migração de dados. Fatores de risco, como impactos no desempenho nos sistemas de produção, potencial corrupção de dados e perda, são uma preocupação em qualquer processo de migração de dados.

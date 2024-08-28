@@ -1,0 +1,67 @@
+---
+permalink: san-migration/task_fli_online_performing_a_disruptive_cutover.html 
+sidebar: sidebar 
+keywords: fli online, perform, disruptive, cutover 
+summary: Este exemplo fornece as etapas gerais para realizar uma transição disruptiva para o processo de migração on-line da FLI. 
+---
+= FLI online: Realizando uma transição disruptiva
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este exemplo fornece as etapas gerais para realizar uma transição disruptiva para o processo de migração on-line da FLI.
+
+Para obter instruções sobre a correção do host do Windows, Linux e ESXi, consulte as seções a seguir deste guia, bem como a documentação do sistema operacional host e do kit de conexão ao host.
+
+.Passos
+. Na matriz externa, exiba o grupo de armazenamento ao qual o LUN de origem é mapeado.
++
+Consulte a documentação do fornecedor para obter os comandos apropriados.
+
+. Se os LUNs que estão sendo importados forem para um host ESXi, revise e siga as instruções para o tópico _ESXi CAW/ATS Remediation_.
+. Desmapeie o LUN de origem dos hosts.
++
+[NOTE]
+====
+A janela de interrupção começa aqui.
+
+====
++
+A interrupção começa imediatamente após a `unmap` execução do comando. Geralmente, a janela de interrupção pode ser medida em minutos. A janela de interrupção é o tempo necessário para redirecionar o host para o novo destino NetApp e para procurar LUNs.
+
++
+Você deve garantir que esse seja o único LUN que é mapeado para esse grupo, pois remover o host (iniciador) do grupo afeta outros LUNs mapeados para o grupo. Consulte a documentação do fornecedor para obter os comandos apropriados.
+
+. Verifique se os iniciadores do host não estão mais presentes.
+. No cluster do ONTAP, coloque o LUN de destino online e verifique se ele está mapeado.
++
+[listing]
+----
+cluster::*> lun online -vserver fli -path /vol/fli_vol/OnlineFLI_LUN
+----
+. Verifique se o LUN está online.
++
+[listing]
+----
+cluster::*> lun show -vserver fli
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+fli       /vol/fli_vol/OnlineFLI_LUN      online  mapped   windows_2008  1TB
+----
+. Volte a digitalizar os discos no anfitrião, encontre o LUN no destino ONTAP e, em seguida, verifique se o DSM reivindicou o LUN.
++
+[NOTE]
+====
+A janela de interrupção termina aqui.
+
+====
+. Verifique se você pode ver todos os caminhos esperados e verifique seus logs de eventos para verificar se não existem erros.
++
+Nesse ponto, a parte disruptiva dessa migração está concluída, a menos que haja tarefas pendentes de correção do host (identificadas durante as fases de análise e Planejamento) que sejam disruptivas.
+
++
+Os LUNs são on-line e mapeados, e os hosts agora estão montando o novo LUN hospedado pela ONTAP. As leituras são passadas através do array ONTAP para o LUN de origem, e as gravações são gravadas tanto no novo LUN hospedado pela ONTAP quanto no LUN de origem original. O LUN de origem e o LUN de destino permanecerão sincronizados até que a migração esteja concluída e a relação LUN tenha sido interrompida.
+
+

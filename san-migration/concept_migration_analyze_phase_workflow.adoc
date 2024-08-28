@@ -1,0 +1,40 @@
+---
+permalink: san-migration/concept_migration_analyze_phase_workflow.html 
+sidebar: sidebar 
+keywords: analyze, phase, workflow 
+summary: A fase de análise se concentra em itens que devem ser abordados antes do Planejamento de migração. As especificidades de configuração do host que se enquadram fora da Matriz de interoperabilidade devem ser identificadas. 
+---
+= Analise o fluxo de trabalho de fase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de análise se concentra em itens que devem ser abordados antes do Planejamento de migração. As especificidades de configuração do host que se enquadram fora da Matriz de interoperabilidade devem ser identificadas.
+
+Para cada host, uma configuração de destino (pós-migração) é identificada e uma análise de lacunas é realizada para identificar componentes específicos que não são suportados. A análise do host deve ser revisada imediatamente após a conclusão. As atualizações necessárias podem quebrar a compatibilidade com aplicativos em execução em cada host.
+
+Normalmente, as alterações necessárias do host não são feitas até o evento de migração real. Isso se deve à necessidade comum de agendar janelas de manutenção, mas muitas vezes é menos arriscado fazer alterações de host com antecedência, sempre que possível, como patches de sistema e atualizações de adaptador de barramento de host (HBA). Além disso, as atualizações do sistema são frequentemente feitas em coordenação com as atualizações de aplicativos, utilizando os mesmos eventos de manutenção. Normalmente, quaisquer alterações feitas na configuração de e/S multipath (MPIO) antes da migração também afetarão o suporte do armazenamento atual. Por exemplo, remover o PowerPath de um host e reconfigurá-lo para usar MPIO nativo e o Acesso lógico assimétrico (ALUA) no Linux pode não ser suportado pela configuração de armazenamento atual.
+
+Atrasar a reconfiguração do MPIO até depois da migração simplifica o processo de reversão, se necessário.
+
+As tarefas da fase de planeamento estão listadas na tabela seguinte.
+
+[cols="2*"]
+|===
+| Componente | Tarefas 
+
+
+ a| 
+Host
+ a| 
+. Execute uma análise de lacunas para cada host. Identificar correções/patches necessários, atualizações de SO, driver HBA e atualizações de firmware necessárias para corresponder à configuração de destino selecionada no NetApp IMT. Além disso, os requisitos para que outro software NetApp seja instalado neste host (SnapDrive, SnapManager) devem ser levados em consideração.
+. Determine uma configuração de destino (pós-migração) para cada host (configuração do SO, detalhes do MPIO, detalhes do HBA, versão do Kit de Utilitários do host).
+. Determine os requisitos adicionais do produto NetApp (SnapDrive, SnapManager).
+
+
+|===
+*Informações relacionadas*
+
+https://mysupport.netapp.com/NOW/products/interoperability["Interoperabilidade do NetApp"]

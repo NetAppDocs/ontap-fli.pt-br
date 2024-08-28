@@ -1,0 +1,29 @@
+---
+permalink: san-migration/concept_variables_that_affect_foreign_lun_import_migration_performance.html 
+sidebar: sidebar 
+keywords: variables, affect, foreign lun import, migration, performance 
+summary: Há uma série de variáveis que afetam a rapidez com que uma determinada migração é concluída. 
+---
+= Variáveis que afetam o desempenho de migração de importação de LUN estrangeiro
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Há uma série de variáveis que afetam a rapidez com que uma determinada migração é concluída.
+
+Essas variáveis incluem:
+
+* Quantas migrações simultâneas estão sendo executadas entre uma determinada fonte e destino
+* Recursos de array de origem
+* Carga do array de origem
+* Funcionalidades do array de destino
+* Carga do array de destino
+* Quanta e/S está sendo gerada para o LUN durante a migração
+* Tipo, largura de banda e fan-ins/fan-outs em tecidos front-end
+
+
+Para obter o melhor desempenho, não use mais de 16 migrações FLI simultâneas por nó.
+
+Dado o número de variáveis que afetam o desempenho da migração, recomenda-se que uma série de migrações de teste seja executada. Geralmente, quanto maior a amostra de teste, melhor será a caraterização. Portanto, recomendamos que uma série de migrações de teste de diferentes tamanhos sejam executadas para obter uma amostragem precisa do desempenho da taxa de transferência. Os dados de desempenho desses testes podem então ser usados para extrapolar o tempo e a duração das migrações de produção planejadas.

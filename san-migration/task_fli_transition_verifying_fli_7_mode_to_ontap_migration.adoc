@@ -1,0 +1,67 @@
+---
+permalink: san-migration/task_fli_transition_verifying_fli_7_mode_to_ontap_migration.html 
+sidebar: sidebar 
+keywords: verify, fli 7-mode, ontap, migration, results 
+summary: Você tem a opção de verificar se os LUNs foram migrados corretamente do modo FLI 7 para o ONTAP. 
+---
+= Verificando os resultados da migração do modo FLI 7 para o ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você tem a opção de verificar se os LUNs foram migrados corretamente do modo FLI 7 para o ONTAP.
+
+Inicie o trabalho de verificação para comparar LUNs de origem e destino. Monitore o progresso da verificação. Os LUNs que estão sendo verificados precisam estar offline durante a sessão de verificação. A sessão de verificação pode ser demorada, pois é uma comparação bloco por bloco entre LUNs de origem e destino. Deve levar aproximadamente o mesmo tempo que a migração. A verificação não é necessária, mas recomendamos que você verifique um subconjunto dos LUNs importados/migrados para se sentir confortável com o processo de importação.
+
+[NOTE]
+====
+A verificação de importação LUN deve ser explicitamente interrompida antes de colocar o LUN novamente online. Caso contrário, o LUN on-line falha. Esse comportamento será alterado em um lançamento próximo do ONTAP.
+
+====
+.Passos
+. Offline os LUNs a serem verificados.
++
+[listing]
+----
+cluster::*> lun offline -vserver fli_72C -path /vol/flivol/72Clun1
+Warning: This command will take LUN "/vol/flivol/72Clun1" in Vserver "fli_72C" offline.
+Do you want to continue? {y|n}: y
+----
+. Iniciar verificação LUN.
++
+[listing]
+----
+lun import verify start -vserver fli_72C -path /vol/flivol/72Clun1
+----
+. Exibir o status de verificação LUN.
++
+[listing]
+----
+ontaptme-fc-cluster::*> lun import show -vserver fli_72C -path /vol/flivol/72Clun1
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+fli_72C D0i1E+G8Wg6m   /vol/flivol/72Clun1 verify    started
+                                                                        9
+----
++
+[NOTE]
+====
+A verificação de importação LUN deve ser explicitamente interrompida antes de colocar o LUN novamente online. Caso contrário, o LUN on-line falha. Veja a seguinte saída CLI.
+
+====
+. Parar a verificação LUN. Esta etapa precisa ser executada manualmente mesmo que o status mostre que a verificação está concluída.
++
+[listing]
+----
+lun import verify stop -vserver fli_72C -path /vol/flivol/72Clun1
+----
+. On-line o LUN após a conclusão da verificação.
++
+[listing]
+----
+lun online -vserver fli_72C -path /vol/flivol/72Clun1
+----
+

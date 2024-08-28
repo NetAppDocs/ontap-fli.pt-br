@@ -1,0 +1,177 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, questionnaire tab 
+summary: Como parte da Planilha de Pesquisa e Planejamento do site, você deve ter uma guia contendo informações do projeto de migração do questionário de migração inicial. 
+---
+= Guia questionário da Planilha de Pesquisa do local e Planejamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da Planilha de Pesquisa e Planejamento do site, você deve ter uma guia contendo informações do projeto de migração do questionário de migração inicial.
+
+A seguir está um exemplo de como configurar o separador questionário.
+
+|===
+3+| Informações do Projeto de migração 
+
+
+ a| 
+Tipo Projeto
+ a| 
+☐ migração de dados
+
+☐ outros
+ a| 
+
+
+
+ a| 
+Objetivos de migração de dados
+ a| 
+& N.o 91;objectivos e n.o 93;
+ a| 
+
+
+
+ a| 
+Dispositivos de origem
+ a| 
+Armazenamento: [Tipo de armazenamento]
+
+N.o de dispositivos: [N.o de matrizes]
+
+Thin Provisioning: ☐ Sim ☐ não
+ a| 
+Enumerar todos os dispositivos
+
+
+
+ a| 
+Dispositivos cliente
+ a| 
+Sistema operacional: [Versão DOS]
+
+Inicialização SAN: ☐ Sim ☐ não
+
+MPIO: [Versão MPIO]
+
+HBAs: [Fornecedor HBA, modelo, firmware]
+ a| 
+
+
+
+ a| 
+Switches de malha
+ a| 
+Fornecedor:
+
+Modelo:
+
+Firmware:
+
+N.o de portas:
+ a| 
+
+
+
+ a| 
+Protocolos atuais
+ a| 
+☐ FCP
+
+☐ iSCSI
+ a| 
+
+
+
+ a| 
+Gerenciador de volume
+ a| 
+Fornecedor:
+
+Produto:
+
+Versão:
+ a| 
+
+
+
+ a| 
+Dispositivos de destino (armazenamento)
+ a| 
+Armazenamento: [Armazenamento]
+
+N.o [número]
+
+Thin Provisioning: ☐ Sim ☐ não
+ a| 
+Para este serviço, apenas os filers NetApp
+
+
+
+ a| 
+Quantidade de Datato a ser migrado (em TB)
+ a| 
+& N.o 91;quantidade de dados e n.o 93;
+ a| 
+Resumo e detalhe (cada dispositivo de origem)
+
+
+
+ a| 
+Número de LUNs
+ a| 
+& N.o 91;número de LUNs e n.o 93;
+ a| 
+Resumo e detalhe (cada dispositivo de origem)
+
+
+
+ a| 
+Reorganização de dados
+ a| 
+☐ Sim☐ não
+ a| 
+O cliente deseja mover volumes/diretórios/pastas/arquivos para diferentes estruturas de dados como parte da migração?
+
+
+
+ a| 
+Expectativas de interrupção
+ a| 
+Janela de interrupção
+
+☐ Pré-definido ☐ flexível
+
+Políticas da janela Manutenção padrão : [Info]
+ a| 
+Número e durações de interrupções que podem ser utilizadas. Por favor, liste janelas de manutenção, se houver.
+
+
+
+ a| 
+Período de tempo desejado para conclusão
+ a| 
+& N.o 91;período de tempo pretendido para a conclusão& n.o 93;& n.o 91;sensibilidade de tempo& n.o 93;
+ a| 
+
+
+
+ a| 
+Outras informações relevantes
+ a| 
+& N.o 91;outras informações relevantes e n.o 93;
+ a| 
+
+
+
+ a| 
+Nome e localização da organização do cliente (cidade e estado)
+ a| 
+ a| 
+
+|===

@@ -1,0 +1,87 @@
+---
+permalink: san-migration/concept_fli_online_migration.html 
+sidebar: sidebar 
+keywords: online, migration, workflow 
+summary: O fluxo de trabalho de migração online é realizado na fase de execução do processo de migração. O diagrama do fluxo de trabalho on-line mostra as tarefas executadas no host, na malha, no storage de destino e no storage de origem. 
+---
+= Fluxo de trabalho de migração online
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O fluxo de trabalho de migração online é realizado na fase de execução do processo de migração. O diagrama do fluxo de trabalho on-line mostra as tarefas executadas no host, na malha, no storage de destino e no storage de origem.
+
+image::../media/online_migration_1.png[migração online 1]
+
+As tarefas de fluxo de trabalho on-line são listadas na tabela a seguir.
+
+[cols="2*"]
+|===
+| Componente | Tarefas 
+
+
+ a| 
+Host
+ a| 
+. Verifique se todos os sistemas de arquivos estão montados e todos os caminhos e aplicativos LUN estão disponíveis.
+. *Opcional:* se os LUNs importados forem para o ESX, revise e siga as instruções no Apêndice A: Correção do ESX CAW/ATS.
+. Prepare e desligue os anfitriões.
+. Ligue os hosts com LUNs de destino.
+. Configure o HBA para usar o novo LUN de inicialização SAN (somente inicialização SAN).
+. Desinstale o MPIO de terceiros.
+. Instale o software host NetApp e configure multipathing.
+. Verifique se todos os caminhos para o LUN de inicialização SAN estão íntegros (somente inicialização SAN).
+. Atualize os arquivos do sistema e a configuração para refletir novos dispositivos.
+. Verifique se todos os caminhos para todos os LUNs estão íntegros.
+. Reative todos os serviços e reinicie o host (verifique se o host vem de volta, todos os sistemas de arquivos são montados, todos os serviços são iniciados).
+. Configure o HBA com o segundo caminho para o novo LUN de inicialização SAN (somente inicialização SAN).
+
+
+
+
+ a| 
+Malha
+ a| 
+. Deszona o host do armazenamento de origem.
+. Criar host para zona de armazenamento de destino.
+
+
+
+
+ a| 
+Armazenamento de destino
+ a| 
+. Descubra o array de origem e novos LUNs.
+. Marcar LUNs de origem como estranhos.
+. Crie LUNs de destino usando LUNs externos.
+. Crie grupos de iniciadores de host e mapeie LUNs de destino para o grupo.
+. Offline os LUNs de destino.
+. Remova os hosts da máscara de LUN de matriz de origem (grupos).
+. Crie relações de importação e inicie trabalhos de importação.
+. Execute a etapa 4 do host anteriormente (remapear hosts para novos locais de LUN).
+. Limite a conetividade a um único caminho (somente inicialização SAN).
+. Atribua LUN de inicialização SAN ao host; não atribua LUNs de dados neste momento (somente inicialização SAN).
+. Crie cópias Snapshot periódicas para permitir a reversão do LUN de inicialização SAN de destino (somente inicialização SAN).
+. Habilite todos os caminhos para LUN de inicialização SAN (somente inicialização SAN).
+. LUNs de destino online.
+. Crie uma cópia Snapshot para ativar a reversão do LUN de destino.
+. Inicie relacionamentos de importação (inicie a cópia de dados dos LUNs de origem para o destino).
+. Criar trabalhos de verificação e parar relações de importação (opcional).
+. Eliminar relações de importação.
+. Marque o atributo LUN estrangeiro como false.
+
+
+
+
+ a| 
+Armazenamento de origem
+ a| 
+. Atribuir LUNs de origem ao armazenamento de destino.
+. Desmapear LUNs de origem para o host.
+. Criar cópia Snapshot para ativar a reversão do LUN de destino.
+. Remova os LUNs de origem atribuídos ao armazenamento de destino.
+
+
+|===

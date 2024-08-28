@@ -1,0 +1,17 @@
+---
+permalink: san-migration/concept_implementation_basics_for_data_migration.html 
+redirect: ontap-fli/san-migration/concept_physical_wiring_requirements_for_fli.html 
+sidebar: sidebar 
+keywords: implementation, basics, data, migration 
+summary: 'Uma implementação de importação de LUN estrangeiro (FLI) inclui as etapas para a criação de fiação física, zoneamento e Registros de iniciador. A configuração inicial das portas do iniciador de storage e do storage de origem do NetApp prepara o ambiente para a migração.' 
+---
+= Noções básicas de implementação para migração de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Uma implementação de importação de LUN estrangeiro (FLI) inclui as etapas para a criação de fiação física, zoneamento e Registros de iniciador. A configuração inicial das portas do iniciador de storage e do storage de origem do NetApp prepara o ambiente para a migração.
+
+Os exemplos nesta seção usam uma matriz AMS Hitachi Data Systems (HDS) e, portanto, os comandos de matriz estrangeira diferem dependendo da matriz de terceiros a partir da qual você está migrando.

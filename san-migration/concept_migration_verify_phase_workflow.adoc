@@ -1,0 +1,63 @@
+---
+permalink: san-migration/concept_migration_verify_phase_workflow.html 
+sidebar: sidebar 
+keywords: verify, phase, workflow 
+summary: A fase de verificação do processo de migração centra-se na limpeza pós-migração e confirmação da precisão da execução do plano de migração. Os Registros do iniciador no armazenamento de origem e a zona entre a zona de origem e destino são removidos. 
+---
+= Verifique o fluxo de trabalho de fase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de verificação do processo de migração centra-se na limpeza pós-migração e confirmação da precisão da execução do plano de migração. Os Registros do iniciador no armazenamento de origem e a zona entre a zona de origem e destino são removidos.
+
+A figura a seguir mostra o fluxo de trabalho de verificação de fase.
+
+image::../media/verify_phase_1.png[verifique a fase 1]
+
+As tarefas verificar fase são listadas na tabela a seguir.
+
+[cols="2*"]
+|===
+| Componente | Tarefas 
+
+
+ a| 
+Host
+ a| 
+O cliente realiza testes de aplicativos.
+
+
+
+ a| 
+Malha
+ a| 
+. Remova o host para as zonas de armazenamento de origem do conjunto.
+. Remova o armazenamento de origem para as zonas de destino.
+. Faça backup do novo zoneset.
+
+
+
+
+ a| 
+Armazenamento de destino
+ a| 
+. Verifique o alinhamento do LUN.
+. Coletar logs de importação FLI do log de eventos.
+. Remova cópias Snapshot criadas manualmente usadas durante o processo de migração.
+. Remova a matriz de origem.
+. Documentar a configuração final.
+
+
+
+
+ a| 
+Armazenamento de origem
+ a| 
+. Remova os grupos de iniciadores de armazenamento do host.
+. Remova os grupos de iniciadores de armazenamento de destino.
+
+
+|===

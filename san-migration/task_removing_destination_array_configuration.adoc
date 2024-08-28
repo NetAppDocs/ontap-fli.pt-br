@@ -1,0 +1,29 @@
+---
+permalink: san-migration/task_removing_destination_array_configuration.html 
+sidebar: sidebar 
+keywords: remove, destination, array, configuration 
+summary: As etapas a seguir mostram como remover a configuração do array de destino do array de origem após a conclusão da migração do FLI. 
+---
+= Remoção da configuração do array de destino
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+As etapas a seguir mostram como remover a configuração do array de destino do array de origem após a conclusão da migração do FLI.
+
+.Passos
+. Inicie sessão no Hitachi Storage Navigator Modular como sistema.
+. Selecione a matriz *AMS 2100* e clique em *Mostrar* e *Configurar matriz*.
+. Faça login usando root.
+. Expanda grupos e selecione *Host Groups*.
+. Selecione o grupo anfitrião *cDOT_FLI* e clique em *Eliminar grupo anfitrião*.
++
+image::../media/remove_destination_array_configuration_from_source_array_1.png[remova a configuração do array de destino do array de origem 1]
+
+. Confirme a exclusão do grupo host.
++
+image::../media/remove_destination_array_configuration_from_source_array_2.png[remova a configuração do array de destino do array de origem 2]
+
+

@@ -1,0 +1,297 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_lun_details_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, lun details tab 
+summary: Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve ter uma guia contendo informações sobre os detalhes do LUN. 
+---
+= Guia Detalhes LUN da Planilha de Planejamento e Pesquisa do local
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve ter uma guia contendo informações sobre os detalhes do LUN.
+
+A seguir está um exemplo de como configurar a guia Detalhes do LUN.
+
+|===
+5+| Detalhes LUN 
+
+
+ a| 
+Fonte
+
+
+
+ a| 
+Nome do host
+ a| 
+Grupo de armazenamento
+ a| 
+Sistema operacional
+ a| 
+Em cluster
+ a| 
+Controlador de armazenamento
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+dm-rx200s6-21
+ a| 
+Centro de dados do Microsoft Windows Server 2012 R2
+ a| 
+Não
+ a| 
+AMS2100
+
+
+
+ a| 
+dm-rx200s6-22
+ a| 
+dm-rx200s6-22
+ a| 
+Red Hat Enterprise Linux Server versão 5,10
+ a| 
+Não
+ a| 
+AMS2100
+
+
+
+ a| 
+dm-rx200s6-20
+ a| 
+dm-rx200s6-20
+ a| 
+ESXi 5.5.0 build-1331820
+ a| 
+Não
+ a| 
+AMS2100
+
+
+
+ a| 
+dm-rx200s6-20
+ a| 
+dm-rx200s6-20
+ a| 
+ESXi 5.5.0 build-1331820
+ a| 
+Não
+ a| 
+AMS2100
+
+|===
+|===
+5+| Detalhes LUN 
+
+
+ a| 
+Fonte
+
+
+
+ a| 
+Ponto de montagem
+ a| 
+Número de unidade física
+ a| 
+Porta
+ a| 
+Bus
+ a| 
+Alvo
+
+
+
+ a| 
+C:
+ a| 
+PHYSICALDRIVE0
+ a| 
+2
+ a| 
+0
+ a| 
+0
+
+
+
+ a| 
+/
+ a| 
+sda
+ a| 
+0
+ a| 
+0
+ a| 
+0
+
+
+
+ a| 
+BootLUN_datastore
+ a| 
+naa.60060e801046b96004f2bf4600000014
+ a| 
+0
+ a| 
+0
+ a| 
+0
+
+
+
+ a| 
+VM_datastore
+ a| 
+naa.60060e801046b96004f2bf4600000015
+ a| 
+0
+ a| 
+0
+ a| 
+0
+
+|===
+|===
+5+| Detalhes LUN 
+
+
+ a| 
+Fonte
+
+
+
+ a| 
+LUN
+ a| 
+PG80 SN
+ a| 
+PG83 SN/UID
+ a| 
+Tamanho de LUN (GB)
+ a| 
+Desvio de arranque
+
+
+
+ a| 
+0
+ a| 
+ a| 
+60060e801046b96004f2bf460000001e
+ a| 
+40
+ a| 
+0
+
+
+
+ a| 
+0
+ a| 
+ a| 
+60060e801046b96004f2bf4600000010
+ a| 
+20
+ a| 
+
+
+
+ a| 
+0
+ a| 
+ a| 
+60060e801046b96004f2bf4600000014
+ a| 
+20
+ a| 
+
+
+
+ a| 
+1
+ a| 
+ a| 
+60060e801046b96004f2bf4600000015
+ a| 
+40
+ a| 
+
+|===
+|===
+5+| Detalhes LUN 
+
+
+ a| 
+Fonte
+
+
+
+ a| 
+Tipo LUN
+ a| 
+Alinhado
+ a| 
+Prefixo personalizado (blocos)
+ a| 
+Prefixo personalizado (bytes)
+ a| 
+
+
+
+ a| 
+windows
+ a| 
+Alinhado
+ a| 
+0
+ a| 
+0
+ a| 
+
+
+
+ a| 
+linux
+ a| 
+Alinhado
+ a| 
+0
+ a| 
+0
+ a| 
+
+
+
+ a| 
+vmware
+ a| 
+Alinhado
+ a| 
+0
+ a| 
+0
+ a| 
+
+
+
+ a| 
+vmware
+ a| 
+Alinhado
+ a| 
+0
+ a| 
+0
+ a| 
+
+|===

@@ -1,0 +1,24 @@
+---
+permalink: san-migration/concept_migration_types_supported_by_foreign_lun_import.html 
+sidebar: sidebar 
+keywords: migration, types, supported, foreign, lun, import 
+summary: 'O FLI suporta quatro tipos principais de fluxos de trabalho de migração: On-line, off-line, transição e automatizado. A escolha de qual fluxo de trabalho usar depende da configuração e de outros fatores.' 
+---
+= Tipos de migração suportados pela importação de LUN estrangeiro
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O FLI suporta quatro tipos principais de fluxos de trabalho de migração: On-line, off-line, transição e automatizado. A escolha de qual fluxo de trabalho usar depende da configuração e de outros fatores.
+
+* Em uma migração on-line, o FLI de matrizes de terceiros permite que o sistema cliente permaneça on-line durante a migração (requer um sistema operacional host Windows, Linux ou ESXi).
+* Em uma migração off-line, a FLI de arrays de terceiros coloca o sistema cliente off-line e copia os dados para o novo LUN antes de colocá-los de volta on-line.
+* Em uma migração de transição, a FLI faz a transição do ONTAP operando no modo 7 para o ONTAP. Este é funcionalmente o mesmo processo, exceto que o array de origem é ONTAP. O fluxo de trabalho de transição está disponível no modo online ou offline.
+* Em uma migração automatizada, a FLI usa o software de automação de fluxo de trabalho (WFA) para automatizar partes do processo de migração. O FLI com WFA está disponível no modo online ou offline.
+
+
+Arquitetonicamente, as três migrações e o fluxo de trabalho de transição são bastante semelhantes. Todos os quatro dependem da tecnologia FlexArray da NetApp para permitir que seu controlador ONTAP atue como um iniciador na frente de um array de origem e use essa posição para copiar blocos LUNs para blocos da origem para um LUN no array ONTAP de destino.
+
+As diferenças entre os fluxos de trabalho têm a ver com quando ocorrem cortes, duração da janela de interrupção, uso de automação ou se o array de origem é um array NetApp executando o ONTAP 7-Mode ou um array de terceiros.

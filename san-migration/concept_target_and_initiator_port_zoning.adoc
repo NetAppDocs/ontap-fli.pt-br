@@ -1,0 +1,39 @@
+---
+permalink: san-migration/concept_target_and_initiator_port_zoning.html 
+sidebar: sidebar 
+keywords: target, initiator, port, zoning 
+summary: A migração DO FLI requer que LUNs de armazenamento de origem sejam acessados pelo armazenamento NetApp. Isto é conseguido através do zoneamento de portas de destino de armazenamento de origem com portas de iniciador de armazenamento de destino. 
+---
+= Zoneamento da porta de destino e iniciador
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A migração DO FLI requer que LUNs de armazenamento de origem sejam acessados pelo armazenamento NetApp. Isto é conseguido através do zoneamento de portas de destino de armazenamento de origem com portas de iniciador de armazenamento de destino.
+
+As zonas de storage para host de origem existentes não são modificadas e são desativadas após a migração. As zonas de armazenamento de host para destino são criadas para permitir o acesso de LUNs migrados do armazenamento de destino pelo host.
+
+Um cenário de migração padrão usando FLI requer quatro zonas distintas:
+
+* Zona 1: Armazenamento de origem para armazenamento de destino (tecido de Produção A)
+* Zona 2: Armazenamento de origem para armazenamento de destino (tecido de produção B)
+* Zona 3: Armazenamento do host para o destino (malha de Produção A)
+* Zona 4: Anfitrião ao armazenamento de destino (tecido de produção B)
+
+
+Siga estas práticas recomendadas de zoneamento:
+
+* Não misture portas de destino de armazenamento de origem e portas de destino de armazenamento de destino na mesma zona.
+* Não misture portas do iniciador de armazenamento de destino e portas de host na mesma zona.
+* Não misture portas de destino de armazenamento e iniciador na mesma zona.
+* Zona com pelo menos duas portas de cada controlador para redundância.
+* A NetApp recomenda um único iniciador e um zoneamento de destino único.
+
+
+[NOTE]
+====
+Depois de zonear as portas de destino de armazenamento de origem com as portas do iniciador de armazenamento de destino, o armazenamento de origem será visível no armazenamento de destino usando o comando show do storage.quando o storage array for descoberto pela primeira vez, os controladores NetApp podem não mostrar o array automaticamente. Corrija isso redefinindo a porta do switch onde as portas do iniciador ONTAP estão conetadas.
+
+====

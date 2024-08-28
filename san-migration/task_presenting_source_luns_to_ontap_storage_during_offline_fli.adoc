@@ -1,0 +1,20 @@
+---
+permalink: san-migration/task_presenting_source_luns_to_ontap_storage_during_offline_fli.html 
+sidebar: sidebar 
+keywords: present, source luns, ontap storage, fli 
+summary: Como parte do processo FLI off-line, você deve apresentar seus LUNs de origem ao armazenamento do ONTAP. 
+---
+= Apresentação de LUNs de origem para o armazenamento ONTAP durante a FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte do processo FLI off-line, você deve apresentar seus LUNs de origem ao armazenamento do ONTAP.
+
+.Passos
+. Faça login no array de origem.
+. Adicione os iniciadores NetApp ao grupo de hosts criado durante a fase de plano.
+. Selecione os LUNs de host que precisam ser migrados dos LUNs lógicos disponíveis. Use nomes de LUN para cada host mencionado na seção LUNs de origem da sua Planilha de Planejamento e Pesquisa de Site.
+

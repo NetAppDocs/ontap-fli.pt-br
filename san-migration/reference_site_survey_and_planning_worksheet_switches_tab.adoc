@@ -1,0 +1,64 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, switches tab 
+summary: Como parte da Planilha de Pesquisa e Planejamento do Site, você deve configurar uma guia contendo informações do switch de migração. 
+---
+= Guia de interrutores da Planilha de Pesquisa e Planejamento do local
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da Planilha de Pesquisa e Planejamento do Site, você deve configurar uma guia contendo informações do switch de migração.
+
+O seguinte é um exemplo de como configurar a guia switches.
+
+|===
+8+| Interrutores 
+
+
+ a| 
+Corrente
+ a| 
+NetApp recomendado
+
+
+
+ a| 
+Nome do host
+ a| 
+Endereço IP
+ a| 
+Fornecedor
+ a| 
+Modelo
+ a| 
+Nome da malha
+ a| 
+VSAN/domínio
+ a| 
+Firmware
+ a| 
+Firmware
+
+
+
+ a| 
+C9506-1-A
+ a| 
+10.x.x.x
+ a| 
+Cisco
+ a| 
+9506
+ a| 
+Prod A
+ a| 
+10
+ a| 
+3,3 mm (5a mm)
+ a| 
+
+|===

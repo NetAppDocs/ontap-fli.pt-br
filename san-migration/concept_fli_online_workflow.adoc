@@ -1,0 +1,30 @@
+---
+permalink: san-migration/concept_fli_online_workflow.html 
+sidebar: sidebar 
+keywords: fli, online, workflow 
+summary: Este é o segundo dos quatro exemplos de fluxo de trabalho da FLI, que abrange a migração online da FLI. 
+---
+= Fluxo de trabalho online FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este é o segundo dos quatro exemplos de fluxo de trabalho da FLI, que abrange a migração online da FLI. O array de origem neste exemplo é um EMC VNX5500.
+
+o fluxo de trabalho online tem as seguintes tarefas:
+
+. Preparar o caminho LUN
+. Realização de uma redução disruptiva
+. Importar os dados LUN de origem
+. Verificando os resultados da migração
+. Limpeza da migração online da FLI
+. FLI on-line pós-migração tarefas
+
+
+[NOTE]
+====
+Se o destino do controlador NetApp for um MetroCluster, NÃO utilize o fluxo de trabalho online. Se um failover de site ocorreu durante uma importação on-line ativa, os throughs de gravação para o array de origem podem falhar, o que levaria a uma falha de verificação e a uma possível perda de dados. Se o destino for MetroCluster, use o processo off-line FLI.
+
+====

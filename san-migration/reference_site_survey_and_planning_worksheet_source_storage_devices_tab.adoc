@@ -1,0 +1,153 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, source storage devices tab 
+summary: Como parte da Planilha de Pesquisa e Planejamento de sites, você deve ter uma guia contendo informações sobre seus dispositivos de armazenamento de origem de migração. 
+---
+= Guia dispositivos de armazenamento de origem da Planilha de Pesquisa de local e Planejamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da Planilha de Pesquisa e Planejamento de sites, você deve ter uma guia contendo informações sobre seus dispositivos de armazenamento de origem de migração.
+
+A seguir está um exemplo de como configurar a guia dispositivos de armazenamento de origem.
+
+|===
+5+| Sistemas de storage 
+
+
+ a| 
+Nome da matriz
+ a| 
+Endereço IP
+ a| 
+Fornecedor
+ a| 
+Modelo de matriz
+ a| 
+Microcódigo FW/ ONTAP
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+|===
+|===
+5+| Sistemas de storage 
+
+
+ a| 
+Nó/controlador
+ a| 
+Nome da porta
+ a| 
+WWPN
+ a| 
+Nome da malha
+ a| 
+Tipo alvo
+
+
+
+ a| 
+Controller0
+ a| 
+0a
+ a| 
+50060E80xxxxxxxx
+ a| 
+Tecido de Produção A
+ a| 
+Fonte
+
+
+
+ a| 
+Controller0
+ a| 
+0e
+ a| 
+50060E80xxxxxxxx
+ a| 
+Tecido de produção B
+ a| 
+Fonte
+
+
+
+ a| 
+Controller1
+ a| 
+1a
+ a| 
+50060E80xxxxxxxx
+ a| 
+Tecido de Produção A
+ a| 
+Fonte
+
+
+
+ a| 
+Controller1
+ a| 
+1e
+ a| 
+50060E80xxxxxxxx
+ a| 
+Tecido de Produção A
+ a| 
+Fonte
+
+|===

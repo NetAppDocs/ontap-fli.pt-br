@@ -1,0 +1,111 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, fas config tab 
+summary: Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve ter uma guia contendo informações sobre sua configuração do FAS. 
+---
+= Folha de cálculo de pesquisa e planeamento do local separador FAS Config
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve ter uma guia contendo informações sobre sua configuração do FAS.
+
+A seguir está um exemplo de como configurar a guia Configuração do FAS.
+
+|===
+| Nome do cluster | Endereço IP de gerenciamento de cluster | Credenciais de gerenciamento de cluster disponíveis 2+| Host do Gerenciador de sistema do ONTAP 
+
+
+|  |  |  | *Endereço IP* | *Credenciais disponíveis* 
+
+
+|  |  |  |  |  
+|===
+|===
+6+| Portas de rede 
+
+
+| Nó | Nome da interface | Tipo de porta | Velocidade da porta | Nome/ID da VLAN | IFGRP 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+| Nome SVM | Tipo | Protocolos | Agregado | Volume raiz da SVM 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+| SVM | Volume | Agregado | Tamanho | SAN 
+
+
+|  |  |  | *Nome LUN* | *Tamanho LUN* 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+6+| Interfaces de rede SVM 
+
+
+| SVM | Nome da interface | Função de interface | Endereço IP/máscara de rede | Nó inicial/porta inicial | Grupo de failover 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+6+| Portas de destino do SVM FCP 
+
+
+| SVM | Nome da porta FCP | WWPN | WWNN | Nó inicial | Porta inicial 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+6+| Portas do iniciador do nó FCP 
+
+
+| Nome do nó | Nome da porta FCP | WWPN | WWN | Homer Node | Porta inicial 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===

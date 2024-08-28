@@ -1,0 +1,36 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning, worksheet, aggregate status tab 
+summary: Como parte de sua Planilha de Pesquisa de Site e Planejamento, você deve ter uma guia contendo informações sobre seu status agregado. 
+---
+= Guia Status agregado da Planilha de Pesquisa do local e Planejamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte de sua Planilha de Pesquisa de Site e Planejamento, você deve ter uma guia contendo informações sobre seu status agregado.
+
+A seguir está um exemplo de como configurar a guia Status de agregados.
+
+[cols="6*"]
+|===
+6+| Informações agregadas do NetApp 
+
+
+ a| 
+Controlador
+ a| 
+Agregado
+ a| 
+Tamanho total (GB)
+ a| 
+Capacidade utilizada (GB)
+ a| 
+Disponível (GB)
+ a| 
+Anterior para construir para fora
+
+|===

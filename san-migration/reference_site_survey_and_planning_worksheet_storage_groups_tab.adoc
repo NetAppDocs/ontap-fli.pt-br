@@ -1,0 +1,71 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, storage groups tab 
+summary: Como parte da sua Planilha de Pesquisa de Sites e Planejamento, você deve ter uma guia contendo informações sobre seus grupos de armazenamento. 
+---
+= Guia grupos de armazenamento da Planilha de Pesquisa do local e Planejamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da sua Planilha de Pesquisa de Sites e Planejamento, você deve ter uma guia contendo informações sobre seus grupos de armazenamento.
+
+A seguir está um exemplo de como configurar a guia grupos de armazenamento.
+
+|===
+4+| Grupos de armazenamento 
+
+
+ a| 
+Fonte
+ a| 
+Destino
+
+
+
+ a| 
+Nome do host
+ a| 
+Grupo de armazenamento
+ a| 
+WWPN
+ a| 
+Comandos iGroup
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+dm-rx200s6-21
+ a| 
+21:00:00:24:ff:30:14:c521:00:00:24:ff:30:14:c4
+ a| 
+`igroup create -ostype` dados `-igroup` do `-protocol` windows fcp `-vserver` dm-rx200s6-21 `-initiator` 21:00:00:24:ff:30:14:c4,21:00:14:c5:ff:30:00:24
+
+
+
+ a| 
+dm-rx200s6-22
+ a| 
+dm-rx200s6-22
+ a| 
+21:00:00:24:ff:30:04:8521:00:00:24:ff:30:04:84
+ a| 
+`igroup create -ostype` linux `-protocol` fcp `-vserver` datamig `-igroup` dm-rx200s6-22 `-initiator` 21:00:00:24:ff:30:04:85,21:00:04:84:24:ff:30:00
+
+
+
+ a| 
+dm-rx200s6-20
+ a| 
+dm-rx200s6-20
+ a| 
+21:00:00:24:ff:30:03:ea21:00:00:24:ff:30:03:eb
+ a| 
+`igroup create -ostype` `-protocol` vmware fcp `-vserver` datamig -`igroup` dm-rx200s6-20 `-initiator` 21:00:00:24:ff:30:03:ea,21:00:00:24:ff:30:03:eb
+
+|===

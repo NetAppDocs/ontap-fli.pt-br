@@ -1,0 +1,73 @@
+---
+permalink: san-migration/task_fli_transition_performing_a_disruptive_cutover.html 
+sidebar: sidebar 
+keywords: perform, disruptive, cutover, fli 7-mode, ontap 
+summary: Este exemplo fornece as etapas gerais para realizar uma transição disruptiva para o processo de transição FLI. 
+---
+= Realizando uma transição disruptiva do modo FLI 7 para ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este exemplo fornece as etapas gerais para realizar uma transição disruptiva para o processo de transição FLI.
+
+Para obter uma visão geral sobre a correção do host dos hosts Windows, Linux e ESXi, consulte tópicos relacionados neste guia, bem como o sistema operacional do host e a documentação do kit de conexão do host.
+
+.Passos
+. No sistema 7-Mode, exiba o igrop para o qual o LUN de origem é mapeado.
++
+[listing]
+----
+stme-7ma> igroup show
+    FLI_on_fcp (FCP) (ostype: windows):
+        10:00:00:00:c9:e6:e2:79 (logged in on: 0c, vtic)
+        50:0a:09:81:00:96:43:70 (logged in on: 0c, vtic)
+        50:0a:09:81:00:96:3c:f0 (logged in on: 0c, vtic)
+----
++
+[NOTE]
+====
+A interrupção começa imediatamente após a execução do comando Unmap. Geralmente, a janela de interrupção pode ser medida em minutos. É literalmente o tempo que leva para mover o host para o novo destino NetApp e procurar LUNs.
+
+====
+. Se os LUNs importados forem para hosts ESXi, revise e siga as instruções no tópico _ESXi CAW/ATS Remediation_.
+. Use o `unmap` comando para mover o LUN de seus hosts. (A janela de interrupção começa aqui.)
++
+[listing]
+----
+stme-7ma> igroup remove -f FLI_on_fcp 10:00:00:00:c9:e6:e2:79
+----
+. Verifique se os iniciadores do host não estão mais presentes.
++
+[listing]
+----
+stme-7ma> igroup show
+    FLI_on_fcp (FCP) (ostype: windows):
+        50:0a:09:81:00:96:43:70 (logged in on: 0c, vtic)
+        50:0a:09:81:00:96:3c:f0 (logged in on: 0c, vtic)
+----
+. No cluster do ONTAP, coloque o LUN de destino online e verifique se ele está mapeado.
++
+[listing]
+----
+cluster::*> lun online -vserver fli_72C -path /vol/flivol/72Clun1
+
+cluster::*> lun show -path /vol/flivol/72Clun1
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+fli_72C   /vol/flivol/72Clun1             online  mapped   windows_2008
+                                                                      3.00GB
+----
+. Volte a digitalizar discos no host; localize o LUN no destino ONTAP.
++
+[NOTE]
+====
+A janela de interrupção termina aqui.
+
+====
++
+Os LUNs são on-line e mapeados, e os hosts agora estão montando o novo LUN hospedado pela ONTAP. As leituras são passadas através do array ONTAP para o LUN de origem, e as gravações são gravadas no novo LUN hospedado pelo ONTAP e também no LUN de origem original. Os LUNs de origem e de destino permanecerão sincronizados até que a migração seja concluída e a relação LUN seja interrompida.
+
+

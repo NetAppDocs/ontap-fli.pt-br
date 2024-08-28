@@ -1,0 +1,42 @@
+---
+permalink: san-migration/concept_supported_host_operating_systems_for_fli_online.html 
+sidebar: sidebar 
+keywords: supported, host, operating, systems, fli, online 
+summary: O fluxo de trabalho on-line FLI pode ser usado para LUNs conetados a hosts que executam um dos seguintes sistemas operacionais. 
+---
+= Sistemas operacionais de host compatíveis para FLI online
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O fluxo de trabalho on-line FLI pode ser usado para LUNs conetados a hosts que executam um dos seguintes sistemas operacionais, começando com as versões listadas.
+
+. Microsoft (todas as versões dos servidores listados são suportadas):
++
+** Windows Server 2008 e posterior (inclui clusters de failover do Windows Server)
+** Microsoft Hyper-V Server 2008 e posterior
+** Windows Server 2012 e posterior (inclui cluster do Windows Server 2012)
+** Microsoft Hyper-V Server 2012 e posterior
+
+
+. VMware:
++
+** Todas as versões ESXi 5.x e posteriores
+
+
+. Linux:
++
+** Red Hat Enterprise Linux (RHEL) 5.x e posterior
+
+
+
+
+Considere usar o fluxo de trabalho off-line FLI para sistemas operacionais host que não estão na lista anterior.
+
+[NOTE]
+====
+Se o destino do controlador NetApp for um MetroCluster, NÃO utilize o fluxo de trabalho online. Se um failover de site ocorreu durante uma importação on-line ativa, os throughs de gravação para o array de origem podem falhar, o que levaria a uma falha de verificação e a uma possível perda de dados. Se o destino for MetroCluster, use o processo off-line FLI, independentemente do sistema operacional do host.
+
+====

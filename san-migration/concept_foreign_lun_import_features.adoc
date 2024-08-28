@@ -1,0 +1,26 @@
+---
+permalink: san-migration/concept_foreign_lun_import_features.html 
+sidebar: sidebar 
+keywords: foreign, lun, import, features 
+summary: Os recursos DO FLI permitem migrar dados de armazenamento SAN de terceiros para sistemas ONTAP. Os recursos de migração DO FLI suportam uma variedade de processos e sistemas. 
+---
+= Recursos de importação de LUN estrangeiro
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os recursos DO FLI permitem migrar dados de armazenamento SAN de terceiros para sistemas ONTAP. Os recursos de migração DO FLI suportam uma variedade de processos e sistemas.
+
+* Suporte para migrações on-line e off-line.
+* Independência do sistema operacional: A migração de dados em nível de bloco não depende de gerenciadores de volume ou utilitários do sistema operacional.
+* Independência de tecido Fibre Channel: O FLI é totalmente compatível com tecidos Brocade e Cisco FC.
+* Suporte para a maioria dos storages Fibre Channel. Consulte a Matriz de interoperabilidade para obter uma lista de matrizes suportadas.
+* Suporte para multipath nativo e balanceamento de carga.
+* Gerenciamento baseado em CLI.
+
+
+*Informações relacionadas*
+
+https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]

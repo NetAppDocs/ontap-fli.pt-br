@@ -1,0 +1,22 @@
+---
+permalink: san-migration/concept_fli_using_workflow_automation_wfa.html 
+sidebar: sidebar 
+keywords: fli, using, workflow, automation, wfa, migration 
+summary: A automação do fluxo de trabalho pode ser usada em conjunto com a FLI para automatizar tarefas de pré e pós-migração, migração e transição e verificações de status. Em uma migração automatizada, a FLI usa software de automação de fluxo de trabalho para automatizar partes do processo de migração. O FLI com WFA está disponível no modo online ou offline. 
+---
+= FLI usando automação de fluxo de trabalho (WFA)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A automação do fluxo de trabalho pode ser usada em conjunto com a FLI para automatizar tarefas de pré e pós-migração, migração e transição e verificações de status. Em uma migração automatizada, a FLI usa software de automação de fluxo de trabalho para automatizar partes do processo de migração. O FLI com WFA está disponível no modo online ou offline.
+
+Para usar O WFA em conjunto com a FLI, você precisa baixar e instalar O WFA em um servidor adequado em seu ambiente. Depois que O WFA é instalado, você baixa os fluxos de trabalho especificados. Os dois pacotes de automação FLI disponíveis para download são FLI offline e FLI online. Os pacotes de automação seguem as mesmas regras de suporte que os fluxos de trabalho online FLI offline e FLI. Isso inclui a lista de sistemas operacionais host que suportam FLI online.
+
+Os pacotes de automação WFA podem ser baixados da loja de automação WFA. Para obter mais informações sobre as ações específicas executadas e outras informações detalhadas do fluxo de trabalho, consulte o arquivo de ajuda incorporado a cada pacote.
+
+*Informações relacionadas*
+
+http://docs.netapp.com["OnCommand Workflow Automation - Guia do desenvolvedor de fluxo de trabalho"]

@@ -1,0 +1,14 @@
+---
+permalink: san-migration/concept_how_to_configure_source_arrays.html 
+sidebar: sidebar 
+keywords: configure, source, arrays 
+summary: 'Consulte a documentação do array para o array de origem a fim de adicionar uma entrada de host para as portas do iniciador (mascaramento de LUN, igrop na linguagem NetApp). Essas informações podem ser recuperadas na seção grupos de armazenamento da Planilha Pesquisa de Site e Planejamento.' 
+---
+= Como configurar matrizes de origem
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Consulte a documentação do array para o array de origem a fim de adicionar uma entrada de host para as portas do iniciador (mascaramento de LUN, igrop na linguagem NetApp). Essas informações podem ser recuperadas na seção grupos de armazenamento da Planilha Pesquisa de Site e Planejamento.

@@ -1,0 +1,83 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, hosts tab 
+summary: Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve configurar uma guia contendo informações do host do projeto de migração. 
+---
+= Guia hosts da Planilha de Pesquisa do local e Planejamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve configurar uma guia contendo informações do host do projeto de migração.
+
+A seguir está um exemplo de como configurar sua guia hosts.
+
+[cols="8*"]
+|===
+8+| Hosts 
+
+
+ a| 
+*Atual*
+ a| 
+*NetApp recomendado*
+
+
+
+ a| 
+Nome do host
+ a| 
+Condutor
+ a| 
+Firmware
+ a| 
+HUK
+ a| 
+MPIO
+ a| 
+SnapDrive
+ a| 
+SnapManager
+ a| 
+Hotfixes
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+dm-rx200s6-22
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+dm-rx200s6-20
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===

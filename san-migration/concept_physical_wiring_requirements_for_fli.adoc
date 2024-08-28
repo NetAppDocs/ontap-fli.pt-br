@@ -1,0 +1,26 @@
+---
+permalink: san-migration/concept_physical_wiring_requirements_for_fli.html 
+sidebar: sidebar 
+keywords: physical, wiring, requirements, fli 
+summary: O FLI tem os mesmos requisitos de fiação que o NetApp FlexArray. As portas do iniciador de storage do NetApp são conectadas à malha na qual as portas de destino de storage de origem são conectadas. Siga as práticas recomendadas da FlexArray enquanto coneta o storage de origem ao storage NetApp. 
+---
+= Requisitos físicos de fiação para FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O FLI tem os mesmos requisitos de fiação que o NetApp FlexArray. As portas do iniciador de storage do NetApp são conectadas à malha na qual as portas de destino de storage de origem são conectadas. Siga as práticas recomendadas da FlexArray enquanto coneta o storage de origem ao storage NetApp.
+
+Os storage arrays usados durante a migração precisam ter um caminho primário de cada controladora (em uso) presente em ambas as malhas. Isso significa que o array de origem e os nós do array de destino que estão sendo migrados precisam estar em uma zona comum em ambas as malhas. Não é necessário adicionar outros controladores no cluster do NetApp, apenas aqueles que realmente importam/migram LUNs. Embora você possa usar caminhos indiretos para a migração, a prática recomendada é usar caminhos ativos/otimizados entre os arrays de origem e destino. A figura a seguir mostra o HDS AMS2100 e o armazenamento NetApp ONTAP com um caminho primário (ativo) presente em ambas as telas.
+
+Esta figura é um exemplo de fiação de armazenamento para tecidos duplos.
+
+image::../media/physical_wiring_1.png[cablagem física 1]
+
+Siga estas práticas recomendadas de fiação:
+
+* Use as práticas recomendadas do NetApp FlexArray para cabeamento de armazenamento de origem e destino, conforme discutido na https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["Referência e requisitos de instalação da virtualização do FlexArray"].
+* O storage ONTAP requer portas de iniciador gratuitas para se conectar à malha. Configure as portas do iniciador se as portas livres não existirem.
+

@@ -1,0 +1,128 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_source_luns_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, source luns tab 
+summary: Como parte da Planilha de Pesquisa e Planejamento do site, você deve configurar uma guia contendo informações sobre os LUNs de origem. 
+---
+= Guia LUNs de origem da Planilha de Pesquisa do local e Planejamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da Planilha de Pesquisa e Planejamento do site, você deve configurar uma guia contendo informações sobre os LUNs de origem.
+
+A seguir está um exemplo de como configurar a guia LUNs de origem.
+
+|===
+5+| LUNs de origem 
+
+
+ a| 
+LUNs mascarados
+
+
+
+ a| 
+Nome Grupo armazenamento
+ a| 
+ID LUN anfitrião
+ a| 
+ID LUN array
+ a| 
+Grosso/fino
+ a| 
+UID
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+0
+ a| 
+30
+ a| 
+Espesso
+ a| 
+60060e801046b96004f2bf460000001e
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+1
+ a| 
+14
+ a| 
+Espesso
+ a| 
+60060e801046b96004f2bf460000000e
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+2
+ a| 
+15
+ a| 
+Espesso
+ a| 
+60060e801046b96004f2bf460000000f
+
+|===
+|===
+5+| LUNs de origem 
+
+
+ a| 
+Todos OS LUNS .2a
+| Prefixo personalizado 
+
+
+ a| 
+Nome LUN
+ a| 
+UID
+ a| 
+Setor de arranque
+ a| 
+Desvio da partição
+ a| 
+
+
+
+| LUN30  a| 
+ a| 
+ a| 
+368050176
+ a| 
+0
+
+
+
+ a| 
+LUN14
+ a| 
+ a| 
+ a| 
+33619968
+ a| 
+0
+
+
+
+ a| 
+LUN15
+ a| 
+ a| 
+ a| 
+33619968
+ a| 
+0
+
+|===

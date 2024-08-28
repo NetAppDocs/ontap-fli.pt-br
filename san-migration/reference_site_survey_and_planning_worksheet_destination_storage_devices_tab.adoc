@@ -1,0 +1,164 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, destination storage devices tab 
+summary: Como parte da Planilha de Pesquisa e Planejamento do Site, você deve ter uma guia contendo informações sobre seus dispositivos de armazenamento de destino. 
+---
+= Guia dispositivos de armazenamento de destino da Planilha de pesquisa e Planejamento do local
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da Planilha de Pesquisa e Planejamento do Site, você deve ter uma guia contendo informações sobre seus dispositivos de armazenamento de destino.
+
+[cols="6*"]
+|===
+6+| Sistemas de storage 
+
+
+ a| 
+Nome do cluster
+ a| 
+Endereço IP
+ a| 
+Modo de array
+ a| 
+ONTAP
+ a| 
+svm
+ a| 
+Tipo de porta
+
+
+
+ a| 
+DataMig-cDOT
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+datamig
+ a| 
+Alvo
+
+
+
+ a| 
+DataMig-cDOT
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+datamig
+ a| 
+Alvo
+
+
+
+ a| 
+DataMig-cDOT
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+DataMig-01
+ a| 
+Iniciador
+
+
+
+ a| 
+DataMig-cDOT
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+DataMig-01
+ a| 
+Iniciador
+
+|===
+[cols="5*"]
+|===
+5+| Sistemas de storage 
+
+
+ a| 
+Nome da porta
+ a| 
+Nome LIF
+ a| 
+WWPN
+ a| 
+Nome da malha
+ a| 
+Tipo alvo
+
+
+
+ a| 
+0c
+ a| 
+miglif1
+ a| 
+20:01:00:a0:98:2f:xx:xx
+ a| 
+Prod A
+ a| 
+Alvo
+
+
+
+ a| 
+0d
+ a| 
+miglif2
+ a| 
+20:01:00:a0:98:2f:xx:xx
+ a| 
+Prod B
+ a| 
+Alvo
+
+
+
+ a| 
+0a
+ a| 
+n/a.
+ a| 
+50:0a:09:81:00:xx:xx:xx
+ a| 
+Prod A
+ a| 
+Alvo
+
+
+
+ a| 
+0b
+ a| 
+n/a.
+ a| 
+50:0a:09:81:00:xx:xx:xx
+ a| 
+Prod B
+ a| 
+Alvo
+
+|===
+Segue-se um exemplo de como configurar o separador Destination Storage Devices (dispositivos de armazenamento de destino).

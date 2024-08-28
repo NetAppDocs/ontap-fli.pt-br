@@ -1,0 +1,16 @@
+---
+permalink: san-migration/task_multipath_verification_for_windows_hosts.html 
+sidebar: sidebar 
+keywords: multipath, verification, windows hosts 
+summary: 'Como parte do processo de importação de LUN estrangeiro (FLI), você deve verificar se o multipath está configurado e funcionando corretamente em seus hosts.' 
+---
+= Verificação multipath para hosts Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte do processo de importação de LUN estrangeiro (FLI), você deve verificar se o multipath está configurado e funcionando corretamente em seus hosts.
+
+As instruções passo a passo para hosts do Windows podem ser encontradas na seção Multipathing do link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#multipathing["Usando o Windows Server 2022 com ONTAP"^].

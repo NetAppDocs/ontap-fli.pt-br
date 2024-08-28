@@ -1,0 +1,62 @@
+---
+permalink: san-migration/concept_migration_plan_phase_workflow.html 
+sidebar: sidebar 
+keywords: plan, phase, workflow 
+summary: A fase de Planejamento do processo de migração de dados se concentra nas tarefas necessárias para criar planos de migração detalhados e garantir que tudo esteja pronto para a migração real. A maior parte do trabalho migratório é o Planejamento realizado durante essa fase. 
+---
+= Planejar fluxo de trabalho de fase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de Planejamento do processo de migração de dados se concentra nas tarefas necessárias para criar planos de migração detalhados e garantir que tudo esteja pronto para a migração real. A maior parte do trabalho migratório é o Planejamento realizado durante essa fase.
+
+Na fase de Planejamento, você desenvolve um plano de correção usando as informações de análise de lacunas do host coletadas na fase de análise. Use as informações de correção do host durante o Planejamento. Depois que a conetividade de ponta a ponta é verificada, uma migração de teste é executada para garantir que tudo esteja configurado corretamente antes de iniciar a migração de produção.
+
+A figura a seguir mostra o fluxo de trabalho do plano.
+
+image::../media/plan_and_prepare_phase_1.png[planejar e preparar a fase 1]
+
+As tarefas da fase de planeamento estão listadas na tabela seguinte.
+
+[cols="2*"]
+|===
+| Componente | Tarefas 
+
+
+ a| 
+Malha
+ a| 
+. Faça backup dos zonesets existentes.
+. Coloque o armazenamento de origem no armazenamento de destino.
+
+
+
+
+ a| 
+Armazenamento de destino
+ a| 
+. Conecte as portas do iniciador à malha.
+. Descubra o armazenamento de origem e o LUN de teste. Marque o LUN de origem como estranho.
+. Criar LUN de teste usando LUN estranho.
+. Crie um grupo de teste e um LUN de teste de mapa.
+. LUN de teste offline.
+. Crie relações de importação e inicie a migração de teste.
+. Eliminar relação de importação e desmapear LUN de teste.
+. Remova o LUN de teste.
+
+
+
+
+ a| 
+Armazenamento de origem
+ a| 
+. Criar grupo de hosts para armazenamento de destino usando a porta do iniciador WWPNs.
+. Criar LUN de teste (1GB).
+. Atribuir LUN de teste (mapa/máscara) ao grupo anfitrião de armazenamento de destino.
+. Remova o LUN de teste.
+
+
+|===

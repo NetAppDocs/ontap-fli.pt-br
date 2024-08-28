@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_migration_execute_phase_workflow.html 
+sidebar: sidebar 
+keywords: execute, phase, workflows 
+summary: A fase de execução se concentra nas tarefas de migração LUN para realizar uma migração FLI offline ou online. 
+---
+= Execute fluxos de trabalho de fase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de execução se concentra nas tarefas de migração LUN para realizar uma migração FLI offline ou online.
+
+Os logs de eventos do host são revisados para encontrar e corrigir quaisquer problemas e reduzir riscos. Os hosts são reinicializados para garantir que não haja problemas subjacentes com os hosts antes que ocorra uma grande reconfiguração.
+
+Depois que os LUNs de origem estiverem visíveis no armazenamento de destino, os trabalhos de migração podem ser criados e executados. Após a conclusão das migrações (FLI off-line) ou a relação de LUN FLI (FLI on-line), o host é direcionado para o armazenamento de destino. Novos LUNs são mapeados e a correção do host pode começar para drivers, software multipath e quaisquer outras atualizações identificadas na fase de análise.

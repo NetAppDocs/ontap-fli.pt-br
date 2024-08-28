@@ -1,0 +1,41 @@
+---
+permalink: san-migration/task_brocade_fabric_in_production_fabric_a_example.html 
+sidebar: sidebar 
+keywords: brocade, fabric, production, fabric A, example 
+summary: Veja a seguir um exemplo de um Brocade Fabric na malha de produção A.. 
+---
+= Brocade Fabric na malha de produção, Por exemplo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Veja a seguir um exemplo de um Brocade Fabric na malha de produção A..
+
+.Passos
+. Criar a zona em tecido de produção
++
+[listing]
+----
+zoneCreate "rx21_flicDOT", "21:00:00:24:ff:30:14:c5"
+zoneAdd "rx21_flicDOT", "20:01:00:a0:98:2f:94:d1"
+zoneAdd "rx21_flicDOT", "20:03:00:a0:98:2f:94:d1"
+zoneCreate "rx22_flicDOT", "21:00:00:24:ff:30:04:85"
+zoneAdd "rx22_flicDOT", "20:01:00:a0:98:2f:94:d1"
+zoneAdd "rx22_flicDOT", "20:03:00:a0:98:2f:94:d1"
+zoneCreate "rx20_flicDOT", "21:00:00:24:ff:30:03:ea"
+zoneAdd "rx20_flicDOT", "20:01:00:a0:98:2f:94:d1"
+zoneAdd "rx20_flicDOT", "20:03:00:a0:98:2f:94:d1"
+----
+. Ative a zona no tecido de produção A..
++
+[listing]
+----
+cfgAdd "PROD_LEFT", "rx21_flicDOT"
+cfgAdd "PROD_LEFT", "rx22_flicDOT"
+cfgAdd "PROD_LEFT", "rx20_flicDOT"
+cfgEnable "PROD_LEFT"
+cfgSave
+----
+

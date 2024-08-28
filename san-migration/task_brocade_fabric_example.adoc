@@ -1,0 +1,52 @@
+---
+permalink: san-migration/task_brocade_fabric_example.html 
+sidebar: sidebar 
+keywords: brocade, fabric, example 
+summary: Este procedimento mostra a remoção do armazenamento de origem e da zona do host de um conjunto de malha do Brocade. 
+---
+= Exemplo de Brocade Fabric
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este procedimento mostra a remoção do armazenamento de origem e da zona do host de um conjunto de malha do Brocade.
+
+[NOTE]
+====
+O nome da zona para os exemplos é _rx21_AMS2100_.
+
+====
+.Passos
+. Retire a zona do conjunto do tecido A..
++
+[listing]
+----
+cfgDelete "PROD_LEFT", "rx21_AMS2100"
+cfgDelete "PROD_LEFT", "rx22_AMS2100"
+cfgDelete "PROD_LEFT", "rx20_AMS2100"
+----
+. Ative o conjunto em tecido A..
++
+[listing]
+----
+cfgEnable "PROD_LEFT"
+cfgSave
+----
+. Retire a zona do conjunto do tecido B.
++
+[listing]
+----
+cfgDelete "PROD_RIGHT", "rx21_AMS2100"
+cfgDelete "PROD_RIGHT", "rx22_AMS2100"
+cfgDelete "PROD_RIGHT", "rx20_AMS2100"
+----
+. Ative o conjunto em tecido B..
++
+[listing]
+----
+cfgEnable "PROD_RIGHT"
+cfgSave
+----
+

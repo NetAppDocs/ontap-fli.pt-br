@@ -1,0 +1,48 @@
+---
+permalink: san-migration/concept_performance_enhancements_in_clustered_data_ontap_8_3_1.html 
+sidebar: sidebar 
+keywords: performance, enhancements, ontap 8.3.1 
+summary: Houve algumas melhorias na FLI para gerenciar melhor o desempenho e impedir que a falta de carga de trabalho ocorra. Os aprimoramentos DO FLI no ONTAP 8.3.1 incluem um novo comando de aceleração e melhorias na exibição de importação de LUN mostrando a taxa de transferência e os grupos de políticas de QoS. 
+---
+= Melhorias de desempenho no ONTAP 8.3.1
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Houve algumas melhorias na FLI para gerenciar melhor o desempenho e impedir que a falta de carga de trabalho ocorra. Os aprimoramentos DO FLI no ONTAP 8.3.1 incluem um novo comando de aceleração e melhorias na exibição de importação de LUN mostrando a taxa de transferência e os grupos de políticas de QoS.
+
+O `LUN import throttle` comando é usado para limitar a velocidade máxima à qual uma importação pode ser executada.
+
+[listing]
+----
+cluster::*> lun import throttle -vserver fli_72C -path /vol/flivol/72Clun1 -max-throughput-limit
+
+{<integer>[KB|MB|GB|TB|PB]}  Maximum Throughput Limit (per sec)
+----
+Utilize o `instance` interrutor com `lun import show` para apresentar informações de importação de LUN alargadas, incluindo informações de aceleração e QoS.
+
+[listing]
+----
+cluster::*> lun import show -instance
+
+    Vserver Name: fli_72C
+    LUN Path: /vol/flivol/72Clun1
+    Foreign Disk Serial Number: D0i1E+G8Wg6m
+    Import Home Node: ontaptme-fc-cluster-01
+    Import Current Node: ontaptme-fc-cluster-01
+    Operation In Progress: import
+    Admin State: stopped
+    Operational State: stopped
+    Percent Complete: 0
+    Blocks Imported: -
+    Blocks Compared: -
+    Total Blocks: 6297480
+    Estimated Remaining Duration: -
+    Failure Reason: -
+    Maximum Throughput Limit(per sec): -
+    Current Throughput (per sec): -
+    QoS Policy Group: -
+----
+Os valores para o `current throughput` mostram a taxa de transferência atual das operações de importação ou verificação. Os usuários devem verificar isso antes de definir um valor de aceleração. Ele está vazio quando não está em execução. O `QoS policy group` mostra o grupo QoS se o acelerador de importação LUN foi usado.

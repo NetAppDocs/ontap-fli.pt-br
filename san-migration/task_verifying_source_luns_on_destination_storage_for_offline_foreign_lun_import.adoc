@@ -1,0 +1,70 @@
+---
+permalink: san-migration/task_verifying_source_luns_on_destination_storage_for_offline_foreign_lun_import.html 
+sidebar: sidebar 
+keywords: verify, source luns, destination storage, offline fli 
+summary: Como parte do processo de importação de LUN externo off-line, você deve verificar seus LUNs de origem no armazenamento de destino. 
+---
+= Verificando LUNs de origem no armazenamento de destino para FLI offline
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte do processo de importação de LUN externo off-line, você deve verificar seus LUNs de origem no armazenamento de destino.
+
+.Passos
+. Verifique os LUNs de origem e o mapeamento do armazenamento de origem para o armazenamento de destino.
+. Inicie sessão no armazenamento ONTAP através de SSH utilizando admin user.
+. Altere o modo para Avançado: `set -privilege advanced`
+. Introduza `y` quando lhe for perguntado se pretende continuar.
+. Descubra a matriz de origem no ONTAP. Aguarde alguns minutos e tente detetar a matriz de origem. `storage array show`
++
+[listing]
+----
+DataMig-cmode::*> storage array show
+Prefix                         Name   Vendor            Model Options
+-------- ---------------------------- -------- ---------------- ----------
+HIT-1                HITACHI_DF600F_1  HITACHI           DF600F
+----
++
+[NOTE]
+====
+Quando o storage array é descoberto pela primeira vez, o ONTAP pode não mostrar o array descobrindo automaticamente. Use as instruções a seguir para redefinir a porta do switch onde as portas do iniciador ONTAP estão conetadas.
+
+====
+. Verifique se o array de origem é descoberto através de todas as portas do iniciador.
++
+[listing]
+----
+DataMig-cmode::*> storage array config show -array-name HITACHI_DF600F_1
+             LUN   LUN
+Node         Group Count     Array Name       Array Target Port Initiator
+------------ ----- ----- ---------------------------- -----------------------
+DataMig-cmode-01 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+DataMig-cmode-02 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+----
+. Listar os LUNs de origem mapeados a partir do armazenamento Hitachi. Verifique as propriedades e os caminhos do disco.
++
+Você deve ver o número de caminhos esperados com base no cabeamento (pelo menos dois caminhos para cada controlador de origem). Você também deve verificar o log de eventos depois de mascarar os LUNs da matriz.
+
++
+[listing]
+----
+DataMig-cmode::*> storage disk show -array-name HITACHI_DF600F_1 -fields disk, serial-number, container-type, owner, path-lun-in-use-count, import-in-progress, is-foreign
+disk     owner is-foreign container-type import-in-progress path-lun-in-use-count serial-number
+-------- ----- ---------- -------------- ------------------ --------------------- -------------
+HIT-1.2  -     false      unassigned     false        0,0,0,0,0,0,0,0       83017542001E
+HIT-1.3  -     false      unassigned     false        0,0,0,0,0,0,0,0       83017542000E
+HIT-1.14 -     false      unassigned     false        0,0,0,0,0,0,0,0       830175420019
+3 entries were displayed.
+
+DataMig-cmode::*>
+----
+

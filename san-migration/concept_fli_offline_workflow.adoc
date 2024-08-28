@@ -1,0 +1,23 @@
+---
+permalink: san-migration/concept_fli_offline_workflow.html 
+redirect: ontap-fli/san-migration/task_rebooting_the_host_to_validate_system_state.html 
+sidebar: sidebar 
+keywords: fli, offline, workflow 
+summary: Esta seção fornece um exemplo do fluxo de trabalho off-line FLI, um dos quatro fluxos de trabalho FLI. 
+---
+= Fluxo de trabalho off-line
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Esta seção fornece um exemplo do fluxo de trabalho off-line FLI, um dos quatro fluxos de trabalho FLI.
+
+Este fluxo de trabalho utiliza uma matriz HDS AMS2100 como matriz de origem. O fluxo de trabalho offline tem as seguintes tarefas:
+
+. Preparação para a redução
+. Importar os dados
+. Verificando os resultados da migração (opcional)
+. Tarefas pós-migração off-line do FLI
+

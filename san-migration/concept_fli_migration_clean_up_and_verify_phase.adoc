@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_fli_migration_clean_up_and_verify_phase.html 
+sidebar: sidebar 
+keywords: fli, migration, cleanup, verify, phase 
+summary: Na fase de limpeza, você coleta logs de migração do FLI, remove a configuração de storage de origem do storage NetApp e remove o grupo de hosts de storage do NetApp do storage de origem. Além disso, exclua as zonas de origem para destino. A verificação é o ponto em que a precisão da execução do plano de migração é determinada. 
+---
+= Limpeza da migração DO FLI e verificação da fase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Na fase de limpeza, você coleta logs de migração do FLI, remove a configuração de storage de origem do storage NetApp e remove o grupo de hosts de storage do NetApp do storage de origem. Além disso, exclua as zonas de origem para destino. A verificação é o ponto em que a precisão da execução do plano de migração é determinada.
+
+Analise os logs para verificar se há erros, verifique caminhos e execute qualquer teste de aplicativo para verificar se sua migração foi concluída de forma limpa e bem-sucedida.

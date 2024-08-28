@@ -1,0 +1,32 @@
+---
+permalink: san-migration/concept_foreign_lun_import_concepts.html 
+sidebar: sidebar 
+keywords: foreign, lun, import, concepts 
+summary: A compreensão dos conceitos básicos de FLI ajuda na operação adequada e diminui o esforço de configuração inicial. 
+---
+= Conceitos de importação de LUN estrangeiro
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A compreensão dos conceitos básicos de FLI ajuda na operação adequada e diminui o esforço de configuração inicial.
+
+* * Foreign array*
++
+Um array estrangeiro é um dispositivo de armazenamento que não executa ONTAP. Isso também é conhecido como um array de terceiros ou matriz de origem. No caso de uma transição de modo 7D para ONTAP, o array estrangeiro seria um array produzido pelo NetApp executando o modo 7D ONTAP.
+
+* *LUN estrangeiro*
++
+Um LUN estrangeiro é um LUN que contém dados de usuário hospedados em uma matriz de terceiros usando o formato de disco nativo dessa matriz.
+
+* *Relação LUN FLI*
++
+Uma relação de LUN FLI é um emparelhamento persistente entre armazenamento de origem e destino para fins de importação de dados. Os endpoints de origem e destino são LUNs.
+
+* *Importação LUN*
++
+A importação de LUN é um processo de transferência dos dados em um LUN estrangeiro de seu formato de terceiros para um LUN de formato NetApp nativo.
+
+

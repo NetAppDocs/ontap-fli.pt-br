@@ -1,0 +1,57 @@
+---
+permalink: san-migration/concept_recommended_tools_for_data_migration.html 
+sidebar: sidebar 
+keywords: recommended, tools, data, migration 
+summary: As ferramentas de serviço fornecem um método padronizado para executar funções úteis, como coleta remota de dados, configuração e tarefas de gerenciamento de storage. 
+---
+= Ferramentas recomendadas para migração de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+As ferramentas de serviço fornecem um método padronizado para executar funções úteis, como coleta remota de dados, configuração e tarefas de gerenciamento de storage.
+
+As seguintes ferramentas de serviço são usadas para coletar e analisar dados:
+
+* *OneCollect*
++
+O NetApp Active IQ OneCollect, disponível com uma IU baseada na Web ou CLI, ajuda a coletar dados de storage, hosts, malhas e switches em ambientes SAN e nas. Os dados coletados são usados para solução de problemas, validação da solução, migração de dados e avaliações de atualização. O conteúdo de diagnóstico relacionado ao seu ambiente pode ser enviado para o NetApp para análise posterior ou analisado no local.
+
+* *Relacionador de dados da NetApp*
++
+O Solaris Relabeler é um utilitário de linha de comando que permite atualizar o rótulo ASCII em discos de tabela de volume de conteúdos (VTOC) após a migração.
+
++
+Durante as rotinas iniciais de inicialização do disco VTOC, o comando Solaris format executa uma consulta SCSI contra o disco e grava informações específicas do fornecedor (fabricante, produto e revisão) na etiqueta do disco. Todas as consultas adicionais são direcionadas para a etiqueta do disco e não para o dispositivo real. A migração em nível de bloco copia esse rótulo de disco para o novo disco, e os dados antigos de consulta SCSI ainda ficam visíveis nas ferramentas e logs do sistema. O relabeler atualiza os discos após a migração com novos dados de consulta.
+
+
+
+Essas ferramentas e utilitários também são úteis em projetos de migração FLI:
+
+* *Matriz de interoperabilidade*
++
+A ferramenta de Matriz de interoperabilidade (IMT) é um utilitário baseado na Web do NetApp que é usado para verificações de interoperabilidade para componentes de software NetApp, FlexArray e de terceiros.
+
+* *Gerenciador de sistema ONTAP*
++
+O ONTAP System Manager fornece gerenciamento remoto de storage de sistemas NetApp FAS usando uma interface gráfica.
+
+* *OnCommand Workflow Automation*
++
+O WFA é uma solução de software que permite criar fluxos de trabalho de storage e automatizar tarefas de gerenciamento de storage, como provisionamento, migração, desativação e clonagem de storage.
+
+
+
+*Informações relacionadas*
+
+https://mysupport.netapp.com/site/tools["Ferramentas NetApp"]
+
+http://mysupport.netapp.com/NOW/download/tools/ndcp/["Ferramentas do NetApp: Planejador de data center"]
+
+https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61372["Documentação do NetApp: OnCommand System Manager (versões atuais)"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61550["Documentação do NetApp: OnCommand Workflow Automation (versões atuais)"]

@@ -1,0 +1,22 @@
+---
+permalink: san-migration/concept_plan_phase_procedures.html 
+sidebar: sidebar 
+keywords: plan, prepare, phase, procedures 
+summary: A fase de Planejamento da FLI se concentra nas tarefas necessárias para criar planos de migração detalhados e preparar o ambiente do cliente para a migração real. Uma ou mais migrações de teste são executadas durante esta fase para verificar a instalação e configuração da importação de LUN estrangeiro. 
+---
+= Planeie e prepare procedimentos de fase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de Planejamento da FLI se concentra nas tarefas necessárias para criar planos de migração detalhados e preparar o ambiente do cliente para a migração real. Uma ou mais migrações de teste são executadas durante esta fase para verificar a instalação e configuração da importação de LUN estrangeiro.
+
+A seguir estão as tarefas a serem concluídas durante a fase do plano:
+
+* Crie um mapeamento de LUNs de origem e destino inserindo as informações de mapeamento de armazenamento para cada matriz de armazenamento na secção Detalhes LUN da folha de cálculo Pesquisa de local e Planeamento.
+* Conete o storage de origem à malha com base nas informações de Planejamento.
+* Configure as zonas de comutação.
+* Execute uma ou mais migrações de teste para verificar a instalação e configuração.
+

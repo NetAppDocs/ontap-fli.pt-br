@@ -1,0 +1,24 @@
+---
+permalink: san-migration/concept_gap_analysis_report.html 
+sidebar: sidebar 
+keywords: gap, analysis, report 
+summary: A análise de lacunas é um relatório do ambiente atual e recomendado pelo NetApp do cliente. Ele apresenta todas as atualizações recomendadas para o ambiente do cliente que precisarão ocorrer após a migração. 
+---
+= Relatório de análise de insuficiência
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A análise de lacunas é um relatório do ambiente atual e recomendado pelo NetApp do cliente. Ele apresenta todas as atualizações recomendadas para o ambiente do cliente que precisarão ocorrer após a migração.
+
+A configuração de destino (pós-migração) inclui detalhes para cada host (configuração do sistema operacional, detalhes do MPIO, detalhes do HBA, versão do Kit de Utilitários do host e assim por diante). Também estão disponíveis informações sobre produtos adicionais exigidos pela NetApp, como o SnapDrive e o SnapManager.
+
+Normalmente, as alterações necessárias não são efetuadas até ao evento de migração real, devido à necessidade habitual de programar janelas de manutenção. Normalmente, quaisquer alterações feitas na configuração MPIO antes da migração também afetarão o suporte do armazenamento atual.
+
+A seção Completed NetApp Recommended na seção hosts da sua Planilha de Pesquisa e Planejamento do local servirá como o relatório de análise de lacunas. A análise de lacunas deve ser concluída para cada host incluído no projeto de migração. O relatório de análise de lacunas concluído tem de ser revisto com o cliente.
+
+A seguir está um exemplo de relatório de análise de lacunas.
+
+image::../media/create_the_gap_analysis_report_1.png[crie o relatório de análise de lacunas 1]

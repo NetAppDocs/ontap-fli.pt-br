@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_prepare_hosts_for_fli_offline_migration.html 
+sidebar: sidebar 
+keywords: prepare, hosts, fli, offline, migration 
+summary: A fase de execução off-line da FLI inclui a preparação de hosts de migração. 
+---
+= Preparar hosts para migração off-line FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de execução off-line da FLI inclui a preparação de hosts de migração.
+
+Em muitos casos, pode ser possível ter realizado essa correção antes desta etapa. Caso contrário, é aqui que você executaria qualquer remediação de host, como a instalação de kits de conexão de host ou DSMs. Na fase de análise, você terá uma lista de lacunas de itens que precisam ser executados em cada host para que esse host esteja em uma configuração compatível usando o ONTAP. Dependendo do tipo de migração que está sendo realizada, o host seria remediado e então reinicializado (FLI/7-Mode para ONTAP FLI), ou seria remediado e então encerrado até a conclusão do processo de migração (FLI off-line).

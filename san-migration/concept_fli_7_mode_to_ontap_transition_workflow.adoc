@@ -1,0 +1,27 @@
+---
+permalink: san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html 
+sidebar: sidebar 
+keywords: fli, 7-mode, ontap, transition, workflow 
+summary: Esta seção fornece um exemplo do fluxo de trabalho de transição FLI 7-Mode to ONTAP. O fluxo de trabalho de transição pode ser executado como um fluxo de trabalho on-line ou off-line. 
+---
+= Fluxo de trabalho de transição FLI 7-Mode para ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Esta seção fornece um exemplo do fluxo de trabalho de transição FLI 7-Mode to ONTAP. O fluxo de trabalho de transição pode ser executado como um fluxo de trabalho on-line ou off-line.
+
+A transição FLI é recomendada quando o LUN de origem é hospedado em um agregado de 32 bits e/ou o LUN está desalinhado. A transição FLI de 7 modos para ONTAP é capaz de combinar a transição do LUN de 7 modos para ONTAP, juntamente com a correção do alinhamento de LUN e a transição do LUN de um agregado de 32 bits para 64 bits. Outros métodos de transição do LUN, incluindo a ferramenta de transição de 7 modos (7MTT), podem exigir a correção do alinhamento do LUN e/ou a conversão de um agregado de 32 bits para 64 bits antes da transição para o ONTAP.
+
+O fluxo de trabalho de transição FLI 7-Mode to ONTAP pode ser um fluxo de trabalho on-line ou off-line. Esses fluxos de trabalho são funcionalmente idênticos aos dois fluxos de trabalho de migração off-line e on-line FLI correspondentes, com a exceção de que o array de origem é um storage array NetApp 7-Mode. Ambos os fluxos de trabalho compartilham as mesmas regras e procedimentos que seus equivalentes de migração. Isso inclui a lista de suporte operacional do host de fluxo de trabalho on-line FLI.
+
+O exemplo fornecido deve dar um passo completo do processo FLI 7-Mode to ONTAP. O fluxo de transição FLI 7-modo para ONTAP inclui as seguintes tarefas:
+
+. Preparando matrizes de origem e destino
+. Realização de uma redução disruptiva
+. Importar os dados
+. Verificando os resultados da migração
+. Tarefas pós-migração de transição DO FLI
+

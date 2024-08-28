@@ -1,0 +1,58 @@
+---
+permalink: san-migration/reference_clearing_scsi_3_persistent_reservations.html 
+sidebar: sidebar 
+keywords: clear, scsi-3, persistent, reservations 
+summary: Se você tiver um cluster do Windows, precisará remover reservas SCSI-3 para o disco de quorum, mesmo que todos os hosts em cluster estejam offline. 
+---
+= Limpando reservas persistentes SCSI-3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você tiver um cluster do Windows, precisará remover reservas SCSI-3 para o disco de quorum, mesmo que todos os hosts em cluster estejam offline.
+
+Se você tentar rotular o LUN de origem como um disco estranho, a seguinte mensagem de erro será exibida:
+
+ Error: command failed: The specified foreign disk has SCSI persistent reservations. Disk serial number: "6006016021402700787BAC217B44E411". Clear the reservation using the "storage disk remove-reservation" command before creating the import relationship.
+Você pode remover reservas SCSI-3 para o disco de quorum na controladora NetApp usando o `storage disk remove-reservation` comando:
+
+[listing]
+----
+storage disk remove-reservation –disk disk_name
+----
+Aqui está um snippet mostrando esse erro e a correção para ele:
+
+[listing]
+----
+cluster-4b::*> lun offline -vserver fli_cluster -path /vol/fli_volume/cluster_CVS
+cluster-4b::*> lun import create -vserver fli_cluster -path /vol/fli_volume/cluster_CVS -foreign-disk 6006016021402700787BAC217B44E411
+Error: command failed: The specified foreign disk is not marked as foreign. Disk serial number: "6006016021402700787BAC217B44E411".
+
+cluster-4b::*> sto disk show -disk DGC-1.6 -fields serial-number,is-foreign
+ (storage disk show)
+disk is-foreign serial-number
+------- ---------- --------------------------------
+DGC-1.6 true 6006016021402700787BAC217B44E411
+
+cluster-4b::*> lun import create -vserver fli_cluster -path /vol/fli_volume/cluster_CVS -foreign-disk 6006016021402700787BAC217B44E411
+
+Error: command failed: The specified foreign disk has SCSI persistent reservations. Disk serial number: "6006016021402700787BAC217B44E411". Clear the reservation using the "storage disk remove-reservation" command before creating the import relationship.
+
+cluster-4b::*> storage disk remove-reservation -disk DGC-1.6
+cluster-4b::*> lun import create -vserver fli_cluster -path /vol/fli_volume/cluster_CVS -foreign-disk 6006016021402700787BAC217B44E411
+cluster-4b::*> lun online -vserver fli_cluster -path /vol/fli_volume/cluster_CVS
+cluster-4b::*> lun import show
+
+vserver foreign-disk path operation admin operational percent in progress state state complete
+ -------------------------------------------------------------------------------
+fli_cluster 6006016021402700787BAC217B44E411 /vol/fli_volume/cluster_CVS import stopped stopped 0
+
+cluster-4b::*> lun import start -vserver fli_cluster -path /vol/fli_volume/cluster_CVS
+cluster-4b::*> lun import show
+
+vserver foreign-disk path operation admin operational percent in progress state state complete
+-------------------------------------------------------------------------------
+fli_cluster 6006016021402700787BAC217B44E411 /vol/fli_volume/cluster_CVS import started in_progress 7
+----

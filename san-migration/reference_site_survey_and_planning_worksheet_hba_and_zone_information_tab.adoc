@@ -1,0 +1,91 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, hba and zone information tab 
+summary: Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve configurar uma guia contendo informações sobre o HBA e informações de zona. 
+---
+= Folha de cálculo de pesquisa e planeamento do local, separador HBA e informações de zona
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como parte da sua Planilha de Pesquisa e Planejamento do Site, você deve configurar uma guia contendo informações sobre o HBA e informações de zona.
+
+O seguinte é um exemplo de como configurar a guia HBA e informações de zona.
+
+[cols="4*"]
+|===
+4+| Detalhes da malha 
+
+
+ a| 
+Nome do host
+ a| 
+Descrição
+ a| 
+WWPN
+ a| 
+Nome da malha
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+HBA0
+ a| 
+21:00:00:24:ff:xx:xx:xx
+ a| 
+Prod A
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+HBA1
+ a| 
+21:00:00:24:ff:xx:xx:xx
+ a| 
+Prod B
+
+|===
+[cols="4*"]
+|===
+4+| Detalhes da malha 
+
+
+ a| 
+VSAN/domínio
+ a| 
+Número da porta
+ a| 
+Associação de zona de pré-migração
+ a| 
+Associação de zona pós-migração
+
+
+
+ a| 
+10
+ a| 
+fc2/3
+ a| 
+rx21_AMS2100
+ a| 
+rx21_flicDOT
+
+
+
+ a| 
+10
+ a| 
+fc2/3
+ a| 
+rx21_AMS2100
+ a| 
+rx21_flicDOT
+
+|===

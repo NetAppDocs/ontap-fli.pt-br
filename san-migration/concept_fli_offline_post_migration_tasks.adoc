@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_fli_offline_post_migration_tasks.html 
+sidebar: sidebar 
+keywords: fli, offline, post-migration, tasks 
+summary: Qualquer remediação de servidor excecional não realizada anteriormente é realizada durante a pós-migração. 
+---
+= Tarefas pós-migração off-line do FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Qualquer remediação de servidor excecional não realizada anteriormente é realizada durante a pós-migração.
+
+O software de terceiros é removido, o software NetApp é instalado e configurado e, em seguida, o host é acessado acessando os LUNs no NetApp. Consulte o tópico _Correção do host_ para obter exemplos de remediação pós-migração para tipos específicos de host.
+
+Revise os logs para verificar se há erros, verifique a interrupção e execute qualquer teste de aplicativo para verificar se sua migração foi concluída de forma limpa e bem-sucedida.

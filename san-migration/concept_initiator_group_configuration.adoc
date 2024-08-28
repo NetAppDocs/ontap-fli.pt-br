@@ -1,0 +1,33 @@
+---
+permalink: san-migration/concept_initiator_group_configuration.html 
+sidebar: sidebar 
+keywords: initiator, group, configuration 
+summary: 'A configuração adequada do mascaramento de LUN é fundamental para o funcionamento correto. Todas as portas de iniciador (em ambos os nós) no storage do ONTAP devem residir no mesmo grupo.' 
+---
+= Configuração do grupo de iniciadores
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A configuração adequada do mascaramento de LUN é fundamental para o funcionamento correto. Todas as portas de iniciador (em ambos os nós) no storage do ONTAP devem residir no mesmo grupo.
+
+A migração DO FLI requer que LUNs de armazenamento de origem sejam acessados pelo armazenamento NetApp. Para permitir o acesso além do zoneamento, é necessário criar grupos de iniciadores no armazenamento de origem usando o nome da porta mundial (WWPN) das portas de iniciador do armazenamento de destino.
+
+
+NOTE: Os exemplos nesta seção usam uma matriz AMS Hitachi Data Systems (HDS) e, portanto, os comandos de matriz estrangeira diferem dependendo da matriz de terceiros a partir da qual você está migrando.
+
+Sempre ative o Acesso por Unidade lógica assimétrica (ALUA) em grupos de iniciadores para matrizes NetApp.
+
+Os grupos de iniciadores passam por nomes diferentes, dependendo do fornecedor e do produto. Por exemplo:
+
+* A Hitachi Data Systems (HDS) usa o "grupo host".
+* O NetApp e-Series usa "'entrada de host.'"
+* A EMC usa o "Registro de iniciador" ou "grupo de toragem".
+* O NetApp usa o "igroup".
+
+
+Independentemente da nomenclatura, o objetivo de um grupo de iniciadores é identificar iniciadores por WWPNs que compartilham os mesmos mapeamentos LUN.
+
+Para definir grupos de iniciadores, revise a documentação do array para saber como configurar o mascaramento de LUN (grupos de hosts/grupos de armazenamento, etc.). Você também pode analisar https://docs.netapp.com/us-en/ontap-flexarray/implement-third-party/index.html["Implementação de virtualização de FlexArray para storage de terceiros"] os requisitos de configuração de storage de terceiros.

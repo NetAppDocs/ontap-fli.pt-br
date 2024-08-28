@@ -1,0 +1,22 @@
+---
+permalink: san-migration/task_rebooting_the_host_to_validate_system_state.html 
+sidebar: sidebar 
+keywords: reboot, host, validate, system state 
+summary: Os hosts de migração são reiniciados antes de fazer quaisquer alterações em sua configuração. Antes de prosseguir com a migração, verifique se o sistema está em bom estado. 
+---
+= Reiniciar o host para validar o estado do sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os hosts de migração são reiniciados antes de fazer quaisquer alterações em sua configuração. Antes de prosseguir com a migração, verifique se o sistema está em bom estado.
+
+Para verificar se a configuração do servidor é persistente e intocada nas reinicializações, execute as seguintes etapas:
+
+.Passos
+. Encerre todas as suas aplicações abertas.
+. Reinicie o host.
+. Revise os logs para ver se há erros.
+

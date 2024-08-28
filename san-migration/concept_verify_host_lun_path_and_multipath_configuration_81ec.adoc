@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_verify_host_lun_path_and_multipath_configuration_81ec.html 
+sidebar: sidebar 
+keywords: verify, host lun path, multipath, configuration 
+summary: Antes de qualquer migração, verifique se o multipathing está configurado corretamente e funcionando corretamente. 
+---
+= Verifique o caminho do LUN do host e a configuração multipath
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de qualquer migração, verifique se o multipathing está configurado corretamente e funcionando corretamente.
+
+Todos os caminhos disponíveis para LUNs devem estar ativos. Consulte os tópicos de verificação de multipath do host SAN para obter exemplos de como verificar multipathing em hosts Windows, Linux e ESXi.
