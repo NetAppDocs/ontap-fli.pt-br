@@ -17,10 +17,9 @@ Os storage arrays usados durante a migração precisam ter um caminho primário 
 
 Esta figura é um exemplo de fiação de armazenamento para tecidos duplos.
 
-image::../media/physical_wiring_1.png[cablagem física 1]
+image::../media/physical_wiring_1.png[exemplo de fiação de armazenamento para tecidos duplos]
 
 Siga estas práticas recomendadas de fiação:
 
-* Use as práticas recomendadas do NetApp FlexArray para cabeamento de armazenamento de origem e destino, conforme discutido na https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["Referência e requisitos de instalação da virtualização do FlexArray"].
 * O storage ONTAP requer portas de iniciador gratuitas para se conectar à malha. Configure as portas do iniciador se as portas livres não existirem.
 

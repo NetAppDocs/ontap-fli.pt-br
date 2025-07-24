@@ -2,28 +2,38 @@
 permalink: san-migration/task_fli_online_importing_the_data.html 
 sidebar: sidebar 
 keywords: fli online, import, data 
-summary: Estas são as etapas para importar os dados do LUN de origem para o LUN de destino. 
+summary: Depois que o relacionamento de importação do LUN for estabelecido e o host for transferido do array externo para o array ONTAP , você poderá importar os dados do LUN de origem externo para o LUN de destino ONTAP . 
 ---
-= FLI online: Importando os dados
+= Importar dados de uma matriz estrangeira usando a migração online ONTAP FLI
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Estas são as etapas para importar os dados do LUN de origem para o LUN de destino.
+Depois que o relacionamento de importação do LUN for estabelecido e a conexão do host for movida do array externo para o array ONTAP , você poderá importar os dados do LUN de origem externo para o LUN de destino ONTAP .
 
 .Passos
+. Defina o nível de privilégio como avançado.
++
+[source, cli]
+----
+set -privilege advanced
+----
+. Introduza `y` quando lhe for perguntado se pretende continuar.
 . Inicie a importação de migração.
 +
-[listing]
+[source, cli]
 ----
-cluster::*> lun import start -vserver fli -path /vol/fli_vol/OnlineFLI_LUN
+lun import start -vserver <SVM_name> -path <volume_path|storage_unit_path>
 ----
 . Exibir status FLI.
 +
-[listing]
+[source, cli]
 ----
-cluster::*> lun import start -vserver fli -path /vol/fli_vol/OnlineFLI_LUN
+lun import show -vserver <SVM_name> -path <volume_path|storage_unit_path>
 ----
 
+
+.O que vem a seguir?
+link:task_fli_online_verifying_migration_results.html["Verifique os resultados da migração"] .

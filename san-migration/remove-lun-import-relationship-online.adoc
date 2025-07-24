@@ -1,0 +1,52 @@
+---
+permalink: san-migration/remove-lun-import-relationship-online.html 
+sidebar: sidebar 
+keywords: clean up, fli, online migration 
+summary: Após a conclusão da migração on-line do FLI, você remove a relação de importação LUN. 
+---
+= Remover o relacionamento de importação de LUN após uma migração on-line do ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a conclusão da migração online de Importação de LUN Estrangeiro (FLI), o relacionamento de importação de LUN pode ser removido com segurança. O host agora acessa o novo array NetApp para todas as E/S para o novo LUN ONTAP , e o LUN de origem não está mais em uso.
+
+A partir do ONTAP 9.17.1, a migração de dados de LUNs externos usando a migração offline FLI é suportada comlink:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemas ASA r2"^]. Os sistemas ASA r2 diferem de outros sistemas ONTAP (ASA, AFF e FAS) na implementação de sua camada de armazenamento. Em sistemas ASA r2, os volumes são criados automaticamente quando uma unidade de armazenamento (LUN ou namespace) é criada. volume contém apenas uma unidade de armazenamento. Portanto, para sistemas ASA r2, não é necessário incluir o nome do volume no campo.  `-path` opção ao criar o LUN; você deve incluir o caminho da unidade de armazenamento.
+
+.Passos
+. Eliminar a relação de importação LUN.
++
+[source, cli]
+----
+lun import delete -vserver <SVM_name> -path <volume_path|storage_unit_path>
+----
+. Verifique se o relacionamento de importação foi excluído.
++
+[source, cli]
+----
+lun import show -vserver <SVM_name>
+----
+. Opcionalmente, visualize o log de eventos para verificar os resultados da migração.
++
+[source, cli]
+----
+event log show –event fli*
+----
++
+Este exemplo mostra uma saída de amostra do comando para visualizar o log de eventos dos resultados da migração FLI.
+
++
+[listing]
+----
+DataMig-ontap::*> event log  show –event fli*
+
+7/7/2014 18:37:21   DataMig-ontap-01 INFORMATIONAL fli.lun.verify.complete: Import verify of foreign LUN 83017542001E of size 42949672960 bytes from array model DF600F belonging to vendor HITACHI  with NetApp LUN QvChd+EUXoiS is successfully completed.
+7/7/2014 18:37:15   DataMig-ontap-01 INFORMATIONAL fli.lun.verify.complete: Import verify of foreign LUN 830175420015 of size 42949672960 bytes from array model DF600F belonging to vendor HITACHI  with NetApp LUN QvChd+EUXoiX is successfully completed.
+7/7/2014 18:02:21   DataMig-ontap-01 INFORMATIONAL fli.lun.import.complete: Import of foreign LUN 83017542000F of size 3221225472 bytes from array model DF600F belonging to vendor HITACHI  is successfully completed. Destination NetApp LUN is QvChd+EUXoiU.
+----
+
+
+.O que vem a seguir?
+link:concept_fli_online_post_migration_tasks.html["Executar tarefas pós-migração"] .

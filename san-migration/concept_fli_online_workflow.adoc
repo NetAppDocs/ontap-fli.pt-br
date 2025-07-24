@@ -2,29 +2,71 @@
 permalink: san-migration/concept_fli_online_workflow.html 
 sidebar: sidebar 
 keywords: fli, online, workflow 
-summary: Este é o segundo dos quatro exemplos de fluxo de trabalho da FLI, que abrange a migração online da FLI. 
+summary: Em uma migração on-line FLI, o sistema cliente permanece on-line durante a migração de dados do array de armazenamento externo de terceiros para o sistema de armazenamento NetApp . 
 ---
-= Fluxo de trabalho online FLI
+= Resumo do fluxo de trabalho de migração online do ONTAP FLI
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Este é o segundo dos quatro exemplos de fluxo de trabalho da FLI, que abrange a migração online da FLI. O array de origem neste exemplo é um EMC VNX5500.
+A migração de dados por Importação de LUN Estrangeiro (FLI) é um processo que envolve várias etapas importantes para garantir uma migração bem-sucedida de dados de matrizes de armazenamento de terceiros para sistemas de armazenamento NetApp . A FLI oferece suporte a migrações offline e online. Em uma migração online por Importação de LUN Estrangeiro (FLI), o sistema cliente permanece online durante a migração de dados da matriz de armazenamento externo de terceiros para o sistema de armazenamento NetApp .
 
-o fluxo de trabalho online tem as seguintes tarefas:
+.Antes de começar:
+* Você deve completar o link:concept_migration_discover_phase_workflow.html["descoberta"] , link:concept_migration_analyze_phase_workflow.html["análise"] , e link:concept_migration_plan_phase_workflow.html["planejamento"] fases do processo de migração.
+* Você deve verificar se a migração on-line é suportada para seu tipo de host e para sua configuração de matriz de armazenamento de destino NetApp .
++
+Migrações online não são suportadas pelas configurações do MetroCluster . Se ocorrer um failover de site durante uma importação online ativa, as passagens de gravação para o array de origem podem falhar, o que levaria a uma falha de verificação e potencial perda de dados. Se o seu controlador de destino NetApp estiver em uma configuração do MetroCluster , você deve usar o link:prepare-host-offline-migration.html["Processo de migração offline do FLI"] .
 
-. Preparar o caminho LUN
-. Realização de uma redução disruptiva
-. Importar os dados LUN de origem
-. Verificando os resultados da migração
-. Limpeza da migração online da FLI
-. FLI on-line pós-migração tarefas
++
+As migrações online são suportadas pelas seguintes versões do sistema operacional host Windows, Linux ou ESXi. Para outros sistemas operacionais host, você deve usar o link:prepare-host-offline-migration.html["Processo de migração offline do FLI"] .
+
++
+** Microsoft (todas as versões dos servidores listados são suportadas):
++
+*** Windows Server 2008 R2 e posterior (inclui cluster de failover do Windows Server)
+*** Microsoft Hyper-V Server 2008 e posterior
+*** Windows Server 2012 e posterior (inclui cluster do Windows Server 2012)
+*** Microsoft Hyper-V Server 2012 e posterior
 
 
-[NOTE]
-====
-Se o destino do controlador NetApp for um MetroCluster, NÃO utilize o fluxo de trabalho online. Se um failover de site ocorreu durante uma importação on-line ativa, os throughs de gravação para o array de origem podem falhar, o que levaria a uma falha de verificação e a uma possível perda de dados. Se o destino for MetroCluster, use o processo off-line FLI.
+** VMware ESXi 5.x e posterior
+** Red Had Enterprise Linux (RHEL) 5.x e posterior
 
-====
+
+* Você deve verificar se o multipathing do host está configurado corretamente e funcionando corretamente. Todos os caminhos disponíveis para LUNs devem estar ativos.
+* Você deve link:configure-fc-adapter-initiator.html["configure seus adaptadores FC para o modo iniciador"] .
+* Você deve link:concept_target_and_initiator_port_zoning.html["zonear suas portas de destino de matriz externa com as portas do iniciador de armazenamento ONTAP"] .
+
+
+.Sobre esta tarefa
+Para executar uma migração on-line de FLI, você deve preparar seu host, criar um relacionamento de importação de LUN, mapear o LUN estrangeiro para seu sistema de armazenamento ONTAP , importar dados do LUN estrangeiro, verificar os resultados da migração, remover o relacionamento de importação de LUN e, finalmente, executar tarefas de pós-migração.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Um"]link:prepare-host-online-migration.html["Prepare seu anfitrião"] .
+[role="quick-margin-para"]
+Execute todas as etapas necessárias de correção do host e reinicie-o.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Dois"]link:create-lun-import-relationship-online.html["Criar um relacionamento de importação de LUN"] .
+[role="quick-margin-para"]
+A criação do relacionamento de importação de LUN inclui a identificação do LUN externo a ser importado do array de origem, a criação de um volume de destino para conter o LUN externo, a criação do LUN de destino no seu sistema de armazenamento ONTAP e, finalmente, o estabelecimento do relacionamento de importação.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Três"]link:map-source-lun-to-destination-online-migration.html["Mapeie os LUNs estrangeiros para seu sistema de armazenamento ONTAP"] .
+[role="quick-margin-para"]
+No array externo, desmapeie o LUN a ser migrado e remapeie-o para o seu sistema de armazenamento ONTAP . Este processo é disruptivo.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Quatro"]link:task_fli_online_importing_the_data.html["Importar dados de seus LUNs estrangeiros"] .
+[role="quick-margin-para"]
+Importe os dados do LUN de origem da matriz externa para o LUN de destino do ONTAP .
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png["Cinco"]link:task_fli_online_verifying_migration_results.html["Verifique os resultados da migração"] .
+[role="quick-margin-para"]
+Use o FLI para executar uma comparação bloco a bloco dos LUNs de origem e destino para verificar se a migração está completa e precisa
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-6.png["Seis"]link:remove-lun-import-relationship-online.html["Remover o relacionamento de importação do LUN"] .
+[role="quick-margin-para"]
+Após a conclusão da migração on-line do FLI, o relacionamento de importação do LUN pode ser removido com segurança.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-7.png["Sete"]link:concept_fli_online_post_migration_tasks.html["Executar tarefas pós-migração"] .
+[role="quick-margin-para"]
+Revise os logs em busca de erros, verifique a configuração de multicaminhos do seu host e execute testes de aplicativos para verificar se a migração foi concluída com sucesso.

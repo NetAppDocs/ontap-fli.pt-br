@@ -15,7 +15,7 @@ A fase de descoberta do processo de migração se concentra na coleta de informa
 
 A figura a seguir mostra o fluxo de trabalho da fase de descoberta.
 
-image::../media/discover_phase_1.png[descubra a fase 1]
+image::../media/discover_phase_1.png[fluxo de trabalho da fase de descoberta]
 
 As tarefas da fase de descoberta estão listadas na tabela a seguir.
 

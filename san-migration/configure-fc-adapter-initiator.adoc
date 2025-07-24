@@ -1,0 +1,59 @@
+---
+permalink: san-migration/configure-fc-adapter-initiator.html 
+sidebar: sidebar 
+keywords: online, migration, workflow 
+summary: 'O modo iniciador é usado para conectar as portas a unidades de fita, bibliotecas de fitas ou armazenamento de terceiros com importação de LUN estrangeiro (FLI).' 
+---
+= Configurar adaptadores FC para modo iniciador
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O modo iniciador é usado para conectar as portas a unidades de fita, bibliotecas de fitas ou armazenamento de terceiros com Importação de LUN Estrangeiro (FLI). Você precisa converter seu adaptador de destino FC para o modo iniciador para usá-lo para FLI.
+
+.Antes de começar
+* Os LIFs no adaptador devem ser removidos de quaisquer conjuntos de portas dos quais sejam membros.
+* Todos os LIFs de cada máquina virtual de armazenamento (SVM) que usa a porta física a ser modificada devem ser migrados ou destruídos antes de alterar a personalidade da porta física de destino para iniciador.
+
+
+.Passos
+. Remova todos os LIFs do adaptador:
++
+[source, cli]
+----
+network interface delete -vserver <SVM_name> -lif <lif_name>,<lif_name>
+----
+. Desligue o seu adaptador:
++
+[source, cli]
+----
+network fcp adapter modify -node <node_name> -adapter <adapter_port> -status-admin down
+----
++
+Se o adaptador não ficar offline, você também pode remover o cabo da porta do adaptador apropriada no sistema.
+
+. Alterar o adaptador de destino para iniciador:
++
+[source, cli]
+----
+system hardware unified-connect modify -t initiator <adapter_port>
+----
+. Reinicie o nó que hospeda o adaptador que você alterou.
+. Verifique se as portas FC estão configuradas no estado correto para sua configuração:
++
+[source, cli]
+----
+system hardware unified-connect show
+----
+. Coloque o adaptador novamente online:
++
+[source, cli]
+----
+node run -node _node_name_ storage enable adapter <adapter_port>
+----
+
+
+.O que vem a seguir?
+Zoneie as portas de destino do array externo com as portas iniciadoras do seu armazenamento ONTAP .

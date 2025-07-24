@@ -4,31 +4,53 @@ sidebar: sidebar
 keywords: fli offline, verify, migration, results 
 summary: Um trabalho de verificação é opcional, mas recomendado. É uma comparação bloco a bloco das LUNs de origem e destino. Verifique se os trabalhos demoram quase o mesmo ou um pouco mais do que o tempo de migração. 
 ---
-= FLI offline: Verificando os resultados da migração
+= Verifique os resultados da migração offline do ONTAP FLI
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Um trabalho de verificação é opcional, mas recomendado. É uma comparação bloco a bloco das LUNs de origem e destino. Verifique se os trabalhos demoram quase o mesmo ou um pouco mais do que o tempo de migração.
+Após a migração de um LUN do array externo para o seu sistema de armazenamento ONTAP , o FLI pode realizar uma comparação bloco a bloco dos LUNs de origem e destino para verificar se a migração foi concluída e precisa. A verificação da migração leva aproximadamente o mesmo tempo (ou um pouco mais) que a migração.
+
+Uma verificação de migração não é necessária, mas é altamente recomendada.
+
+.Sobre esta tarefa
+A partir do ONTAP 9.17.1, a migração de dados de LUNs externos usando a migração offline FLI é suportada comlink:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemas ASA r2"^]. Os sistemas ASA r2 diferem de outros sistemas ONTAP (ASA, AFF e FAS) na implementação de sua camada de armazenamento. Em sistemas ASA r2, os volumes são criados automaticamente quando uma unidade de armazenamento (LUN ou namespace) é criada. volume contém apenas uma unidade de armazenamento. Portanto, para sistemas ASA r2, não é necessário incluir o nome do volume no campo.  `-path` opção ao criar o LUN; você deve incluir o caminho da unidade de armazenamento.
 
 .Passos
-. Inicie o trabalho de verificação para comparar LUN de origem e destino. Monitore o progresso da verificação.
+. Inicie a verificação da migração do LUN.
++
+[source, cli]
+----
+lun import verify start -vserver <SVM_name> -path <volume_path|storage_unit_path>
+----
++
+Este exemplo mostra o comando para iniciar a verificação de migração de LUN para LUNs chamados *bootlun*, *fdrive* e *gdrive* no volume *winvol* e no SVM *datamig*.
+
 +
 [listing]
 ----
-DataMig-cmode::*> lun import verify start -vserver datamig -path /vol/winvol/bootlun
+DataMig-ontap::*> lun import verify start -vserver datamig -path /vol/winvol/bootlun
 
-DataMig-cmode::*> lun import verify start -vserver datamig -path /vol/winvol/fdrive
+DataMig-ontap::*> lun import verify start -vserver datamig -path /vol/winvol/fdrive
 
-DataMig-cmode::*> lun import verify start -vserver datamig -path /vol/winvol/gdrive
+DataMig-ontap::*> lun import verify start -vserver datamig -path /vol/winvol/gdrive
 ----
-. Monitorize o estado do trabalho de verificação.
+. Monitore o status da verificação.
++
+[source, cli]
+----
+lun import show -vserver <SVM_name> -fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, estimated-remaining-duration
+----
++
+Este exemplo mostra o comando para monitorar o status de verificação do SVM *datamig*.
+
 +
 [listing]
 ----
-DataMig-cmode::*> lun import show -vserver datamig -fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, , estimated-remaining-duration
+DataMig-ontap::*> lun import show -vserver datamig -fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, , estimated-remaining-duration
+
 vserver foreign-disk path               admin-state operational-state percent-complete imported-blocks total-blocks estimated-remaining-duration
 ------- ------------ ------------------ ----------- ----------------- ---------------- --------------- ------------ ----------------------------
 datamig 83017542000E /vol/winvol/fdrive started     in_progress       57               -               4194304      00:01:19
@@ -37,102 +59,27 @@ datamig 830175420010 /vol/linuxvol/bootlun
                                         started     in_progress       8                -               41943040     00:20:29
 3 entries were displayed.
 ----
-. Confirme se os trabalhos estão concluídos.
++
+Você pode executar o mesmo comando para acompanhar o progresso da verificação. O *estado-operacional* exibe o status *concluído* quando a tarefa de verificação é concluída com sucesso.
+
+. Pare a verificação do LUN.
++
+[source, cli]
+----
+lun import verify stop -vserver <SVM_name> -path <volume_path|storage_unit_path>
+----
++
+Este exemplo mostra o comando para interromper a verificação do LUN para o SVM *datamig*.
+
 +
 [listing]
 ----
-DataMig-cmode::*> lun import show -vserver datamig -fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, , estimated-remaining-duration
-vserver foreign-disk path               admin-state operational-state percent-complete imported-blocks total-blocks estimated-remaining-duration
-------- ------------ ------------------ ----------- ----------------- ---------------- --------------- ------------ ----------------------------
-datamig 83017542000E /vol/winvol/fdrive started     completed         100              -               4194304      -
-datamig 83017542000F /vol/winvol/gdrive started     completed         100              -               6291456      -
-datamig 830175420010 /vol/linuxvol/bootlun
-                                        started     completed         100              -               41943040     -
-3 entries were displayed.
-----
-. Pare o trabalho de verificação após a conclusão da verificação.
-+
-[listing]
-----
-DataMig-cmode::*> lun import verify stop -vserver datamig -path /vol/esxvol/winrdmplun
-----
-. Exclua a relação de importação para remover o trabalho de migração.
-+
-[listing]
-----
-DataMig-cmode::*> lun import delete -vserver datamig -path /vol/winvol/bootlun
-
-DataMig-cmode::*> lun import delete -vserver datamig -path /vol/winvol/fdrive
-
-DataMig-cmode::*> lun import delete -vserver datamig -path /vol/winvol/gdrive
-----
-. Verifique se os trabalhos de importação foram excluídos.
-+
-[listing]
-----
-DataMig-cmode::*> lun import show -vserver datamig
-There are no entries matching your query.
-----
-. Marque o atributo LUN estrangeiro para `false`.
-+
-[listing]
-----
-
-DataMig-cmode::*> storage disk modify { -serial-number 83017542001E }
--is-foreign false
-
-DataMig-cmode::*> storage disk modify { -serial-number 83017542000E }
--is-foreign false
-
-DataMig-cmode::*> storage disk modify { -serial-number 83017542000F }
--is-foreign false
-----
-. Verifique se os LUNs estranhos estão marcados como `false` após a importação.
-+
-[listing]
-----
-DataMig-cmode::*> storage disk show -array-name HITACHI_DF600F_1 -fields disk, serial-number, container-type, owner,import-in-progress, is-foreign
-disk     owner is-foreign container-type import-in-progress serial-number
--------- ----- ---------- -------------- ------------------ -------------
-HIT-1.2  -     false      unassigned     false              83017542001E
-HIT-1.3  -     false      unassigned     false              83017542000E
-HIT-1.4  -     false      unassigned     false              83017542000F
-3 entries were displayed.
-----
-. Coloque os LUNs de destino online usando o comando lun online.
-+
-[listing]
-----
-DataMig-cmode::*> lun online -vserver datamig -path /vol/winvol/bootlun
-
-DataMig-cmode::*> lun online -vserver datamig -path /vol/winvol/fdrive
-
-DataMig-cmode::*> lun online -vserver datamig -path /vol/winvol/gdrive
-----
-. Verifique se os LUNs estão online.
-+
-[listing]
-----
-DataMig-cmode::*> lun show -vserver datamig
-Vserver   Path                            State   Mapped   Type        Size
---------- ------------------------------- ------- -------- -------- --------
-datamig   /vol/esxvol/bootlun             online  mapped   vmware       20GB
-datamig   /vol/esxvol/linuxrdmvlun        online  mapped   linux         2GB
-datamig   /vol/esxvol/solrdmplun          online  mapped   solaris       2GB
-3 entries were displayed.
+DataMig-ontap::*> lun import verify stop -vserver datamig -path /vol/esxvol/winrdmplun
 ----
 +
-[NOTE]
-====
-Os registos de importação são armazenados no ficheiro de registo de eventos do cluster.
+A verificação da importação do LUN deve ser explicitamente interrompida antes de colocar o LUN novamente online. Caso contrário, o  `lun online` O comando falha. Esta etapa deve ser executada manualmente, mesmo que o status indique que a verificação foi concluída.
 
-====
-+
-[listing]
-----
-  DataMig-cmode::*> event log  show –event fli*
-  7/7/2014 18:37:21   DataMig-cmode-01 INFORMATIONAL fli.lun.verify.complete: Import verify of foreign LUN 83017542001E of size 42949672960 bytes from array model DF600F belonging to vendor HITACHI  with NetApp LUN QvChd+EUXoiS is successfully completed.
-  7/7/2014 18:37:15   DataMig-cmode-01 INFORMATIONAL fli.lun.verify.complete: Import verify of foreign LUN 830175420015 of size 42949672960 bytes from array model DF600F belonging to vendor HITACHI  with NetApp LUN QvChd+EUXoiX is successfully completed.
-  7/7/2014 18:02:21   DataMig-cmode-01 INFORMATIONAL fli.lun.import.complete: Import of foreign LUN 83017542000F of size 3221225472 bytes from array model DF600F belonging to vendor HITACHI  is successfully completed. Destination NetApp LUN is QvChd+EUXoiU.
-----
 
+
+.O que vem a seguir?
+link:remove-lun-import-relationship-offline.html["Remover o relacionamento de importação do LUN"] .

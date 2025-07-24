@@ -17,7 +17,7 @@ Na fase de Planejamento, você desenvolve um plano de correção usando as infor
 
 A figura a seguir mostra o fluxo de trabalho do plano.
 
-image::../media/plan_and_prepare_phase_1.png[planejar e preparar a fase 1]
+image::../media/plan_and_prepare_phase_1.png[fluxo de trabalho do plano de migração]
 
 As tarefas da fase de planeamento estão listadas na tabela seguinte.
 

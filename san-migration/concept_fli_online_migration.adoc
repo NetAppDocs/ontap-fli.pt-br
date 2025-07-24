@@ -13,7 +13,7 @@ summary: O fluxo de trabalho de migração online é realizado na fase de execu�
 [role="lead"]
 O fluxo de trabalho de migração online é realizado na fase de execução do processo de migração. O diagrama do fluxo de trabalho on-line mostra as tarefas executadas no host, na malha, no storage de destino e no storage de origem.
 
-image::../media/online_migration_1.png[migração online 1]
+image::../media/online_migration_1.png[Fluxo de trabalho de migração online FlI]
 
 As tarefas de fluxo de trabalho on-line são listadas na tabela a seguir.
 

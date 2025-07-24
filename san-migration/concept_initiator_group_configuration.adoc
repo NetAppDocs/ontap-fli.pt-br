@@ -30,4 +30,4 @@ Os grupos de iniciadores passam por nomes diferentes, dependendo do fornecedor e
 
 Independentemente da nomenclatura, o objetivo de um grupo de iniciadores é identificar iniciadores por WWPNs que compartilham os mesmos mapeamentos LUN.
 
-Para definir grupos de iniciadores, revise a documentação do array para saber como configurar o mascaramento de LUN (grupos de hosts/grupos de armazenamento, etc.). Você também pode analisar https://docs.netapp.com/us-en/ontap-flexarray/implement-third-party/index.html["Implementação de virtualização de FlexArray para storage de terceiros"] os requisitos de configuração de storage de terceiros.
+Para definir grupos iniciadores, revise a documentação do seu array para saber como configurar o mascaramento de LUN (igroups/grupos de hosts/grupos de armazenamento e assim por diante).

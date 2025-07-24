@@ -1,0 +1,420 @@
+---
+permalink: san-migration/create-lun-import-relationship-online.html 
+sidebar: sidebar 
+keywords: fli online, prepare, lun path 
+summary: Antes de migrar um LUN de um array externo para um armazenamento ONTAP , você precisa criar um relacionamento de importação de LUN. Um relacionamento de importação de LUN é um pareamento persistente entre os armazenamentos de origem e de destino para fins de importação de dados. 
+---
+= Crie o relacionamento de importação de LUN para uma migração on-line ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de migrar um LUN de um array externo para um armazenamento ONTAP , você precisa criar um relacionamento de importação de LUN. Um relacionamento de importação de LUN é um pareamento persistente entre os armazenamentos de origem e destino para fins de importação de dados. Os endpoints de origem e destino são LUNs.
+
+A criação do relacionamento de importação de LUN para migrações on-line de importação de LUN estrangeiro (FLI) inclui a identificação do LUN estrangeiro a ser importado do array de origem, a criação e configuração de um volume de destino para conter o LUN estrangeiro, a criação do LUN de destino e, por fim, o estabelecimento do relacionamento de importação.
+
+
+
+== Etapa 1: identificar o LUN da matriz de origem como um LUN estrangeiro no ONTAP
+
+Você precisará identificar o LUN da matriz de origem como um LUN externo antes de iniciar sua migração on-line do FLI.
+
+.Passos
+. No ONTAP, altere o nível de privilégio para avançado.
++
+[source, cli]
+----
+set -privilege advanced
+----
+. Introduza `y` quando lhe for perguntado se pretende continuar.
+. Verifique se a matriz de origem pode ser vista no controlador de destino.
++
+[source, cli]
+----
+storage array show
+----
++
+O exemplo a seguir mostra a descoberta de uma matriz DGC LUNZ.
+
++
+[listing]
+----
+cluster::*> storage array show
+Prefix                         Name   Vendor            Model Options
+-------- ---------------------------- -------- ---------------- ----------
+DGC-1                      DGC_LUNZ_1      DGC             LUNZ
+1 entries were displayed.
+----
+. Exibir detalhes do LUN de origem.
++
+[source, cli]
+----
+storage array config show -array-name <array_name> -instance
+----
++
+O exemplo a seguir mostra os detalhes do array DGC LUNZ.
+
++
+[listing]
+----
+cluster::*> storage array config show -array-name DGC_LUNZ_1 -instance
+
+           Controller Name: ontaptme-fc-cluster-01
+                 LUN Group: 0
+        Array Target Ports: 500601643ea067da
+                 Initiator: 0c
+                Array Name: DGC_LUNZ_1
+   Target Side Switch Port: stme-5010-3:2-1
+Initiator Side Switch Port: stme-5010-3:2-3
+      Number of array LUNs: 1
+
+           Controller Name: ontaptme-fc-cluster-01
+                 LUN Group: 0
+        Array Target Ports: 500601653ea067da
+                 Initiator: 0d
+                Array Name: DGC_LUNZ_1
+   Target Side Switch Port: stme-5010-4:2-1
+Initiator Side Switch Port: stme-5010-4:2-3
+      Number of array LUNs: 1
+~~~~~~~~~~~ output truncated for readability ~~~~~~~~~~~~~~~~~
+8 entries were displayed.
+----
+. Verifique se o array de origem é descoberto através de todas as portas do iniciador.
++
+[source, cli]
+----
+storage array config show -array-name <array_name>
+----
++
+O exemplo a seguir mostra o array DGC LUNZ descoberto por meio de todas as portas do iniciador.
+
++
+[listing]
+----
+cluster::*> storage array config show -array-name DGC_LUNZ_1
+             LUN   LUN
+Node         Group Count                   Array Name       Array Target Port Initiator
+------------ ----- ----- ---------------------------- ----------------------- ---------
+ontaptme-fc-cluster-01
+                 0     1                   DGC_LUNZ_1        500601643ea067da        0c
+                                                             500601653ea067da        0d
+                                                             5006016c3ea067da        0c
+                                                             5006016d3ea067da        0d
+ontaptme-fc-cluster-02
+                 0     1                   DGC_LUNZ_1        500601643ea067da        0c
+                                                             500601653ea067da        0d
+                                                             5006016c3ea067da        0c
+                                                             5006016d3ea067da        0d
+8 entries were displayed.
+----
+. Liste os LUNs mapeados do armazenamento de origem; em seguida, verifique as propriedades e os caminhos do disco.
++
+[source, cli]
+----
+storage disk show -array-name <array_name> -container-type lun
+----
++
+O exemplo a seguir mostra os LUNs mapeados do armazenamento de origem.
+
++
+[listing]
+----
+cluster::*> storage disk show -array-name DGC_LUNZ_1 -instance
+                  Disk: DGC-1.9
+        Container Type: unassigned
+            Owner/Home: -  / -
+               DR Home: -
+    Stack ID/Shelf/Bay: -  / -  / -
+                   LUN: 0
+                 Array: DGC_LUNZ_1
+                Vendor: DGC
+                 Model: VRAID
+         Serial Number: 600601603F103100662E70861000E511
+                   UID: 60060160:3F103100:662E7086:1000E511:00000000:00000000:00000000:00000000:00000000:00000000
+                   BPS: 512
+         Physical Size: -
+              Position: present
+Checksum Compatibility: block
+             Aggregate: -
+                  Plex: -
+Paths:
+                               LUN  Initiator Side        Target Side                                                        Link
+Controller         Initiator     ID  Switch Port           Switch Port           Acc Use  Target Port                TPGN    Speed      I/O KB/s          IOPS
+------------------ ---------  -----  --------------------  --------------------  --- ---  -----------------------  ------  -------  ------------  ------------
+ontaptme-fc-cluster-02
+                   0c             0  stme-5010-3:2-4       stme-5010-3:2-2       AO  INU  5006016c3ea067da              2   4 Gb/S             0             0
+ontaptme-fc-cluster-02
+                   0d             0  stme-5010-4:2-4       stme-5010-4:2-2       AO  INU  5006016d3ea067da              2   4 Gb/S             0             0
+ontaptme-fc-cluster-02
+                   0d             0  stme-5010-4:2-4       stme-5010-4:2-1       ANO RDY  500601653ea067da              1   4 Gb/S             0             0
+
+Errors:
+-
+----
+. Veja o LUN de origem.
++
+[source, cli]
+----
+storage disk show -array-name <array_name>
+----
++
+O exemplo a seguir mostra o LUN de origem.
+
++
+[listing]
+----
+cluster::*> storage disk show -array-name DGC_LUNZ_1
+                     Usable           Disk    Container   Container
+Disk                   Size Shelf Bay Type    Type        Name      Owner
+---------------- ---------- ----- --- ------- ----------- --------- --------
+DGC-1.9                   -     -   - LUN     unassigned  -         -
+----
+. Marque o LUN de origem como estranho.
++
+[source, cli]
+----
+storage disk set-foreign-lun -is-foreign true -disk <disk_name>
+----
++
+O exemplo a seguir mostra o comando para marcar o LUN de origem como estrangeiro.
+
++
+[listing]
+----
+cluster::*> storage disk set-foreign-lun -is-foreign true -disk DGC-1.9
+----
+. Verifique se o LUN de origem está marcado como estranho.
++
+[source, cli]
+----
+storage disk show -array-name <array_name>
+----
++
+O exemplo a seguir mostra o LUN de origem marcado como estrangeiro.
+
++
+[listing]
+----
+cluster::*> storage disk show -array-name DGC_LUNZ_1
+                     Usable           Disk    Container   Container
+Disk                   Size Shelf Bay Type    Type        Name      Owner
+---------------- ---------- ----- --- ------- ----------- --------- --------
+DGC-1.9
+----
+. Liste todos os LUNs estrangeiros e seus números de série.
++
+[source, cli]
+----
+storage disk show -container-type foreign -fields serial-number
+----
++
+Números de série são usados em comandos de importação de FLI LUN.
+
++
+O exemplo a seguir mostra o LUN estrangeiro e seu número de série.
+
++
+[listing]
+----
+disk    serial-number
+------- --------------------------------
+DGC-1.9 600601603F103100662E70861000E511
+----
+
+
+
+
+== Etapa 2: criar e configurar um volume de destino
+
+Antes de criar o relacionamento de importação de LUN para uma migração on-line de FLI, você deve criar um volume no seu sistema de armazenamento ONTAP para conter o LUN que você importará do seu array externo.
+
+.Sobre esta tarefa
+A partir do ONTAP 9.17.1, a migração de dados de LUNs estrangeiros usando a migração offline FLI é compatível com sistemas ASA r2. Os sistemas ASA r2 diferem de outros sistemas ONTAP (ASA, AFF e FAS) na implementação de sua camada de armazenamento. Em sistemas ASA r2, os volumes são criados automaticamente quando uma unidade de armazenamento (LUN ou namespace) é criada. Portanto, não é necessário criar um volume antes de criar o relacionamento de importação de LUN. Você pode pular esta etapa se estiver usando um sistema ASA r2.
+
+Saiba mais sobre link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemas ASA r2"^] .
+
+.Passos
+. Crie um volume de destino.
++
+[source, cli]
+----
+volume create -vserver <SVM_name> -volume <volume_name> -aggregate <aggregate_name> -size <size>
+----
+. Verifique se o volume foi criado.
++
+[source, cli]
+----
+volume show -vserver <SVM_name>
+----
++
+O exemplo a seguir mostra o volume *fli_vol* criado no SVM *fli*.
+
++
+[listing]
+----
+cluster::*> vol show -vserver fli
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+fli       fli_root     aggr1        online     RW          1GB    972.6MB    5%
+fli       fli_vol      aggr1        online     RW          2TB     1.90TB    5%
+2 entries were displayed.
+----
+. Defina a opção Fraction_reserveoption para cada volume `0` e defina a política Snapshot como `none`.
++
+[source, cli]
+----
+volume modify -vserver <SVM_name> -volume * -fractional-reserve 0 -snapshot-policy none
+----
+. Verifique as configurações de volume.
++
+[source, cli]
+----
+volume show -vserver <SVM_name> -volume * -fields fractional-reserve,snapshot-policy
+----
++
+O exemplo a seguir mostra a *reserva fracionária* definida como  `0` e a *política de instantâneo* definida para  `none` para o volume *fli_vol* no SVM *fli*.
+
++
+[listing]
+----
+cluster::*> vol show -vserver datamig -volume * -fields fractional-reserve,snapshot-policy
+vservervolumesnapshot-policyfractional-reserve
+-----------------------------------------------
+datamigdatamig_rootnone0%
+datamigwinvolnone0%
+Volume modify successful on volume winvol of Vserver datamig.
+----
+. Exclua todas as cópias Snapshot existentes.
++
+[source, cli]
+----
+set advanced; snap delete –vserver <SVM_name> –vol <volume_name> –snapshot * -force true
+----
++
+[NOTE]
+====
+A migração DO FLI modifica cada bloco dos LUNs de destino. Se houver cópias snapshot padrão ou outras cópias snapshot em um volume antes da migração FLI, o volume será preenchido. É necessário alterar a política e remover cópias Snapshot existentes antes da migração FLI. A política de instantâneos pode ser novamente definida após a migração.
+
+====
+
+
+
+
+== Etapa 3: Crie o LUN de destino e o relacionamento de importação do LUN
+
+Para se preparar para a importação de LUN estrangeiro, crie o LUN de destino e o igroup, mapeie o LUN para o igroup e crie o relacionamento de importação de LUN.
+
+A partir do ONTAP 9.17.1, a migração de dados de LUNs externos usando a migração offline FLI é suportada comlink:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemas ASA r2"^]. Os sistemas ASA r2 diferem de outros sistemas ONTAP (ASA, AFF e FAS) na implementação de sua camada de armazenamento. Em sistemas ASA r2, os volumes são criados automaticamente quando uma unidade de armazenamento (LUN ou namespace) é criada. volume contém apenas uma unidade de armazenamento. Portanto, para sistemas ASA r2, não é necessário incluir o nome do volume no campo.  `-path` opção ao criar o LUN; você deve incluir o caminho da unidade de armazenamento.
+
+.Passos
+. Crie o LUN de destino.
++
+[source, cli]
+----
+lun create -vserver <SVM_name> -path <volume_path|storage_unit_path> -ostype <os_type> -foreign-disk <serial_number>
+----
++
+[NOTE]
+====
+O  `lun create` O comando detecta o tamanho e o alinhamento do LUN com base no deslocamento da partição e cria o LUN de acordo com a opção foreign-disk. Algumas E/S sempre parecerão gravações parciais e, portanto, desalinhadas. Exemplos disso seriam os logs do banco de dados.
+
+====
+. Verifique se o novo LUN foi criado.
++
+[source, cli]
+----
+lun show -vserver <SVM_name>
+----
++
+O exemplo a seguir mostra o novo LUN criado no SVM *fli*.
+
++
+[listing]
+----
+cluster::*> lun show -vserver fli
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+fli       /vol/fli_vol/OnlineFLI_LUN      online  unmapped windows_2008  1TB
+----
+. Se você estiver executando o ONTAP 9.15.1 ou posterior, desative a alocação de espaço para os LUNs recém-criados.
++
+A alocação de espaço é habilitada por padrão para LUNs recém-criados no ONTAP 9.15.1 e posteriores.
+
++
+[source, cli]
+----
+lun modify -vserver <vserver_name> -volume <volume_name> -lun <lun_name> -space-allocation disabled
+----
+. Verifique se a alocação de espaço está desabilitada.
++
+[source, cli]
+----
+lun show -vserver <vserver_name> -volume <volume_name> -lun <lun_name> -fields space-allocation
+----
+. Crie um grupo de protocolos FCP com iniciadores de host.
++
+[source, cli]
+----
+igroup create -vserver <SVM_name> -igroup <igroup_name> -protocol fcp -ostype <os_type> -initiator <initiator_name>
+----
+. Verifique se o host pode acessar todos os caminhos para o novo igroup.
++
+[source, cli]
+----
+igroup show -vserver <SVM_name> -igroup <igroup_name>
+----
++
+O exemplo a seguir mostra o igroup *FLI* no SVM *fli* com dois iniciadores conectados.
+
++
+[listing]
+----
+cluster::*> igroup show –vserver fli –igroup FLI
+   Vserver name: fli
+    Igroup name: FLI
+       Protocol: fcp
+     OS Type: Windows
+Portset Binding Igroup: -
+   Igroup UUID: 5c664f48-0017-11e5-877f-00a0981cc318
+          ALUA: true
+    Initiators: 10:00:00:00:c9:e6:e2:77 (logged in)
+10:00:00:00:c9:e6:e2:79 (logged in)
+----
+. Offline o LUN de destino.
++
+[source, cli]
+----
+lun offline -vserver <SVM_name> -path <volume_path|storage_unit_path>
+----
++
+O exemplo a seguir mostra o comando para colocar o novo LUN offline no SVM *fli*.
+
++
+[listing]
+----
+cluster::*> lun offline -vserver fli -path /vol/fli_vol/OnlineFLI_LUN
+
+Warning: This command will take LUN "/vol/fli_vol/OnlineFLI_LUN" in Vserver "fli" offline.
+Do you want to continue? {y|n}: y
+----
+. Mapeie o LUN de destino para o grupo.
++
+[source, cli]
+----
+lun map -vserver <SVM_name> -path <volume_path|storage_unit_path> -igroup <igroup_name>
+----
+. Criar relação de importação entre novo LUN e LUN estrangeiro.
++
+[source, cli]
+----
+lun import create -vserver <SVM_name> -path <volume_path|storage_unit_path> -foreign-disk <disk_serial_number>
+----
+
+
+.O que vem a seguir?
+link:map-source-lun-to-destination-online-migration.html["Mapeie o LUN de origem para o LUN de destino do ONTAP"] .
+
+.Informações relacionadas
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_is_an_unaligned_I%2F%2FO%3F["Saiba mais sobre E/S não alinhadas"^] .

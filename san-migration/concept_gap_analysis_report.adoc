@@ -21,4 +21,4 @@ A seção Completed NetApp Recommended na seção hosts da sua Planilha de Pesqu
 
 A seguir está um exemplo de relatório de análise de lacunas.
 
-image::../media/create_the_gap_analysis_report_1.png[crie o relatório de análise de lacunas 1]
+image::../media/create_the_gap_analysis_report_1.png[exemplo de um relatório de análise de lacunas]

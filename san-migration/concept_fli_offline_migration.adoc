@@ -13,7 +13,7 @@ summary: O fluxo de trabalho de migração offline é realizado na fase de execu
 [role="lead"]
 O fluxo de trabalho de migração offline é realizado na fase de execução do processo de migração. O diagrama de fluxo de trabalho off-line mostra as tarefas que são executadas no host, na malha, no armazenamento de destino e no armazenamento de origem.
 
-image::../media/offline_migration_1.png[migração offline 1]
+image::../media/offline_migration_1.png[Fluxo de trabalho de migração offline do FLI]
 
 As tarefas de fluxo de trabalho offline são listadas na tabela a seguir.
 

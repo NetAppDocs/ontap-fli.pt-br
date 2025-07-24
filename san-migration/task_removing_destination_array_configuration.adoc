@@ -20,10 +20,10 @@ As etapas a seguir mostram como remover a configuração do array de destino do 
 . Expanda grupos e selecione *Host Groups*.
 . Selecione o grupo anfitrião *cDOT_FLI* e clique em *Eliminar grupo anfitrião*.
 +
-image::../media/remove_destination_array_configuration_from_source_array_1.png[remova a configuração do array de destino do array de origem 1]
+image::../media/remove_destination_array_configuration_from_source_array_1.png[removendo a configuração da matriz de destino da matriz de origem]
 
 . Confirme a exclusão do grupo host.
 +
-image::../media/remove_destination_array_configuration_from_source_array_2.png[remova a configuração do array de destino do array de origem 2]
+image::../media/remove_destination_array_configuration_from_source_array_2.png[removendo a configuração da matriz de destino da matriz de origem]
 
 
