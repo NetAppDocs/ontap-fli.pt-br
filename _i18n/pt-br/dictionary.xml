@@ -1451,7 +1451,6 @@
   <block id="faa638e01a027f3e33ce873fec967f8a" category="paragraph">Números de série são usados em comandos de importação de FLI LUN.</block>
   <block id="6f6829770b4585c77f91df7632cfa37b" category="paragraph">O exemplo a seguir mostra o LUN estrangeiro e seu número de série.</block>
   <block id="501a07ad7efd92d4ab6857db010311d9" category="paragraph">Antes de criar o relacionamento de importação de LUN para uma migração on-line de FLI, você deve criar um volume no seu sistema de armazenamento ONTAP para conter o LUN que você importará do seu array externo.</block>
-  <block id="e206a420950b325cd731e287640847e1" category="paragraph">A partir do ONTAP 9.17.1, a migração de dados de LUNs estrangeiros usando a migração offline FLI é compatível com sistemas ASA r2. Os sistemas ASA r2 diferem de outros sistemas ONTAP (ASA, AFF e FAS) na implementação de sua camada de armazenamento. Em sistemas ASA r2, os volumes são criados automaticamente quando uma unidade de armazenamento (LUN ou namespace) é criada. Portanto, não é necessário criar um volume antes de criar o relacionamento de importação de LUN. Você pode pular esta etapa se estiver usando um sistema ASA r2.</block>
   <block id="36c24dd9dc232796178e694a76c5bb02" category="paragraph">Saiba mais sobre <block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block> .</block>
   <block id="a08233060f61816c66576ecb8a6b108d" category="list-text">Verifique se o volume foi criado.</block>
   <block id="c9d18f8008099eef7df9f27c2445e7e7" category="paragraph">O exemplo a seguir mostra o volume *fli_vol* criado no SVM *fli*.</block>
@@ -1590,4 +1589,5 @@
   <block id="f93ebe1eaf4c78ebab1a110b95f655d8" category="sidebar">Migração online FLI</block>
   <block id="a9fa02c73b0556989b39e0a09dc2fb37" category="sidebar">Preparar hosts para migração</block>
   <block id="9cc66e684b29dae71b3873021ab5f900" category="sidebar">Mapear os LUNs de origem para a matriz de destino</block>
+  <block id="3e06682f4f26baa39169365df5a4cbff" category="paragraph">A partir do ONTAP 9.17.1, a migração de dados de LUNs estrangeiros usando a migração on-line FLI é suportada com sistemas ASA r2. Os sistemas ASA r2 diferem de outros sistemas ONTAP (ASA, AFF e FAS) na implementação de sua camada de armazenamento. Em sistemas ASA r2, os volumes são criados automaticamente quando uma unidade de armazenamento (LUN ou namespace) é criada. Portanto, não é necessário criar um volume antes de criar o relacionamento de importação de LUN. Você pode pular esta etapa se estiver usando um sistema ASA r2.</block>
 </blocks>

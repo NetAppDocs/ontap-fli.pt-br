@@ -231,7 +231,7 @@ DGC-1.9 600601603F103100662E70861000E511
 Antes de criar o relacionamento de importação de LUN para uma migração on-line de FLI, você deve criar um volume no seu sistema de armazenamento ONTAP para conter o LUN que você importará do seu array externo.
 
 .Sobre esta tarefa
-A partir do ONTAP 9.17.1, a migração de dados de LUNs estrangeiros usando a migração offline FLI é compatível com sistemas ASA r2. Os sistemas ASA r2 diferem de outros sistemas ONTAP (ASA, AFF e FAS) na implementação de sua camada de armazenamento. Em sistemas ASA r2, os volumes são criados automaticamente quando uma unidade de armazenamento (LUN ou namespace) é criada. Portanto, não é necessário criar um volume antes de criar o relacionamento de importação de LUN. Você pode pular esta etapa se estiver usando um sistema ASA r2.
+A partir do ONTAP 9.17.1, a migração de dados de LUNs estrangeiros usando a migração on-line FLI é suportada com sistemas ASA r2. Os sistemas ASA r2 diferem de outros sistemas ONTAP (ASA, AFF e FAS) na implementação de sua camada de armazenamento. Em sistemas ASA r2, os volumes são criados automaticamente quando uma unidade de armazenamento (LUN ou namespace) é criada. Portanto, não é necessário criar um volume antes de criar o relacionamento de importação de LUN. Você pode pular esta etapa se estiver usando um sistema ASA r2.
 
 Saiba mais sobre link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemas ASA r2"^] .
 
@@ -417,4 +417,4 @@ lun import create -vserver <SVM_name> -path <volume_path|storage_unit_path> -for
 link:map-source-lun-to-destination-online-migration.html["Mapeie o LUN de origem para o LUN de destino do ONTAP"] .
 
 .Informações relacionadas
-https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_is_an_unaligned_I%2F%2FO%3F["Saiba mais sobre E/S não alinhadas"] .
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_is_an_unaligned_I%2F%2FO%3F["Saiba mais sobre E/S não alinhadas"^] .
