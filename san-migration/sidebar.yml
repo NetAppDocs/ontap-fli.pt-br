@@ -49,7 +49,7 @@ entries:
   - title: Requisitos físicos de fiação para FLI
     url: "/san-migration/concept_physical_wiring_requirements_for_fli.html"
   - title: Configurar adaptadores FC para modo iniciador
-    url: san-migration/configure-fc-adapter-initiator.html
+    url: "/san-migration/configure-fc-adapter-initiator.html"
   - title: Zoneamento de porta de destino e iniciador para FLI
     url: "/san-migration/concept_target_and_initiator_port_zoning.html"
   - title: Configuração do grupo de iniciadores
