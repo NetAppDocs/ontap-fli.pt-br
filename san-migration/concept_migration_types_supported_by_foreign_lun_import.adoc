@@ -19,6 +19,4 @@ O FLI suporta quatro tipos principais de fluxos de trabalho de migração: On-li
 * Em uma migração automatizada, a FLI usa o software de automação de fluxo de trabalho (WFA) para automatizar partes do processo de migração. O FLI com WFA está disponível no modo online ou offline.
 
 
-Arquitetonicamente, as três migrações e o fluxo de trabalho de transição são bastante semelhantes. Todos os quatro dependem da tecnologia FlexArray da NetApp para permitir que seu controlador ONTAP atue como um iniciador na frente de um array de origem e use essa posição para copiar blocos LUNs para blocos da origem para um LUN no array ONTAP de destino.
-
 As diferenças entre os fluxos de trabalho têm a ver com quando ocorrem cortes, duração da janela de interrupção, uso de automação ou se o array de origem é um array NetApp executando o ONTAP 7-Mode ou um array de terceiros.

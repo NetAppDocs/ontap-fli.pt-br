@@ -32,7 +32,7 @@ Essas ferramentas e utilitários também são úteis em projetos de migração F
 
 * *Matriz de interoperabilidade*
 +
-A ferramenta de Matriz de interoperabilidade (IMT) é um utilitário baseado na Web do NetApp que é usado para verificações de interoperabilidade para componentes de software NetApp, FlexArray e de terceiros.
+A ferramenta Interoperability Matrix (IMT) é um utilitário baseado na web da NetApp usado para verificar a interoperabilidade de componentes de software da NetApp e de terceiros.
 
 * *Gerenciador de sistema ONTAP*
 +
@@ -48,10 +48,6 @@ O WFA é uma solução de software que permite criar fluxos de trabalho de stora
 
 https://mysupport.netapp.com/site/tools["Ferramentas NetApp"]
 
-http://mysupport.netapp.com/NOW/download/tools/ndcp/["Ferramentas do NetApp: Planejador de data center"]
-
 https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]
-
-http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61372["Documentação do NetApp: OnCommand System Manager (versões atuais)"]
 
 http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61550["Documentação do NetApp: OnCommand Workflow Automation (versões atuais)"]

@@ -13,7 +13,7 @@ summary: É importante verificar se o sistema operacional do host, HBA, switch e
 [role="lead"]
 É importante verificar se o sistema operacional do host, HBA, switch e array ONTAP para o qual você está fazendo a transição são suportados.
 
-Se você estiver usando o fluxo de trabalho de transição FLI de 7 modos para ONTAP, não será necessário verificar sua origem (controlador de 7 modos) no FlexArray IMT. Ele não será listado, mas é suportado expressamente para este fluxo de trabalho de transição. Você ainda precisa verificar se todos os hosts estão em uma configuração compatível.
+Se você estiver usando o fluxo de trabalho de transição do FLI 7-Mode para o ONTAP , não precisa verificar sua origem (controlador 7-Mode) no IMT. Não será listado, mas é expressamente suportado para este fluxo de trabalho de transição. Você ainda precisa verificar se todos os hosts estão em uma configuração compatível.
 
 Não há requisitos específicos da plataforma da FLI. Também não há versões mínimas do Data ONTAP de 7 modos, embora a versão tenha que suportar o protocolo Fibre Channel (FCP).
 

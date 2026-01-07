@@ -2,7 +2,7 @@
 permalink: san-migration/task_importing_non_fc_luns.html 
 sidebar: sidebar 
 keywords: import, non-fc luns 
-summary: 'Como a importação de LUNs externos (FLI) utiliza a tecnologia FlexArray para montar LUNs externos, ela só pode se conetar a arrays de origem usando o FCP. Somente LUNs FC são compatíveis com FLI. No entanto, existe uma solução alternativa que permite importar iSCSI LUNs. Como você importará os LUNs iSCSI como LUNs FC, ao contrário de outros fluxos de trabalho de 7 modos online FLI para ONTAP, a janela de interrupção abrangeria todo esse fluxo de trabalho:' 
+summary: 'Somente LUNs FC são suportadas pelo FLI. No entanto, existe uma solução alternativa que permite importar LUNs iSCSI. Como você importará os LUNs iSCSI como LUNs FC, diferentemente de outros fluxos de trabalho online de 7-Mode para ONTAP da FLI, a janela de interrupção abrangerá todo esse fluxo de trabalho:' 
 ---
 = Importação de LUNs não FC
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: 'Como a importação de LUNs externos (FLI) utiliza a tecnologia FlexAr
 
 
 [role="lead"]
-Como a importação de LUNs externos (FLI) utiliza a tecnologia FlexArray para montar LUNs externos, ela só pode se conetar a arrays de origem usando o FCP. Somente LUNs FC são compatíveis com FLI. No entanto, existe uma solução alternativa que permite importar iSCSI LUNs. Como você importará os LUNs iSCSI como LUNs FC, ao contrário de outros fluxos de trabalho de 7 modos online FLI para ONTAP, a janela de interrupção abrangeria todo esse fluxo de trabalho:
+Somente LUNs FC são suportadas pelo FLI. No entanto, existe uma solução alternativa que permite importar LUNs iSCSI. Como você importará os LUNs iSCSI como LUNs FC, diferentemente de outros fluxos de trabalho online de 7-Mode para ONTAP da FLI, a janela de interrupção abrangerá todo esse fluxo de trabalho:
 
 Como você importará os LUNs iSCSI como LUNs FC, ao contrário de outros fluxos de trabalho de 7 modos online FLI para ONTAP, a janela de interrupção abrangeria todo esse fluxo de trabalho.
 
