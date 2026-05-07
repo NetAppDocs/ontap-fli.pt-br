@@ -1,0 +1,70 @@
+---
+permalink: phases/verify-phase.html 
+sidebar: sidebar 
+keywords: verify phase, foreign lun import, fli, post-migration cleanup, application validation, fc zoning, iscsi cleanup, ontap configuration, migration documentation, san migration 
+summary: Saiba mais sobre a fase de verificação, que confirma se a migração foi concluída conforme o planejado e remove as configurações temporárias usadas durante a janela de migração. 
+---
+= Fase de verificação da importação de LUN estrangeiro (FLI) do ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de verificação confirma se a migração foi concluída conforme planejado e concentra-se na limpeza pós-migração. Isso inclui validar o comportamento do aplicativo, confirmar o acesso correto do host e os caminhos para os LUNs do ONTAP, coletar logs de migração para auditoria e solução de problemas, e remover a conectividade e a configuração temporárias que foram usadas apenas para a migração.
+
+Como parte da limpeza, você remove os registros de iniciador do lado da origem e o zoneamento que não são mais necessários, e documenta a configuração final para que as equipes de operações tenham um estado “as-built” claro.
+
+Para iSCSI FLI, a fase de verificação também deve incluir a remoção das sessões do iniciador iSCSI de software e dos iniciadores criados em LIFs entre clusters. Se as LIFs entre clusters foram criadas apenas para a importação de LUNs estrangeiros, mesmo essas LIFs devem ser excluídas.
+
+
+
+== Tarefas da fase de verificação do ONTAP FLI
+
+A seguir estão as tarefas de verificação FLI do ONTAP para cada componente.
+
+[cols="1,2"]
+|===
+| Componente | Tarefas 
+
+
+| Host  a| 
+* Realize a validação em nível de aplicação nos LUNs migrados. (verificação de consistência do sistema de arquivos, erro de checksum, dbcc checkdb (MS SQL), rman (Oracle))
+* Confirme se todos os sistemas de arquivos, datastores e discos de cluster esperados estão acessíveis e estáveis após a migração e remediação.
+* Confirme se a contagem de caminhos de E/S e o tipo de caminho estão nas linhas esperadas.
+
+
+
+
+| Fabric FC FLI  a| 
+* Remova as zonas de armazenamento host-para-origem do conjunto de zonas ativas, ou regras de acesso equivalentes, caso ainda não tenham sido removidas durante a migração inicial.
+* Remova as zonas de conectividade de origem para destino criadas especificamente para migração.
+* Faça backup do conjunto de zonas atualizado após a migração para fins de reversão e auditoria.
+
+
+
+
+| Rede iSCSI FLI  a| 
+* Remova os objetos de conectividade de backend iSCSI FLI criados para a migração.
+* As sessões do iniciador iSCSI devem ser excluídas e o objeto iniciador iSCSI criado nas LIF entre clusters deve ser excluído.
+
+
+
+
+| NetApp array de storage (Destino)  a| 
+* Verifique a correção do armazenamento pós-migração, incluindo o alinhamento de LUN, quando exigido pelo seu host ou caso de uso.
+* Colete os registros de importação da migração FLI para auditoria e solução de problemas. Acione o AutoSupport após a conclusão da migração.
+* Remova quaisquer cópias de Snapshot criadas manualmente que sejam usadas exclusivamente para reverter durante o período de migração.
+* Remova artefatos de configuração do array de origem do ONTAP que não são mais necessários, como objetos do array de origem e detalhes de associação de disco externo. Confirme o mesmo usando o comando storage disk show.
+* Documente a configuração final do ONTAP, incluindo os caminhos LUN, mapeamentos, igroups, iniciadores e modelo de acesso do host.
+
+
+
+
+| Array de storage (Fonte)  a| 
+* Remova os grupos iniciadores de armazenamento de destino (NetApp) e os grupos de host criados para apresentar LUNs de origem ao ONTAP durante a migração.
+* Remova os grupos iniciadores do host e os registros de host relacionados ao mapeamento de host original ao desativar o acesso à origem.
+* Garanta que os LUNs de origem migrados não sejam mais apresentados de forma que possam causar apresentação dupla ao host. Isso é crucial e deve ser assegurado durante toda a migração.
+
+
+|===

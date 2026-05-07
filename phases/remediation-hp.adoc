@@ -1,0 +1,112 @@
+---
+permalink: phases/remediation-hp.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, hp host, pre-migration, offline fli, online fli 
+summary: Antes de executar a migração do ONTAP FLI em um host HP, conclua estas etapas de pré-migração. Existem etapas separadas para migrações offline e online. 
+---
+= Remediação do host ONTAP FLI HP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de executar a migração do ONTAP FLI em um host HP, conclua estas etapas de pré-migração. Existem etapas separadas para migrações offline e online.
+
+
+
+== Pré-migração - FLI offline
+
+Esses passos são comuns tanto para FLI online quanto offline. Antes de remover o LUN de origem do host, certifique-se de que os seguintes passos sejam concluídos.
+
+[cols="3"]
+|===
+| Sistema de arquivos (LVM e não-LVM) | Cluster de hosts (SCSI3 PR) | SANBOOT 
+
+
+| Etapa 1: Coletar completamente a configuração do dispositivo de bloco de ponta a ponta: integridade/caminhos do multipath, layout LVM no LUN de inicialização e configurações UEFI confirmando o dispositivo de inicialização e os parâmetros de inicialização corretos. | Etapa 1: registre os detalhes gerais do cluster e os discos envolvidos na migração. | Etapa 1: Coletar completamente a configuração de inicialização SAN-boot: integridade/caminhos do multipath, layout LVM no LUN de inicialização e configurações UEFI confirmando o dispositivo de inicialização e os parâmetros de inicialização corretos. 
+
+
+| Passo 2: Certifique-se de que as entradas do arquivo /etc/fstab para os respectivos dispositivos de dados (LVM/Non-LVM) estejam corretas. | Etapa 2: desligue os serviços do cluster corretamente, seguindo o procedimento recomendado. | Etapa 2: certifique-se de que as entradas do arquivo /etc/fstab para o dispositivo SAN Boot, incluindo os dispositivos de dados (lvm/nonlvm), estejam corretas 
+
+
+| Passo 3: Certifique-se de que todas as operações nos pontos de montagem de destino estejam pausadas. Verifique se não há processos acessando o blockdevice. Se necessário, drene/encerre os handles de processos abertos. | Etapa 3: Remova os dispositivos de bloco SCSI associados ao dispositivo multipath. | Etapa 3: No shell UEFI, verifique a tabela de mapeamento de dispositivos e inicialize o hpux a partir do dispositivo de armazenamento 
+
+
+| Etapa 4: Desmonte o sistema de arquivos e execute o backup da configuração do grupo de volume LVM. Desative o VG e exporte o VG | Etapa 4: analise novamente o host para garantir que não haja entradas obsoletas no mapeamento de dispositivos existente. | Passo 4: Certifique-se de que o dispositivo de inicialização primário esteja definido como dispositivo de armazenamento para que ele inicialize automaticamente em reinicializações subsequentes 
+
+
+| Passo 5: Remova todos os arquivos obsoletos de dispositivos SCSI. |  | Etapa 5: reinicie o host para garantir que ele inicialize corretamente após as alterações acima. Assim que o host inicializar corretamente, entenda que a pré-remediação do host para a migração do FLI está pronta. 
+
+
+| Etapa 6: Execute uma nova varredura no barramento SCI para que o host tenha a lista de dispositivos atualizada, por exemplo: ioscan -fnC disk |  | Etapa 6: Agora desligue o host sanboot para prosseguir com o fluxo de trabalho ONTAP FLI. 
+|===
+
+
+== Pré-migração - FLI online
+
+A seguir estão os passos específicos do FLI Online, mas estes passos devem ser precedidos pelos passos do FLI Offline de Pré-Migração. Os seguintes passos devem ser executados após o NetApp LUN ser provisionado para o host.
+
+[cols="4"]
+|===
+| Sistema de arquivos | Dispositivo de bloco | LVM (FS) | Sanboot 
+
+
+| Etapa 1: execute uma nova verificação de armazenamento em todos os hosts HP-UX mapeados | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts HP-UX mapeados. | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts HP-UX mapeados | Passo 1: Ligue o servidor 
+
+
+| Etapa 2: identificar os dispositivos multipath | Etapa 2: identificar os dispositivos multipath | Etapa 2: identificar os dispositivos multipath | Passo 2: No shell UEFI, verifique a tabela de mapeamento de dispositivos e inicialize o hpux a partir do novo dispositivo de armazenamento 
+
+
+| Etapa 3: Verifique os detalhes do sistema de arquivos | Etapa 3: Identifique o ID do dispositivo multipath e apresente-o ao aplicativo correspondente. | Etapa 3: certifique-se de que os novos arquivos de dispositivo LVM foram criados corretamente | Etapa 3: modifique o dispositivo de inicialização primário para o novo LUN de armazenamento. Reinicie o host para inicializar a partir do LUN recém-mapeado que faz parte da importação de LUN 
+
+
+| Passo 4: Monte os dispositivos de volta nas respectivas pastas |  | Etapa 4: importar o VG/LVM |  
+
+
+|  |  | Passo 5: Ative o VG |  
+
+
+|  |  | Passo 6: Liste os LVs presentes no VG |  
+
+
+|  |  | Etapa 7: Monte os LVMs de volta nas respectivas pastas |  
+|===
+
+NOTE: Consulte a documentação do fornecedor do sistema operacional para obter a lista de comandos mais recente e atualizada.
+
+.Passos
+. Identificar dispositivos de armazenamento.
++
+[Source]
+----
+ioscan -fnC disk
+sanlun lun show all (Works on Netapp Storage)
+sanlun lun show all -pv
+sanlun lun show -wwpn
+----
+. Identifique o grupo de volume e os sistemas de arquivos.
++
+[Source]
+----
+vgdisplay -v /dev/vg_name
+vgdisplay /dev/vg_name
+lvdisplay /dev/vg_name/lv_name
+----
+. Desmonte o sistema de arquivos e exporte o grupo de volume.
++
+[Source]
+----
+bdf
+umount /mount_point
+vgchange -a n /dev/vg_name
+vgexport /dev/hpux_vg_online
+----
+. Faça uma nova verificação após desconectar para confirmar que o estado está limpo.
++
+[Source]
+----
+insf -e
+ioscan -fnC disk
+----
+

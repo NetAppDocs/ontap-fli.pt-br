@@ -6,13 +6,64 @@ indexpage:
     foreign
   lead: Importação LUN estrangeiro ONTAP
   tiles:
-  - title: Workflows de FLI
+  - title: Notas de lançamento
+    url: "/release-notes.html"
     links:
-    - title: Fluxo de trabalho offline
-      url: "/san-migration/concept_fli_offline_workflow.html"
-    - title: Fluxo de trabalho online
-      url: "/san-migration/concept_fli_online_workflow.html"
-    - title: Fluxo de trabalho de transição FLI 7-Mode para ONTAP
-      url: "/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html"
-    - title: FLI usando automação de fluxo de trabalho (WFA)
-      url: "/san-migration/concept_fli_using_workflow_automation_wfa.html"
+    - title: Novidades no ONTAP para migração de dados SAN
+      url: release-notes/whats-new.html
+  - title: Comece agora
+    url: "/get-started.html"
+    links:
+    - title: Saiba mais sobre o programa de migração de dados ONTAP
+      url: "/get-started/learn-about-data-migration.html"
+    - title: Saiba mais sobre migração de dados SAN para ONTAP
+      url: "/get-started/learn-about-san-data-migration.html"
+    - title: Saiba mais sobre a Importação de LUN Estrangeiro do ONTAP
+      url: "/get-started/learn-about-fli.html"
+  - title: Fases FLI
+    url: "/phases.html"
+    links:
+    - title: Fase de descoberta da importação de LUN estrangeiro (FLI) do ONTAP
+      url: "/phases/discovery-phase.html"
+    - title: Fase de análise da importação de LUN estrangeiro (FLI) do ONTAP
+      url: "/phases/analyze-phase.html"
+    - title: Fase de planejamento e preparação da Importação de LUN Estrangeiro (FLI)
+        do ONTAP
+      url: "/phases/plan-prepare-phase.html"
+    - title: Fase de execução da Importação de LUN Estrangeiro (FLI) do ONTAP
+      url: "/phases/execute-phase.html"
+    - title: Fase de verificação da importação de LUN estrangeiro (FLI) do ONTAP
+      url: "/phases/verify-phase.html"
+  - title: Configuração FLI
+    url: "/configure.html"
+    links:
+    - title: Conectividade e cabeamento do ONTAP Foreign LUN Import (FLI)
+      url: "/configure/fc-connectivity-wiring.html"
+    - title: Práticas recomendadas de cabeamento e zoneamento FC para Importação de
+        LUN Estrangeiro (FLI) no ONTAP
+      url: "/configure/iscsi-setup-backend-connectivity.html"
+  - title: Migração FLI
+    url: "/migrate.html"
+    links:
+    - title: Descubra LUNs estrangeiros para migração FLI
+      url: "/migrate/discover-foreign-luns.html"
+    - title: Crie o relacionamento de importação ONTAP FLI LUN
+      url: "/migrate/create-import-relationship.html"
+    - title: Executar e monitorar a importação de LUN FLI
+      url: "/migrate/execute-monitor.html"
+    - title: Verifique e exclua a relação de importação FLI LUN
+      url: "/migrate/verify-delete.html"
+  - title: FLI Pós-Migração
+    url: "/post-migration-performance.html"
+    links:
+    - title: Realizar limpeza pós-migração
+      url: "/post-migration-performance/clean-up.html"
+    - title: Executar a correção de ATS/CAW do VMFSS do ESXi
+      url: "/post-migration-performance/esxi-remediation.html"
+    - title: Desempenho FLI
+      url: "/post-migration-performance/performance.html"
+  - title: Amostra de Site Survey e Planning Worksheet
+    url: "/sample-site.html"
+    links:
+    - title: Visão geral
+      url: "/san-migration/reference_sample_site_survey_and_planning_worksheet.html"

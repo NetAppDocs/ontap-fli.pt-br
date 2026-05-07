@@ -1,0 +1,88 @@
+---
+permalink: migrate/verify-delete.html 
+sidebar: sidebar 
+keywords: verify import, delete import relationship, foreign lun import, fli, lun import delete, lun import verify, import cleanup, san migration, offline verification, asa r2 
+summary: Finalize a migração excluindo a relação de importação após a conclusão da cópia e, opcionalmente, verifique a integridade dos dados em nível de bloco antes da remoção. 
+---
+= Verifique e exclua a relação de importação FLI LUN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a conclusão da cópia de importação e o estado da importação estar completo, você pode finalizar a migração removendo o emparelhamento de importação com lun import delete, que exclui com segurança a relação de importação depois que o LUN de origem não estiver mais em uso e o LUN de destino se tornar a cópia ativa para E/S do host. Em um fluxo de trabalho FLI offline, normalmente você coloca o LUN de destino online após a importação e qualquer validação, para que o host possa redescobrir e retomar o acesso ao LUN migrado.
+
+Se você precisar de uma confirmação de integridade de dados antes de excluir o relacionamento, pode executar o comando `lun import verify`, que realiza uma comparação bloco a bloco, mas é disruptivo porque a verificação precisa ser feita offline (ou seja, o LUN precisa ser colocado offline e ficar inacessível aos hosts durante a verificação). Operações pós-migração, como correção de hosts, zoneamento e limpeza de iniciadores, documentação e validação operacional, são tratadas na fase pós-migração e estão intencionalmente fora do escopo desta seção.
+
+.Sobre esta tarefa
+A partir do ONTAP 9.17.1, a migração de dados de LUNs estrangeiros usando a migração offline FLI é suportada com sistemas ASA r2. Os sistemas ASA r2 diferem de outros sistemas ONTAP (ASA, AFF e FAS) na implementação de sua camada de storage. Em sistemas ASA r2, os volumes são criados automaticamente quando uma unidade de armazenamento (LUN ou namespace) é criada. Cada volume contém apenas uma unidade de armazenamento. Portanto, para sistemas ASA r2, não é necessário incluir o nome do volume na opção  `-path` ao criar o LUN; deve-se incluir o caminho da unidade de armazenamento.
+
+.Passos
+. Defina o nível de privilégio para advance:
++
+[source, cli]
+----
+set -privilege advanced
+----
+. Confirme o estado da importação (deve ser concluído ou interrompido antes da exclusão):
++
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Se a importação ainda estiver em andamento e concluída % 100:
++
+[source, cli]
+----
+lun import stop -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Excluir a relação de importação (finalizar):
++
+[source, cli]
+----
+lun import delete -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Verifique se o relacionamento foi removido:
++
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Confirme se a importação não está em andamento (deve estar interrompida ou concluída):
++
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Desconecte o LUN (a verificação deve ser feita offline):
++
+[source, cli]
+----
+lun offline -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Iniciar verificação bloco a bloco (opcional, mas recomendada):
++
+[source, cli]
+----
+lun import verify start -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Acompanhe o progresso da verificação:
++
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Parar verificação (necessária antes de ativar o LUN):
++
+[source, cli]
+----
+lun import verify stop -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Coloque a LUN online (o período de interrupção termina aqui):
++
+[source, cli]
+----
+lun online -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+

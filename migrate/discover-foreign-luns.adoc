@@ -1,0 +1,90 @@
+---
+permalink: migrate/discover-foreign-luns.html 
+sidebar: sidebar 
+keywords: discover foreign luns, foreign lun import, fli, ontap, storage disk show, mark foreign lun, fc backend, iscsi backend, foreign disk, lun discovery, san migration 
+summary: Desprovisione o LUN estrangeiro do host e mapeie-o para o iniciador ONTAP para que ONTAP possa descobrir o LUN em sua pilha de storage. 
+---
+= Descubra LUNs estrangeiros para migração FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após configurar a conectividade com o backend, provisione o LUN de origem (externo) para descoberta pelo ONTAP, primeiro desmapeando e desprovisionando-o do host e, em seguida, mapeando-o e mascarando-o para a identidade do iniciador ONTAP no array externo (grupo de hosts do fornecedor e registro do iniciador), garantindo que ele não seja apresentado duplamente.
+
+Em seguida, confirme se o caminho de backend está online completamente (zoneamento e mascaramento FC no FC FLI, ou sessões ONTAP íntegras para o destino iSCSI no iSCSI FLI). Verifique se o LUN estrangeiro foi descoberto na pilha de storage ONTAP com a redundância de caminho esperada e elegibilidade básica.
+
+Provisionamento do LUN de array estrangeiro para o NetApp iniciador; nesta etapa, o LUN identificado para importação já foi desprovisionado com segurança do sistema operacional do host. Agora, este LUN deve ser mapeado para o grupo de hosts que possui os iniciadores iSCSI do NetApp, o equivalente a um iGroup no ONTAP.
+
+.Exemplo
+No caso do Pure Storage, abaixo estão os comandos usados para mapear o LUN/Volume para o iniciador (neste caso, será o iniciador NetApp).
+
+[listing]
+----
+purehost create <HOSTNAME>
+purehost list
+purehost list --all
+purehgroup create <HGROUP>
+purehgroup list
+purehgroup list --connect
+purevol connect --host <HOSTNAME> <VOLUME>
+purevol connect --hgroup <HGROUP> <VOLUME>
+----
+.Antes de começar
+A importação de LUN estrangeira é suportada através de backend FC e iSCSI. Você deve configurar seu link:../configure/fc-connectivity-wiring.html["FC"] ou link:../configure/iscsi-setup-backend-connectivity.html["iSCSI"] backend antes de iniciar a migração FLI.
+
+.Passos
+. Defina o nível de privilégio como avançado:
++
+[source, cli]
+----
+set -privilege advanced
+----
+. Confirme a visibilidade de LUNs estrangeiros:
++
+[source, cli]
+----
+storage disk show
+----
+. Marcar como estrangeiro:
++
+[source, cli]
+----
+storage disk set-foreign-lun -disk <FOREIGN_DISK_ID> -is-foreign-lun true
+----
+. Obter número de série estrangeiro (usado para criação do LUN de destino):
++
+[source, cli]
+----
+storage disk show -disk <FOREIGN_DISK_ID> -fields serial-number
+----
+. Marque o disco estrangeiro descoberto como estrangeiro:
++
+[source, cli]
+----
+storage disk set-foreign-lun -disk <FOREIGN_DISK_ID> -is-foreign-lun true
+----
+. Capturar número de série de disco externo (usado para criação de LUN):
++
+[source, cli]
+----
+storage disk show -disk <FOREIGN_DISK_ID> -fields serial-number
+----
+
+
+*Exemplo*
+
+[listing]
+----
+C1_Cluster::*> storage disk show  -disk *NET*
+                     Usable           Disk    Container   Container
+Disk                   Size Shelf Bay Type    Type        Name      Owner
+---------------- ---------- ----- --- ------- ----------- --------- --------
+NET-1.1                   -     -   - LUN     foreign     -         -
+C1_Cluster::*>
+C1_Cluster::*> storage disk show -disk NET-1.1 -fields serial-number
+disk    serial-number
+------- -------------
+NET-1.1 wtJfv?ZnvjXa
+----

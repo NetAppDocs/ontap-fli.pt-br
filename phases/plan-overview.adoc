@@ -1,0 +1,74 @@
+---
+permalink: phases/plan-overview.html 
+sidebar: sidebar 
+keywords: plan and prepare phase, foreign lun import, fli, migration planning, test migration, cutover, intercluster lif, iscsi fli, gap analysis, san migration, fc fli, zoning 
+summary: Saiba mais sobre a fase de planejamento e preparação, que transforma os resultados da descoberta e análise em um plano de migração executável e valida a prontidão do ambiente. 
+---
+= Fase de planejamento e preparação da Importação de LUN Estrangeiro (FLI) do ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de planejamento e preparação transforma os resultados da descoberta e análise em um plano de migração executável e confirma que o ambiente está pronto para a janela de migração. Normalmente, a maior parte do esforço do projeto se concentra nesta fase, pois é aqui que se finaliza a abordagem de transição, online ou offline, valida-se a conectividade completamente e comprova-se o fluxo de trabalho por meio de uma ou mais migrações de teste antes da entrada em produção.
+
+Para iSCSI FLI, esta fase também deve validar as restrições de projeto do backend iSCSI. O iniciador de software iSCSI do ONTAP usa LIFs IC, requer IP de portal de destino e IQN de destino explícitos, não permite sessões de descoberta e foi projetado para operar dentro de limites de escala definidos (importações por nó, sessões por LIF/nó, iniciador por LIF, tamanho máximo de importação).
+
+
+
+== Resultados da fase de planejamento e preparação do ONTAP FLI
+
+* Finalize o plano de remediação utilizando a análise de insuficiência, incluindo as alterações realizadas antes da migração, incluindo as alterações feitas durante a janela de cutover, como as alterações de MPIO.
+* Crie o mapeamento de LUN de origem para destino, identificadores e números de série das LUNs de origem para os nomes e caminhos das LUNs de destino ONTAP, incluindo o mapeamento de reverter.
+* Valide a conectividade de backend do ONTAP com o array estrangeiro usando a acessibilidade IC LIF e uma topologia de sessão completamente em malha, onde cada nó HA estabelece sessões com cada portal de destino. Este é o pré-requisito para a descoberta confiável de LUNs estrangeiros.
+* Realize uma ou mais migrações de teste para confirmar a correção da configuração e coletar amostras de throughput que ajudem a estimar a duração da produção e o esforço da equipe.
+
+
+
+
+== Tarefas das fases de planejamento e preparação do ONTAP FLI
+
+A seguir estão as tarefas de planejamento e preparação do ONTAP FLI para cada componente.
+
+[cols="1,2"]
+|===
+| Componente | Tarefas 
+
+
+| Host  a| 
+* Finalize o plano de correção do host usando a análise de insuficiência, incluindo se a alteração deve ocorrer antes da migração, durante a transição ou após a migração.
+* Escolha o modo de migração, online ou offline, com base na tolerância ao tempo de inatividade e na criticidade da carga de trabalho; alinhe o cronograma de correção de acordo.
+* Validar e documentar as etapas de redescoberta e correção no host para o caso de uso pretendido, LUN padrão, disco em cluster, datastore RDM/VMFS, etc., a serem utilizadas durante a janela de migração.
+
+
+
+
+| Fabric/Rede  a| 
+* Ambientes FC: faça backup dos conjuntos de zonas existentes e planeje as alterações de zona necessárias para a transição e a limpeza pós-migração.
+* Ambientes de backend iSCSI: validar a conectividade IP completamente entre as LIFs IC do ONTAP e os IPs do portal de destino do array externo (roteamento/VLAN/firewall incl. TCP/3260) e garantir redundância.
+* Não adicione novas LIFs de IC em uma sub-rede diferente apenas para alcançar destinos estrangeiros quando LIFs de IC existentes já estiverem em uso em outra sub-rede (considere isso como planejamento não suportado).
+
+
+
+
+| NetApp array de storage (Destination ONTAP)  a| 
+* Confirme se o cluster ONTAP está pronto para iSCSI FLI (versão/ECV compatível) e se a configuração de backend iSCSI exclusiva para migração será removida após a migração (importante para a preparação para upgrade/reverter).
+* Identificar e confirmar os IC LIFs no nó proprietário do LUN e no parceiro de HA e planejar resiliência (normalmente dois IC LIFs por nó em portas diferentes).
+* Crie iniciadores de software iSCSI (um iniciador por IC LIF) e estabeleça sessões de malha completa (cada nó HA para cada portal de destino externo e IQN) e verifique se as sessões estão íntegras.
+* Descubra LUNs externos no ONTAP usando o comando `storage disk show`, valide a integridade do caminho e as propriedades básicas, incluindo o requisito de 512B, e então marque os LUNs externos como estrangeiros.
+* Provisione um LUN de destino de teste com paridade de tamanho usando o parâmetro -foreign-disk, mapeie-o usando o protocolo de front end planejado (FC ou iSCSI) e execute pelo menos uma migração de teste para validar o fluxo de trabalho completamente e capturar a taxa de transferência.
+* Garanta que o plano respeite as restrições do iSCSI FLI (sem sessões de descoberta, sem MCS, somente ERL0, limites de importação e sessão e tamanho máximo de importação).
+
+
+
+
+| Array de storage (Fonte)  a| 
+* Coletam-se os endereços IP do portal de destino e os IQNs de destino, as sessões são criadas explicitamente e sessões de descoberta não são utilizadas.
+* Crie um objeto de acesso do lado do fornecedor (equivalente a host/grupo de hosts) para iniciadores ONTAP e mapeie um pequeno LUN de teste (normalmente ~1 GB) apenas para iniciadores ONTAP para qualificação e teste.
+* Verifique se o destino estrangeiro visualiza os logins e sessões do iniciador ONTAP e se os LUNs corretos estão mapeados para importação.
+* Assegure-se de que o host de produção não receba simultaneamente o mesmo LUN de origem durante a transição para evitar apresentações duplicadas.
+* Realizar a qualificação completa de array de storage estrangeiro utilizando as ferramentas e a abordagem de qualificação suportadas antes das importações para produção.
+
+
+|===

@@ -1,0 +1,122 @@
+---
+permalink: configure/fc-configure-adapter-initiator-mode.html 
+sidebar: sidebar 
+keywords:  
+summary:  
+---
+= Configure os adaptadores FC para o modo iniciador para a migração de Importação de LUN Estrangeira (FLI) do ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP FLI sobre FC requer um adaptador FC em modo iniciador no lado do ONTAP. Se não houver portas iniciadoras livres, talvez seja necessário converter uma porta de adaptador de destino FC para o modo iniciador. E se o adaptador FC tiver LIFs FC ativas, então as LIFs FC ativas devem ser movidas para portas de adaptador diferentes dentro da mesma estrutura.
+
+.Passos
+. Veja os adaptadores FC disponíveis:
++
+[source, cli]
+----
+fcp adapter show -status-oper online
+----
++
+*Exemplo de saída*
+
++
+[listing]
+----
+  (network fcp adapter show)
+                      Connection  Port    Admin    Operational
+Node         Adapter  Established Address Status   Status          Topology
+------------ -------- ----------- ------- -------- --------------- --------
+ssan-a50-06a 3a       true        640a00  up       online          fabric
+ssan-a50-06b 3b       true        640a00  up       online          fabric
+ssan-a50-07a 3a       true        640e00  up       online          fabric
+ssan-a50-07b 3b       true        640d00  up       online          fabric
+----
+. Desconecte a porta do adaptador FC de destino:
++
+[source, cli]
+----
+fcp adapter modify -node <node_name> -adapter <adapter>> -status-admin down;
+----
++
+*Exemplo de saída*
+
++
+[listing]
+----
+fcp adapter modify -node ssan-a50-06a -adapter 3a -status-admin down;
+----
+. Verifique se o status do adaptador está inativo:
++
+[source, cli]
+----
+fcp adapter show -node <node_name> -adapter <adapter>> -fields status-admin
+----
++
+*Exemplo de saída*
+
++
+[listing]
+----
+ssan-a50-06-07::*> fcp adapter show -node ssan-a50-06a -adapter 3a -fields status-admin
+
+node         adapter status-admin
+------------ ------- ------------
+ssan-a50-06a 3a      down
+----
+. Converta a porta do adaptador FC do modo destino para o modo iniciador:
++
+[source, cli]
+----
+system node hardware unified-connect modify -node <node_name> -adapter <adapter> -type initiator
+----
++
+*Exemplo*
+
++
+[listing]
+----
+ssan-a50-06-07::*> system node hardware unified-connect modify -node ssan-a50-06a -adapter 3a -type initiator
+
+Any changes will take effect after rebooting the system. Use the "system node reboot" command to reboot.
+----
+. Coloque o adaptador novamente online:
++
+[source, cli]
+----
+fcp adapter modify -node <node_name> -adapter <adapter> -status-admin up;
+----
++
+*Exemplo*
+
++
+[listing]
+----
+ssan-a50-06-07::*> fcp adapter modify -node ssan-a50-06a -adapter 3a -status-admin up;
+----
+. Verifique se o adaptador está novamente online e no modo iniciador:
++
+[source, cli]
+----
+system node hardware unified-connect show
+----
++
+*Exemplo*
+
++
+[listing]
+----
+ssan-a50-06-07::*> system node hardware unified-connect show
+                       Current  Current    Pending  Pending    Admin
+Node          Adapter  Mode     Type       Mode     Type       Status
+------------  -------  -------  ---------  -------  ---------  -----------
+ssan-a50-06a  3a       fc       target     -        initiator  offline << pending node reboot
+ssan-a50-06b  3b       fc       target     -        -          online
+ssan-a50-07a  3c       fc       target     -        -          online
+ssan-a50-07a  3d       fc       initiator  -        -          online <<< already converted
+ssan-a50-06-07::*>
+----
+

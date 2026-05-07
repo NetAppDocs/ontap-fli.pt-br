@@ -1,0 +1,36 @@
+---
+section: phases
+title: Fases do ONTAP FLI
+entries:
+- title: Visão geral da fase
+  url: "/phases/phase-overview.html"
+- title: Descoberta
+  url: "/phases/discovery-phase.html"
+- title: Analisar
+  url: "/phases/analyze-phase.html"
+- title: Planeje e prepare
+  entries:
+  - title: Visão geral
+    url: "/phases/plan-overview.html"
+  - title: Migração de teste
+    url: "/phases/plan-prepare-phase.html"
+  - title: Correção do host
+    entries:
+    - title: Abordagens recomendadas para migração de host
+      url: "/phases/recommended-host-migration.html"
+    - title: Correção de host AIX
+      url: "/phases/remediation-aix.html"
+    - title: Correção de host ESXi
+      url: "/phases/remediation-esxi.html"
+    - title: Remediação de host HP
+      url: "/phases/remediation-hp.html"
+    - title: Correção de host Linux
+      url: "/phases/remediation-linux.html"
+    - title: Remediação de host Solaris
+      url: "/phases/remediation-solaris.html"
+    - title: Correção de host Windows
+      url: "/phases/remediation-windows.html"
+- title: Executar
+  url: "/phases/execute-phase.html"
+- title: Verificar
+  url: "/phases/verify-phase.html"

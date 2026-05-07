@@ -1,0 +1,35 @@
+---
+permalink: configure/fc-zoning-model-best-practices.html 
+sidebar: sidebar 
+keywords:  
+summary:  
+---
+= Práticas recomendadas de cabeamento e zoneamento FC para Importação de LUN estrangeiro do ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A importação de LUNs estrangeiras (FLI) exige que as LUNs de origem sejam acessíveis pelo ONTAP, o que é obtido através do zoneamento das portas de destino de origem para as portas iniciadoras do ONTAP. As zonas de origem para host existentes normalmente não são modificadas durante a migração e podem ser removidas ou desativadas após a migração.
+
+.O cenário padrão FC FLI utiliza 4 zonas distintas
+* Zona 1: armazenamento de origem para armazenamento de destino (Fabric A)
+* Zona 2: armazenamento de origem para armazenamento de destino (Fabric B)
+* Zona 3: Host para storage de destino (Fabric A)
+* Zona 4: Host para storage de destino (Fabric B)
+
+
+.Melhores práticas de zoneamento
+* Não misture portas de destino de origem e portas de destino de destino na mesma zona.
+* Não misture portas de destino do iniciador e portas do host na mesma zona.
+* Não misture portas de destino e portas de iniciador de destino na mesma zona.
+* Zone com pelo menos duas portas por controlador para redundância, sempre que possível.
+* Prefira o zoneamento com um único iniciador e um único destino.
+* Utilize os WWPNs de porta física apropriados para o modelo de zoneamento exigido pelo fluxo de trabalho FLI. Não utilize WWPNs NPIV onde isso for explicitamente proibido pelas diretrizes de zoneamento para migração.
+
+
+image::new-fc-zoning-model.png[Exemplo de modelo de zoneamento FC para ONTAP FLI]
+
+
+NOTE: Após o zoneamento dos destinos de origem para os iniciadores de destino, o storage de origem deve ficar visível no ONTAP por meio de comandos de descoberta. Se o array não aparecer na primeira tentativa, pode ser necessário reiniciar a porta do switch conectada aos iniciadores do ONTAP em alguns ambientes.

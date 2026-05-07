@@ -1,0 +1,133 @@
+---
+permalink: phases/analyze-phase.html 
+sidebar: sidebar 
+keywords: analyze phase, foreign lun import, fli, gap analysis, interoperability matrix tool, imt, host remediation, hba, mpio, alua, san migration, iscsi fli, fc fli 
+summary: Saiba mais sobre a fase de análise, que compara as configurações do host e da pilha SAN com a NetApp Interoperability Matrix para identificar as alterações necessárias. 
+---
+= Fase de análise da importação de LUN estrangeiro (FLI) do ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de análise determina o que precisa ser corrigido antes de prosseguir para o planejamento e execução detalhados da migração. O principal objetivo desta fase é garantir que cada host e toda a pilha SAN da qual ele depende (SO, gerenciador de volumes, HBAs, multipath, firmware do switch e a versão de destino do ONTAP) possam ser migrados para uma configuração pós-migração compatível. Isso é feito comparando o estado atual de cada host com as combinações compatíveis na NetApp Interoperability Matrix (IMT), depois definindo uma configuração de destino clara para cada host (nível do SO, comportamento de MPIO/ALUA, driver/firmware de HBA e quaisquer ferramentas de host necessárias) e produzindo uma análise de insuficiência que lista as alterações exatas necessárias para atingir esse objetivo.
+
+Agende e revise a análise de insuficiência para evitar alterações corretivas que possam impactar a compatibilidade de aplicativos e o planejamento de interrupções. Em muitos ambientes, algumas alterações, como patches do sistema operacional ou atualizações de HBA, são mais seguras de serem concluídas antes da janela de migração. No entanto, as alterações na pilha de multipath geralmente são adiadas para a transição ou para depois da migração, pois alterar o comportamento do MPIO pode afetar a interoperabilidade com o array atual e complicar reverter.
+
+Para iSCSI FLI, a fase de análise também deve capturar a prontidão específica do iSCSI:
+
+* Confirme se o design multipath iSCSI do host continua sendo compatível após a migração.
+* Certifique-se de que o array externo seja qualificado para uso como backend iSCSI, pois as diferenças no transporte do backend podem alterar o comportamento de interoperabilidade.
+
+
+
+
+== Tarefas da fase de análise do ONTAP FLI
+
+A fase de análise é centrada no host, mas também deve validar toda a cadeia de suporte completamente (do host à estrutura, ao ONTAP e vice-versa) e confirmar a posição de interoperabilidade do backend FLI.
+
+[cols="1,2"]
+|===
+| Componente | Tarefas 
+
+
+| Host  a| 
+* Compare a configuração atual do host com as configurações suportadas pelo IMT e determine a configuração de destino pós migração:
++
+** Nível OS
+** Abordagem de multipath
+** Modelo HBA, driver e firmware
+** Ferramentas de host necessárias
+
+
+* Crie uma análise de insuficiência por host com os seguintes dados necessários:
++
+** Hotfixes e patches
+** Atualizações do sistema operacional
+** Atualizações de driver e firmware do HBA
+** Alterações de multipath
+** Liste todos os utilitários necessários
+
+
+
+
+
+
+| Fabric (rede FC/iSCSI)  a| 
+* Valide o suporte do switch e da malha (modelo e firmware) na visão completamente e registre as atualizações necessárias caso a malha não seja compatível para a combinação de versão do ONTAP e host de destino.
+
+
+
+
+| NetApp array de storage (destino)  a| 
+* Confirme se a plataforma ONTAP de destino e a versão do ONTAP são compatíveis com o fluxo de trabalho FLI pretendido, incluindo quaisquer expectativas de capacitação AFF aplicáveis, e registre quaisquer pré-requisitos que influenciem o projeto de destino.
+
+
+
+
+| Array de storage (fonte)  a| 
+* Verifique se o array de origem é coberto pela interoperabilidade de backend do FLI. Se a interoperabilidade não estiver listada no IMT para ONTAP 9.9.1 e versões posteriores, use o aplicativo SAN LUN Migrate para ajudar a qualificar se pode ser suportada.
+
+
+|===
+
+
+== Utilize o IMT durante a fase de análise do ONTAP FLI
+
+A Ferramenta de Matriz de Interoperabilidade (IMT) é um repositório de configurações e um método guiado para restringir as configurações de resultado completamente suportadas, onde os produtos NetApp interoperam com componentes de terceiro. IMT pode conter configurações suportadas e certificadas:
+
+* As configurações suportadas são qualificadas por NetApp.
+* As configurações certificadas são qualificadas por terceiros para funcionar com os componentes da NetApp.
+
+
+.Verifique o IMT para:
+* Capture as ações do IMT em sua planilha: documente o software, os patches e as atualizações recomendados pelo IMT para hosts e switches em sua planilha de planejamento.
+* Comece com uma visão geral e depois refine: comece com critérios estáticos (versão do ONTAP, protocolo, modo HA/cluster) e, em seguida, adicione o sistema operacional do host, gerenciador de volumes e os detalhes do HBA, usando seu levantamento de dados do site como guia.
+* Evite filtrar em excesso: se sua busca ficar muito específica e não retornar resultados, relaxe os filtros, revise várias configurações válidas e escolha a melhor correspondência suportada.
+* Normalizar identificadores HBA: os HBAs podem aparecer como números de peça OEM; faça uma verificação cruzada antes de inseri-los no IMT.
+* Verifique todos os hosts: execute a verificação de suporte da IMT para cada host incluído no escopo da migração.
+* Faça duas verificações de interoperabilidade:
++
+** Suporte a FLI no backend: confirme se o cenário de backend do array de origem é compatível.
+** Suporte completamente pós-migração: confirme o suporte para o ONTAP, o sistema operacional do host, multipath, os HBAs e a combinação de switch fabric.
+
+
+* Fluxo de trabalho prático do IMT:
++
+** Pesquise o modelo de array de origem, selecione “Interoperabilidade de backend de Foreign LUN Import (FLI)” e escolha a plataforma ONTAP e a versão do ONTAP.
+** Para verificar a compatibilidade do host, use “Criar completamente visualização com ONTAP SAN host” para validar o sistema operacional, multipath e o HBA.
+** Para verificar a compatibilidade com switches, use “Criar completamente visualização de ponta a ponta para SAN-Switch” na visualização do host SAN para validar o suporte à estrutura e ao switch.
+
+
+
+
+.Se o array estrangeiro não estiver listado no IMT (ONTAP 9.9.1 e posterior)
+A partir do ONTAP 9.9.1, se o array externo não estiver listado como compatível no IMT, você pode usar a SAN LUN Migrate Tool para ajudar a qualificar se o array pode ser compatível com FLI. O aplicativo é baixado do NetApp Support Site e executado em um host Linux com acesso a blocos (FC ou iSCSI) ao LUN de array de origem. Os resultados são revisados com a equipe de engenharia. A importação do array externo pode ser qualificada em campo. Para iSCSI FLI, a importação do array externo é sempre qualificada em campo.
+
+
+
+== Alterações de host do ONTAP FLI e estratégia de reverter
+
+A fase de análise deve definir explicitamente o que será alterado e quando, pois as alterações no host podem introduzir riscos e afetar o suporte ao armazenamento atual. Isso é importante caso a pilha de host precise ser atualizada antes de poder ser suportada pelo ONTAP.
+
+* As atualizações do host (patches, firmware e driver do HBA) podem ser mais seguras quando feitas com antecedência, sempre que possível, mas ainda exigem coordenação com as janelas de manutenção e as equipes de aplicação.
+* Alterações na pilha de multipathing (MPIO, ALUA e terceiro multipath) podem afetar a atual capacidade de suporte do array, portanto, elas geralmente são adiadas até o evento de migração ou mesmo até após a transição.
+* Adiar a reconfiguração do MPIO pode tornar o reverter mais simples caso seja necessário retornar ao armazenamento original durante a janela de interrupção.
+
+
+
+
+== Análise de insuficiência do ONTAP FLI
+
+A análise de insuficiência resume o ambiente atual em comparação com a NetApp-configuração de destino recomendada e lista as atualizações ou correções necessárias para atingir um estado pós-migração compatível.
+
+Uma configuração de destino completa por host normalmente inclui:
+
+* Nível de configuração do sistema operacional e patches ou hotfixes necessários
+* Abordagem de multipath e configurações necessárias (comportamento MPIO e ALUA)
+* Modelo HBA e CNA, versão do driver e do firmware
+* Requisitos de utilitários e ferramentas do host relevantes para o seu ambiente, se aplicável
+
+
+A análise de insuficiência deve ser revisada prontamente, pois as ações corretivas podem exigir períodos de inatividade e podem interagir com os requisitos de suporte do aplicativo.

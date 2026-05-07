@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: release-notes/whats-new.html 
+keywords: 'what"s new, release notes, san data migration' 
+summary: Saiba mais sobre os novos recursos disponíveis no ONTAP para migração de dados SAN. 
+---
+= Novidades no ONTAP para migração de dados SAN
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Saiba mais sobre os novos recursos disponíveis no ONTAP para migração de dados SAN.
+
+
+
+== ONTAP 9.19.1
+
+* A partir do ONTAP 9.19.1, o ONTAP FLI oferece suporte ao protocolo iSCSI para conectividade de backend.
+
+
+
+
+== ONTAP 9.17.1
+
+* A partir do ONTAP 9.17.1, os sistemas ASA R2 são suportados para migração FLI.
++
+Saiba mais sobre link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemas ASA R2"^] .
+
+
+
+|===
+|===

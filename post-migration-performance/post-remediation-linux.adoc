@@ -1,0 +1,53 @@
+---
+permalink: post-migration-performance/post-remediation-linux.html 
+sidebar: sidebar 
+keywords: host remediation, linux, post-migration, fli, ontap 
+summary: Após a migração, os hosts Linux requerem etapas de correção para garantir que os LUNs recém-importados sejam reconhecidos e funcionais. 
+---
+= Realizar a correção de hosts Linux pós-migração do ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a migração, os hosts Linux requerem etapas de correção para garantir que os LUNs recém-importados sejam reconhecidos e funcionais.
+
+
+
+== Pós-migração - FLI offline
+
+Para FLI offline, coloque o LUN online após excluir a importação do LUN e confirmar que os iniciadores do host estão conectados.
+
+[cols="3"]
+|===
+| Sistema de arquivos (LVM e não-LVM) | Pacemaker com LVM (SCSI3 PR) | SANBOOT 
+
+
+| Etapa 1: execute uma nova verificação de armazenamento em todos os hosts Linux mapeados | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts Linux mapeados | Passo 1: Ligue o servidor 
+
+
+| Etapa 2: Descubra os dispositivos multipath. | Etapa 2: descubra os dispositivos multipath. Certifique-se de que os LUNs migrados sejam adicionados à configuração do PCS Stonith. | Etapa 2: No BIOS ou UEFI do HBA do servidor configurar o novo dispositivo de inicialização que é apresentado a este HBA do host 
+
+
+| Etapa 3: Importe os Grupos de Volumes e execute a ativação do VG. | Etapa 3: execute a restauração do backup de configuração do VG para os VG/LVM recém-descobertos, seguida pela ativação do VG. | Etapa 3: reinicie o host para inicializar a partir do LUN recém-mapeado que faz parte da importação de LUN 
+
+
+| Passo 4: Monte a configuração LVM nos respectivos pontos de montagem. | Etapa 4: Crie os novos grupos de recursos PCS e adicione os respectivos recursos para os volumes lógicos (LV) e sistemas de arquivos disponíveis. NOTA: Observe que os objetos LVM recém-ativados mantêm intactas as estruturas de LV e sistema de arquivos. |  
+
+
+|  | Etapa 5: Verifique o status do cluster PCS para garantir que todos os recursos estejam online e disponíveis. |  
+|===
+
+
+== Pós-migração - FLI online
+
+Após excluir a importação do LUN, verifique se o LUN está configurado com  `-space-reserve disabled` e  `-space-allocation enabled`. Caso contrário, modifique-o de acordo.
+
+[cols="4"]
+|===
+| Sistema de arquivos | Dispositivo de bloco | LVM (FS) | Sanboot 
+
+
+| Etapa 1: execute uma nova verificação de armazenamento em todos os hosts Linux mapeados | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts Linux mapeados | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts Linux mapeados | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts Linux mapeados 
+|===

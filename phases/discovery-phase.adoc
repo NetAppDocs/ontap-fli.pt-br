@@ -1,0 +1,109 @@
+---
+permalink: phases/discovery-phase.html 
+sidebar: sidebar 
+keywords: discovery phase, foreign lun import, fli, active iq onecollect, fc fli, iscsi fli, intercluster lif, wwpn, iqn, foreign array, lun discovery, san migration 
+summary: Saiba mais sobre a fase de descoberta, que reúne informações sobre o ambiente de origem e a conectividade para estabelecer as bases do planejamento da migração. 
+---
+= Fase de descoberta da importação de LUN estrangeiro (FLI) do ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de descoberta do ONTAP FLI é o primeiro passo no processo de migração. É fundamental coletar todas as informações necessárias sobre o ambiente de origem, a conectividade e o sistema ONTAP de destino para garantir uma migração tranquila. A fase de descoberta estabelece a base para o planejamento, a preparação, a execução e a verificação da migração.
+
+
+
+== Prepare-se para uma migração iSCSI com ONTAP FLI
+
+A fase de descoberta do ONTAP FLI reúne os detalhes técnicos necessários para concluir a migração:
+
+* Planeje o fluxo de trabalho de migração (online vs offline)
+* Execute a remediação do host com segurança
+* Valide a conectividade e a descoberta do LUN estrangeiro no ONTAP antes de criar a relação de importação
+
+
+Para coleta de dados estruturada e repetível em hosts, controladores NetApp e fabrics, você pode usar NetApp Active IQ OneCollect. OneCollect foi projetado para coletar informações de storage, hosts, fabrics e switches para planejamento e validação de migração.
+
+Para FC FLI, a fase de descoberta deve capturar os WWPNs da porta de destino do array externo.
+
+Para iSCSI FLI, a fase de descoberta deve:
+
+* Capture os endereços IP do portal de destino do array estrangeiro e os IQNs de destino
+* Verificar a acessibilidade do IC LIF
+* Planeje sessões iSCSI em malha completa (cada nó HA conectando-se a cada portal de destino) para garantir que o LUN estrangeiro seja descoberto por todos os caminhos disponíveis
+
+
+
+
+== Tarefas da fase de descoberta do ONTAP FLI
+
+Cada componente possui um conjunto de tarefas para coletar dados ou validar a conectividade.
+
+[cols="1,2"]
+|===
+| Componente | Tarefas 
+
+
+| Host  a| 
+* Identificar a versão do sistema operacional do host, a pilha e a configuração de multipath, bem como qualquer modelo de consumo especial, como sistema de arquivos, dispositivo raw ou disco em cluster, para orientar as etapas de remediação e migração do host.
+* Capture o inventário de LUNs, incluindo o tamanho, identificadores ou números de série, layouts de partição ou deslocamentos e como cada LUN é consumido pelos aplicativos para planejamento e reverter.
+* Para ambientes front-end FC, registre os WWPNs do iniciador do host. Eles são usados para zoneamento e mascaramento, se aplicável ao projeto geral de migração e cutover.
+* Para ambientes de frontend iSCSI, se utilizados após a migração, registre os IQNs do iniciador do host e os IPs do portal de destino que o host usará para login após a transição.
+
+
+
+
+| Rede e networking  a| 
+* Para ambientes FC:
++
+** Documente o zoneamento atual (de e para as zonas do host e do array de origem) para que possa ser removido ou atualizado com segurança após a migração.
+** Capture os identificadores dos switches e as portas envolvidas.
+
+
+* Para ambientes iSCSI:
++
+** Documente a VLAN, a sub-rede e o caminho de roteamento entre as LIFs IC do ONTAP e os portais de destino do array externo
+** Confirme se não há firewalls ou ACLs bloqueando a comunicação.
+
+
+
+
+
+
+| NetApp array de storage (destino)  a| 
+* Confirme a versão do ONTAP e a prontidão do ECV para iSCSI FLI.
++
+
+NOTE: A criação do iniciador é bloqueada se o cluster não estiver no nível suportado.
+
+* Identifique quais nós participarão, como o nó proprietário do LUN e seu parceiro de HA, e registre as LIFs intercluster disponíveis nesses nós. Planeje a redundância; planeje as LIFs intercluster, os iniciadores e as sessões em ambos os nós de HA.
+* Registre o IPspace e a sub-rede do IC LIF e verifique se eles conseguem alcançar os portais de destino externos. Evite criar novos IC LIFs em uma sub-rede diferente se os IC LIFs existentes já estiverem sendo usados em outros locais do cluster.
+* Valide as restrições do lado do destino que você deve impor durante o planejamento, como o tamanho máximo de importação, o requisito de tamanho de bloco de 512B e os limites de escalonamento de sessão e importação relevantes para iSCSI FLI.
+
+
+
+
+| Array de storage externo (fonte)  a| 
+* Identifique os endereços IP do portal de destino do array externo e os IQNs de destino; as sessões de descoberta iSCSI não são suportadas para iSCSI FLI, portanto, esses dados devem ser explicitamente conhecidos de antemão.
+* Identifique os LUNs específicos mapeados para o host de origem, incluindo o tamanho do LUN e o tamanho do bloco. Certifique-se de que o LUN esteja estável, não esteja em expansão e seja adequado para o planejamento de importação.
+* Registre o acesso do host e objetos de mascaramento, como registros de host e iniciador, para que você possa desmapear ou remapear com segurança durante a migração e validar a prontidão para reverter.
+* Planeje e execute a qualificação de arrays de storage estrangeiros.
++
+
+NOTE: A qualificação em campo é necessária para iSCSI FLI; não assuma que arrays qualificados para FC são automaticamente qualificados para iSCSI.
+
+
+
+|===
+
+
+== Entregáveis recomendados para a descoberta do ONTAP FLI
+
+* Mapeamento de planilha de inventário única: Host → LUN(s) de origem → portal/IQN de destino externo → ONTAP IC LIFs/nós → LUN(s) de destino para execução limpa e reverter.
+* Um pacote OneCollect (ou equivalente) capturado antes da execução da alteração para reduzir o tempo de triagem caso ocorram problemas.
+
+
+.Informações relacionadas
+link:https://mysupport.netapp.com/site/tools["Ferramentas"]

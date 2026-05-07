@@ -1,0 +1,16 @@
+---
+permalink: migrate/migrate-overview.html 
+sidebar: sidebar 
+keywords: foreign lun import, fli, ontap, migration, overview 
+summary: 'Esta seção descreve o fluxo de trabalho de importação de Foreign LUN Import (FLI), abrangendo todo o ciclo de vida, desde a descoberta de LUNs estrangeiros até a execução da importação, o monitoramento e a limpeza final.' 
+---
+= Saiba mais sobre a migração ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Esta seção descreve o fluxo de trabalho de importação de LUN estrangeira (FLI), abrangendo todo o ciclo de vida, desde a descoberta de LUN estrangeira até a execução da importação, o monitoramento e a limpeza final. Explica como o ONTAP utiliza a conectividade de backend estabelecida (FC ou iSCSI) para descobrir com segurança LUN estrangeira após ela ser desprovisionada dos hosts e mapeada exclusivamente para iniciadores do ONTAP, garantindo que não haja risco de apresentação dupla. O fluxo de trabalho detalha, então, como os discos estrangeiros são identificados e marcados no ONTAP, como as LUNs de destino são provisionadas para corresponder à geometria de origem e como os relacionamentos de importação persistentes são criados para emparelhar os dispositivos de origem e destino.
+
+Esta seção também esclarece a diferença operacional entre FLI offline e online, do ponto de vista do estado e do tempo do LUN, destacando que os comandos de importação do ONTAP subjacentes permanecem os mesmos em ambos os modos. Ela descreve como as importações são iniciadas, monitoradas, controladas (pausadas/retomadas) e concluídas, e como a verificação opcional pode ser usada para validar a integridade de dados quando necessário. Por fim, descreve os passos para remover com segurança a relação de importação após a conclusão da cópia de dados, liberando o LUN de destino para uso pleno em produção e finalizando o fluxo de trabalho de FLI.

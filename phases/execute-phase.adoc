@@ -1,0 +1,70 @@
+---
+permalink: phases/execute-phase.html 
+sidebar: sidebar 
+keywords: execute phase, foreign lun import, fli, offline fli, online fli, cutover, import jobs, san migration, zoning, host remediation, iscsi fli, fc fli 
+summary: Saiba mais sobre a fase de execução, que abrange as tarefas completamente necessárias para executar uma migração FLI offline ou online e fazer a transição do acesso do host para o ONTAP. 
+---
+= Fase de execução da Importação de LUN Estrangeiro (FLI) do ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A fase de execução é onde a migração é realizada. Ela abrange as tarefas completamente necessárias para executar uma Importação de LUN estrangeira, seja offline ou online, e para fazer a transição do acesso do host do array estrangeiro para o array ONTAP.
+
+
+
+== ONTAP FLI executa tarefas da fase de execução
+
+A seguir estão as tarefas de execução do ONTAP FLI para cada componente.
+
+[cols="1,2"]
+|===
+| Componente | Tarefas 
+
+
+| Host  a| 
+* Analise os registros de eventos e do sistema do host para detectar problemas precocemente e reduzir riscos antes de qualquer reconfiguração importante.
+* Reinicie os hosts conforme necessário para garantir a estabilidade antes da migração antecipada ou da remediação.
+* Após a migração, valide o acesso ao host. Todos os dispositivos esperados estão presentes, o multipathing está funcionando corretamente e os aplicativos e sistemas de arquivos são iniciados sem problemas.
+
+
+
+
+| iSCSI FLI e a rede  a| 
+* Confirme se o IC LIF está acessível aos portais de destino do array estrangeiro e assegure-se de que a conectividade de backend permaneça estável durante toda a importação.
+* Valide se as sessões iSCSI permanecem íntegras, pois elas são responsáveis pela descoberta de LUNs externos e pela disponibilidade de caminhos.
+
+
+
+
+| Malha  a| 
+* Garanta que o zoneamento e o mascaramento necessários estejam implementados para que as portas iniciadoras do ONTAP possam acessar os LUNs do array externo para descoberta e importação.
+* Após a migração, atualize o zoneamento conforme necessário para que os hosts acessem os LUNs ONTAP de destino e prepare-se para a limpeza posterior.
+
+
+
+
+| NetApp array de storage (Destino)  a| 
+* Confirme se os LUNs estrangeiros foram detectados no ONTAP antes de criar tarefas de importação.
+* Crie a relação de importação e inicie os trabalhos de importação após a confirmação da descoberta.
+* Monitore o progresso da importação e trate as exceções. Use pausar e retomar conforme necessário para regular os fluxos de cópia, especialmente se a latência aumentar.
+* Gerenciamento da transição:
++
+** A transição offline do FLI ocorre após a conclusão da importação.
+** A transição do host FLI online ocorre mais cedo, enquanto a importação continua em segundo plano.
+
+
+
+
+
+
+| Array de storage (Fonte)  a| 
+* Certifique-se de que os LUNs de origem destinados à migração sejam apresentados corretamente para descoberta e importação pelo ONTAP (mascaramento FC ou visibilidade do destino iSCSI, dependendo do transporte).
+* Certifique-se de que os LUNs de origem não sejam acessados pelo host durante a importação. Isso é fundamental para garantir que operações de gravação não ocorram a partir de múltiplas origens.
+* Durante a migração online, coordene as ações de desvinculação e revinculação conforme necessário para evitar a apresentação dupla e garantir que o host faça a transição para ONTAP.
+
+
+|===
+Tanto para FLI com backend FC quanto iSCSI, o sucesso da execução depende fortemente da manutenção de uma conectividade estável com o backend, garantindo a integridade da sessão FC/iSCSI e redundância de caminho completo até o LUN estrangeiro. Como a E/S do host (online) e a cópia de importação podem competir pelos mesmos recursos do backend, a importação pode ser limitada operacionalmente (por exemplo, usando pausa e retomada) se necessário para proteger a latência do host, e as migrações são normalmente agendadas durante períodos de menor movimento.

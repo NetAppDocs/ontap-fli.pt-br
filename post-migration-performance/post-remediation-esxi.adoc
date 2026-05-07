@@ -1,0 +1,242 @@
+---
+permalink: post-migration-performance/post-remediation-esxi.html 
+sidebar: sidebar 
+keywords: host remediation, esxi, post-migration, fli, ontap 
+summary: Após a migração, os hosts ESXi exigem etapas de correção para garantir que os LUNs recém-importados sejam reconhecidos e funcionais. 
+---
+= Realizar a correção de hosts ONTAP FLI ESXi pós-migração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a migração, os hosts ESXi exigem etapas de correção para garantir que os LUNs recém-importados sejam reconhecidos e funcionais.
+
+
+
+== Pós-migração - FLI offline
+
+Para FLI offline, coloque o LUN online após excluir a importação do LUN e confirmar que os iniciadores do host estão conectados.
+
+[cols="4"]
+|===
+| VMs/VMDK | RDM | WFSC | VMSC 
+
+
+| Etapa 1: execute uma nova verificação de armazenamento em todos os hosts ESXi mapeados. | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts ESXi mapeados. | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts ESXi mapeados. | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts ESXi mapeados. 
+
+
+| Etapa 2: Liste os detalhes do volume/dispositivo para confirmar as informações do sistema de arquivos no LUN. | Etapa 2: identifique os novos IDs NAA e adicione os RDMs de volta às respectivas VMs. | Etapa 2: Liste os detalhes do volume/dispositivo para confirmar as informações do sistema de arquivos no LUN. | Etapa 2: Liste os detalhes do volume/dispositivo para confirmar as informações do sistema de arquivos no LUN. 
+
+
+| Etapa 3: identifique os detalhes do datastore e monte os datastores de volta no ESXi. | Etapa 3: Ligue as máquinas virtuais convidadas e inicie os aplicativos. | Etapa 3: identifique os detalhes do datastore e monte os datastores de volta no ESXi. | Etapa 3: identifique os detalhes do datastore e monte os datastores de volta no ESXi. 
+
+
+| Etapa 4: identifique os detalhes do datastore e monte os datastores de volta no ESXi. |  | Etapa 4: identifique os detalhes do datastore e monte os datastores de volta no ESXi. | Etapa 4: ligue as máquinas virtuais convidadas e inicie os aplicativos. 
+
+
+|  |  | Etapa 5: identifique os discos RDM usados pelo cluster e remapeie-os para os nós do cluster WFSC usando os mesmos IDs de controlador e números de unidade (por exemplo, SCSI1:0) para manter a consistência com a configuração anterior. | Etapa 5: Ligue as VMs convidadas e inicie os aplicativos 
+
+
+|  |  | Etapa 6: Ligue as máquinas virtuais convidadas e inicie o aplicativo de cluster. |  
+|===
+
+NOTE: Consulte a documentação do fornecedor do sistema operacional para obter a lista de comandos mais recente e atualizada.
+
+Reverifique após desconectar para confirmar o estado limpo::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+Saia do modo de manutenção após a conclusão::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+Verifique novamente o armazenamento em todos os hosts ESXi mapeados para o LUN::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+Liste os dispositivos e sistemas de arquivos para confirmar os detalhes do LUN/sistema de arquivos::
+
+
+[source, cli]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+Identificar novos IDs NAA caso tenham sido alterados após a migração::
+
+
+[source, cli]
+----
+esxcli storage core device list | grep -i naa
+----
+Montar os datastores VMFS de volta no ESXi::
+
+
+[source, cli]
+----
+esxcli storage filesystem mount -l <DATASTORE_NAME>
+----
+Verificar montagem do datastore::
+
+
+[source, cli]
+----
+esxcli storage filesystem list
+----
+Adicionar RDM de volta à VM (feito via vSphere UI):: A CLI geralmente não é usada; em vez disso, verifique a visibilidade do dispositivo backend.
++
+--
+[source, cli]
+----
+esxcli storage core device list -d <naa.ID>
+----
+--
+Sair do modo de manutenção (se aplicável)::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+Ligar as máquinas virtuais convidadas::
++
+--
+(As operações de energia da VM são normalmente feitas via vCenter, mas a verificação pode ser feita no host ESXi)
+
+[source, cli]
+----
+vim-cmd vmsvc/getallvms
+vim-cmd vmsvc/power.on <VMID>
+----
+--
+
+
+
+
+== Pós-migração - FLI online
+
+Após excluir a relação de importação, confirme se o novo LUN opera de forma independente com CAW/UNMAP/XCOPY/WRITESAME ativados.
+
+Reverta o modo de bloqueio do VMFS para somente ATS desmontando o datastore, definindo como somente ATS e, em seguida, remontando. Após excluir a importação do LUN, verifique se o LUN está configurado com -space-reserve desativado e -space-allocation ativado. Caso contrário, modifique-o de acordo.
+
+[cols="3"]
+|===
+| VMs/VMDK | RDM | VMSC 
+
+
+| Etapa 1: execute uma nova verificação de armazenamento em todos os hosts ESXi mapeados. | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts ESXi mapeados. | Etapa 1: execute uma nova verificação de armazenamento em todos os hosts ESXi mapeados. 
+
+
+| Passo 2: Desligue as máquinas virtuais convidadas corretamente. |  | Passo 2: Desligue as máquinas virtuais convidadas corretamente. 
+
+
+| Etapa 3: Desmontar os armazenamentos de dados planejados para migração; se forem compartilhados, desmontar de todos os hosts. |  | Etapa 3: Desmontar os armazenamentos de dados planejados para migração; se forem compartilhados, desmontar de todos os hosts. 
+
+
+| Passo 4: Verifique o modo de bloqueio do VMFS (somente ATS ou ATS+SCSI). Se for ATS+SCSI, altere para somente ATS. |  | Passo 4: Verifique o modo de bloqueio do VMFS (somente ATS ou ATS+SCSI). Se for ATS+SCSI, altere para somente ATS. 
+
+
+| Etapa 5: identifique os detalhes do datastore e monte os datastores de volta no ESXi. |  | Etapa 5: habilite o VM-HA/DRS e configure os discos de heartbeat necessários, se for o caso. 
+
+
+| Etapa 6: Ligue as máquinas virtuais convidadas e inicie os aplicativos. |  | Etapa 6: Ligue as VMs convidadas e inicie os aplicativos 
+
+
+| Etapa 7: valide o modo de bloqueio do datastore e a integridade da VM/aplicação |  | Etapa 7: valide o modo de bloqueio do datastore e a integridade da VM/aplicação 
+|===
+Reverifique após desconectar para confirmar o estado limpo::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+Saia do modo de manutenção após a conclusão::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+Verifique novamente o armazenamento em todos os hosts ESXi mapeados para o LUN::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+Liste os dispositivos e sistemas de arquivos para confirmar os detalhes do LUN/sistema de arquivos::
+
+
+[source, cli]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+Identificar novos IDs NAA caso tenham sido alterados após a migração::
+
+
+[source, cli]
+----
+esxcli storage core device list | grep -i naa
+----
+Montar os datastores VMFS de volta no ESXi::
+
+
+[source, cli]
+----
+esxcli storage filesystem mount -l <DATASTORE_NAME>
+----
+Verificar montagem do datastore::
+
+
+[source, cli]
+----
+esxcli storage filesystem list
+----
+Adicionar RDM de volta à VM (feito via vSphere UI)::
++
+--
+A CLI geralmente não é usada; em vez disso, verifique a visibilidade do dispositivo backend.
+
+[source, cli]
+----
+esxcli storage core device list -d <naa.ID>
+----
+--
+Sair do modo de manutenção (se aplicável)::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+Ligar as máquinas virtuais convidadas::
++
+--
+(As operações de energia da VM são normalmente feitas via vCenter, mas a verificação pode ser feita no host ESXi)
+
+[source, cli]
+----
+vim-cmd vmsvc/getallvms
+vim-cmd vmsvc/power.on <VMID>
+----
+--
+Se ATS+SCSI for detectado, converta para somente ATS::
+
+
+[source, cli]
+----
+vmkfstools --configATSOnly 1 /vmfs/volumes/<DATASTORE_NAME>
+----

@@ -1,0 +1,12 @@
+---
+section: migrate
+title: Migração FLI
+entries:
+- title: Descobrir LUNs estrangeiros
+  url: "/migrate/discover-foreign-luns.html"
+- title: Criar relação de importação
+  url: "/migrate/create-import-relationship.html"
+- title: Executar e monitorar a migração
+  url: "/migrate/execute-monitor.html"
+- title: Verificar e excluir LUNs de origem
+  url: "/migrate/verify-delete.html"

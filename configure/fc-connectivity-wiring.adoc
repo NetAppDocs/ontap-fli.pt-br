@@ -1,0 +1,27 @@
+---
+permalink: configure/fc-connectivity-wiring.html 
+sidebar: sidebar 
+keywords:  
+summary:  
+---
+= Conectividade e cabeamento do ONTAP Foreign LUN Import (FLI)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A importação de LUNs estrangeiros via FC depende de um design SAN de malha dupla para que os controladores ONTAP de destino possam acessar de forma confiável os LUNs de array estrangeiro durante a descoberta e a importação. Para uma implementação compatível, cada controlador de armazenamento em uso deve ter um caminho ativo primário em ambas as malhas, o que significa que as portas de destino do array de origem e as portas iniciadoras ONTAP para os nós que realizam a importação devem estar em uma zona comum nas malhas A e B. Não é necessário incluir todos os nós no cluster ONTAP — apenas os nós que realmente importarão e migrarão os LUNs. Embora caminhos indiretos possam funcionar, a melhor prática é usar caminhos ativos e otimizados entre a origem e o destino.
+
+
+
+== Práticas recomendadas de cabeamento e zoneamento FC do ONTAP FLI
+
+* Utilize duas estruturas (A e B) para redundância.
+* Garanta que os caminhos primários e ativos de cada controlador em uso estejam presentes em ambas as estruturas.
+* Utilize pelo menos duas portas iniciadoras ONTAP e duas portas de destino do array de origem, sempre que possível, para evitar pontos únicos de falha.
+* Não associe as portas do iniciador ONTAP ao host. As portas do iniciador ONTAP são usadas apenas para conectar-se às portas de destino do array de origem para importação e descoberta.
+* Zoneie apenas os nós ONTAP que participam das importações, não é necessário zonear todo o cluster.
+
+
+image::new-zoning.png[Exemplo de zoneamento FC para ONTAP FLI]
