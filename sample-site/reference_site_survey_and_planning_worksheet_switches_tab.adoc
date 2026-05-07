@@ -1,5 +1,5 @@
 ---
-permalink: san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html 
+permalink: sample-site/reference_site_survey_and_planning_worksheet_switches_tab.html 
 sidebar: sidebar 
 keywords: site, survey and planning worksheet, switches tab 
 summary: Como parte da Planilha de Pesquisa e Planejamento do Site, você deve configurar uma guia contendo informações do switch de migração. 

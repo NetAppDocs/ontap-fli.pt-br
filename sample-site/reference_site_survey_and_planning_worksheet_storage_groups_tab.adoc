@@ -1,5 +1,5 @@
 ---
-permalink: san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html 
+permalink: sample-site/reference_site_survey_and_planning_worksheet_storage_groups_tab.html 
 sidebar: sidebar 
 keywords: site, survey and planning worksheet, storage groups tab 
 summary: Como parte da sua Planilha de Pesquisa de Sites e Planejamento, você deve ter uma guia contendo informações sobre seus grupos de armazenamento. 

@@ -1,5 +1,5 @@
 ---
-permalink: san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html 
+permalink: sample-site/reference_site_survey_and_planning_worksheet_questionnaire_tab.html 
 sidebar: sidebar 
 keywords: site, survey and planning worksheet, questionnaire tab 
 summary: Como parte da Planilha de Pesquisa e Planejamento do site, você deve ter uma guia contendo informações do projeto de migração do questionário de migração inicial. 

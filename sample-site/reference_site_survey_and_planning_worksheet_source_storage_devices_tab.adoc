@@ -1,5 +1,5 @@
 ---
-permalink: san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html 
+permalink: sample-site/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html 
 sidebar: sidebar 
 keywords: site, survey and planning worksheet, source storage devices tab 
 summary: Como parte da Planilha de Pesquisa e Planejamento de sites, você deve ter uma guia contendo informações sobre seus dispositivos de armazenamento de origem de migração. 
